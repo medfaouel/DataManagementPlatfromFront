@@ -1,0 +1,26 @@
+<div class="container">
+  <br />
+  <h3>Worker Profile</h3>
+  <br />
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col">
+          <h4>{{ worker.firstName }} {{ worker.lastName }}</h4>
+        </div>
+        <div class="col text-right">
+          <a href="#" routerLink="/players/list" class="btn btn-secondary btn-sm">Back To Workers List</a>
+        </div>
+      </div>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><b>firstName:</b> {{ worker.firstName }}</li>
+      <li class="list-group-item"><b>lastName:</b> {{ worker.lastName }}</li>
+      <li class="list-group-item"><b>userName:</b> {{ worker.userName }}</li>
+      <li class="list-group-item"><b>password:</b> {{ worker.password }}</li>
+      <li class="list-group-item"><b>email:</b> {{ worker.email }}</li>
+      <li class="list-group-item"><b>loginStatus:</b> {{ worker.loginStatus }}</li>
+
+    </ul>
+  </div>
+</div>
