@@ -5,6 +5,7 @@ import {FormBuilder, Validators} from "@angular/forms";
 import firebase from "firebase/compat/app";
 import {UserService} from "../services/user.service";
 import {first} from "rxjs/operators";
+import {Role} from "../models/Roles.model";
 
 @Component({
   selector: 'app-registration',
@@ -12,6 +13,7 @@ import {first} from "rxjs/operators";
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
+  public roles:Role[]=[];
 
   public RegistrationForm=this.formBuilder.group({
     firstName:['',Validators.required],
@@ -34,6 +36,7 @@ export class RegistrationComponent implements OnInit {
     this.angularFireAuth.signOut();
   }
   ngOnInit(): void {
+    this.getAllRoles();
   }
 
   onSubmit() {
@@ -51,6 +54,12 @@ export class RegistrationComponent implements OnInit {
     },error =>
     {
       console.log("error",error)
+    })
+  }
+  getAllRoles(){
+    this.userService.getAllRoles().subscribe(roles=>{
+      this.roles=roles;
+
     })
   }
 }

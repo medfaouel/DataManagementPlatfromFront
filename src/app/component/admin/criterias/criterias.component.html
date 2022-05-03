@@ -325,17 +325,18 @@
                 <tr>
                   <th>Id</th>
                   <th>Name</th>
-                  <th>Environment</th>
+                  <th>Team</th>
+                  <th>Check</th>
                   <th>Description</th>
                   <th>Actions</th>
-
                 </tr>
                 </thead>
                 <tfoot>
                 <tr>
                   <th>Id</th>
                   <th>Name</th>
-                  <th>Environment</th>
+                  <th>Team</th>
+                  <th>Check</th>
                   <th>Description</th>
                   <th>Actions</th>
 
@@ -345,7 +346,8 @@
                 <tr *ngFor="let crt of Criteria">
                   <td >{{crt.crtId}}</td>
                   <td >{{crt.name}}</td>
-                  <td>{{crt.environment.envName}}</td>
+                  <td>{{crt.team?.teamName}}</td>
+                  <td>{{crt.check?.checkAddress}}</td>
                   <td >{{crt.description}}</td>
                   <td class="text-right">
                     <div class="my-2"></div>

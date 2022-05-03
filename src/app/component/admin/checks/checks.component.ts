@@ -4,6 +4,8 @@ import {Router} from "@angular/router";
 import {Checks} from "../../../models/checks.model";
 import {ChecksService} from "../../../services/checks.service";
 import {Env} from "../../../models/env.model";
+import {ChecksDetails} from "../../../models/checksDetails.model";
+import {resolve} from "@angular/compiler-cli/src/ngtsc/file_system";
 
 @Component({
   selector: 'app-checks',
@@ -12,22 +14,26 @@ import {Env} from "../../../models/env.model";
   ]
 })
 export class ChecksComponent implements OnInit {
-  env:Env[]= [];
   checks: Checks[] = [];
+  id:number;
+  activeRow: number = 0;
+  public checkDetails: ChecksDetails[] = [];
+  public checkDetailsJSON;
   constructor(public checkService:ChecksService,
               private router: Router) { }
 
   getAllChecks() {
     this.checkService.getChecks().subscribe((data: Checks[]) => {
       this.checks = data;
-      console.log(this.checks)
+      console.log("checks",this.checks)
     })
   }
-  getEnvs(){
-    this.checkService.getEnvs().subscribe((data: Env[]) => {
-      this.env = data;
-      console.log(this.env)
-    })
+  getChecksDetails() {
+    this.checkService.getChecksDetails(this.id).subscribe((data: ChecksDetails[]) => {
+      this.checkDetails=data;
+      this.checkDetailsJSON=JSON.stringify(this.checkDetails);
+    });
+    this.activeRow = this.id;
   }
   ngOnInit(): void {
     this.getAllChecks();

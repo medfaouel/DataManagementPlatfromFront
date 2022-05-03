@@ -28,6 +28,8 @@ import {ExcelUploadComponent} from "./component/admin/data/data-add/excel-upload
 import {AuthGuard} from "./guards/auth.guard";
 import {UserManagementComponent} from "./component/admin/user-management/user-management.component";
 import {NormalAuthService} from "./guards/normal-auth.service";
+import {MasterDetailssComponent} from "./component/admin/checks/master-details/master-details.component";
+import {DataCheckComponent} from "./component/admin/data/data-check/data-check.component";
 
 export const routes: Routes = [
   {
@@ -61,6 +63,7 @@ export const routes: Routes = [
       { path:'list', component: UserManagementComponent,canActivate:[NormalAuthService]},
     ]
   },
+
   {
     path: 'criterias',children:[
       { path:'list', component: CriteriasComponent,canActivate:[AuthGuard]},
@@ -80,7 +83,7 @@ export const routes: Routes = [
   {
     path: 'data',children:[
       { path:'list', component: DataComponent,canActivate:[AuthGuard]},
-      { path: ':id/profile', component: EnvProfileComponent,canActivate:[AuthGuard] },
+      { path: ':id/check', component: DataCheckComponent,canActivate:[AuthGuard] },
       { path: 'add', component: DataAddComponent,canActivate:[AuthGuard]},
       { path: 'add/excel', component: ExcelUploadComponent,canActivate:[AuthGuard]},
       { path: ':id/edit', component: DataEditComponent,canActivate:[AuthGuard] },
@@ -92,6 +95,7 @@ export const routes: Routes = [
       //{ path: ':id/profile', component: EnvProfileComponent },
       { path: 'add', component: ChecksAddComponent ,canActivate:[AuthGuard]},
       { path: ':id/edit', component: ChecksEditComponent ,canActivate:[AuthGuard]},
+      { path: 'test', component: MasterDetailssComponent ,canActivate:[AuthGuard]},
     ]
   },
 

@@ -3,18 +3,11 @@ import {Env} from "./env.model";
 import {Criterias} from "./Criterias.model";
 import {Data} from "./Data.model";
 
-export class Checks{
-  checkId: number;
-  envId:number;
-  crtId:number;
-  dataId:number;
-  checkAddress:string;
+export class ChecksDetails{
+  checkDetailId:number;
   cdqM_comments:string;
   dqmS_feedback:string;
   cdqM_feedback:string;
   topicOwner_feedback:string;
   status:string;
-  environment:Env;
-  criterias:Criterias[];
-  data:Data;
 }

@@ -4,6 +4,7 @@ import {workers} from "../models/workers.model";
 import {Observable, throwError} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {Data} from "../models/Data.model";
+import {Checks} from "../models/checks.model";
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,12 @@ export class DataService{
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
     return throwError(errorMessage);
+  }
+  getCheck(): Observable<Checks[]> {
+    return this.httpClient.get<Checks[]>(this.baseURL + '/Data/getChecks')
+      .pipe(
+        catchError(this.errorHandler)
+      );
   }
   getData(): Observable<Data[]> {
     return this.httpClient.get<Data[]>(this.baseURL + '/Data/getData')
@@ -58,6 +65,11 @@ export class DataService{
     return this.httpClient.delete<void>(this.baseURL + '/Data/DeleteData/' + id, this.httpOptions)
       .toPromise();
   }
-
+  CreateDataFromExcel(CreatedDataFromExcel: any): Observable<any> {
+    return this.httpClient.post(this.baseURL + '/Data/CreateDataFromExcel', CreatedDataFromExcel, this.httpOptions)
+      .pipe(
+        catchError(this.errorHandler)
+      );
+  }
 
 }

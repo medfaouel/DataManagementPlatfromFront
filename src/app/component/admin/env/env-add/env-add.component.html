@@ -343,18 +343,10 @@
                 </select>
               </div>
               <div class="form-group">
-                <label >Criterias Name:</label>
-                <select  formControlName="criterias" multiple>
-                  <option *ngFor="let criteria of criterias" [ngValue]="criteria">
-                    {{ criteria.name }}
-                  </option>
-                </select>
-              </div>
-              <div class="form-group">
                 <label >checks Name:</label>
                 <select  formControlName="checks" multiple>
                   <option *ngFor="let check of checks" [ngValue]="check">
-                    {{ check.checkId }}
+                    {{ check.checkAddress }}
                   </option>
                 </select>
               </div>

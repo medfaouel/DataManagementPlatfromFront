@@ -16,7 +16,7 @@ import {Criterias} from "../../../../models/Criterias.model";
 export class EnvAddComponent implements OnInit {
  teams:Teams[]=[];
  checks:Checks[]=[];
- criterias:Criterias[]=[];
+
   createForm;
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -25,7 +25,6 @@ export class EnvAddComponent implements OnInit {
     this.createForm =this.formBuilder.group({
       envName: ['', Validators.required],
       teams: ['',],
-      criterias:['',],
       checks:['',],
       description: ['', Validators.required]
 
@@ -34,7 +33,6 @@ export class EnvAddComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllChecks();
-    this.getAllCriterias();
     this.getAllTeams();
   }
   getAllTeams(){
@@ -47,11 +45,6 @@ export class EnvAddComponent implements OnInit {
       this.checks = data;
     })
   }
-  getAllCriterias(){
-    this.envService.getCriterias().subscribe((data: Criterias[]) => {
-      this.criterias = data;
-    })
-  }
   onSubmit(formData : any){
     const teamIds =[];
     for (let i = 0; i < formData.value.teams.length; i++) {
@@ -61,12 +54,8 @@ export class EnvAddComponent implements OnInit {
     for (let i = 0; i < formData.value.checks.length; i++) {
       ChecksIds.push(formData.value.checks[i].checkId);
     }
-    const CriteriaIds= [];
 
-    for (let i = 0; i < formData.value.criterias.length; i++) {
-      CriteriaIds.push(formData.value.criterias[i].crtId);
-    }
-    const envToSave = {...formData.value,teamIds:teamIds,CriteriaIds:CriteriaIds,ChecksIds:ChecksIds}
+    const envToSave = {...formData.value,teamIds:teamIds,ChecksIds:ChecksIds}
     console.log(envToSave);
     this.envService.AddEnvironments(envToSave).subscribe(res =>{
       this.router.navigateByUrl('envs/list')

@@ -14,40 +14,19 @@ import {Checks} from "../../../models/checks.model";
   ]
 })
 export class EnvComponent implements OnInit {
-  teams:Teams[] =[]
-  criterias:Criterias[]=[]
   env: Env[] = [];
-  checks:Checks[]=[];
+
   constructor(public envService:EnvService,
               private router: Router) { }
-  getAllTeams(){
-    this.envService.getTeams().subscribe((data: Teams[]) => {
-      this.teams = data;
-    })
-  }
-  getAllChecks(){
-    this.envService.getChecks().subscribe((data: Checks[]) => {
-      this.checks = data;
-      console.log("checks",this.checks);
-    })
-  }
+
   getAllEnvs() {
     this.envService.getEnvs().subscribe((data: Env[]) => {
       this.env = data;
       console.log("environment",this.env)
     })
   }
-  getAllCriterias(){
-    this.envService.getCriterias().subscribe((data: Criterias[]) => {
-      this.criterias = data;
-      console.log("Criterias",this.criterias)
-    })
-  }
   ngOnInit(): void {
     this.getAllEnvs();
-    this.getAllTeams();
-    this.getAllCriterias();
-    this.getAllChecks();
   }
   deleteEnv(id: number){
     this.envService.DeleteEnvironment(id).then(() => {

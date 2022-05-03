@@ -10,7 +10,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Add workers</title>
+  <title>Add Check</title>
 
   <!-- Custom fonts for this template -->
 
@@ -221,7 +221,7 @@
               </h6>
               <a class="dropdown-item d-flex align-items-center" href="#">
                 <div class="dropdown-list-image mr-3">
-                  <img class="rounded-circle" src="img/undraw_profile_1.svg"
+                  <img class="rounded-circle" src="assets/img/undraw_profile_1.svg"
                        alt="...">
                   <div class="status-indicator bg-success"></div>
                 </div>
@@ -233,7 +233,7 @@
               </a>
               <a class="dropdown-item d-flex align-items-center" href="#">
                 <div class="dropdown-list-image mr-3">
-                  <img class="rounded-circle" src="img/undraw_profile_2.svg"
+                  <img class="rounded-circle" src="assets/img/undraw_profile_2.svg"
                        alt="...">
                   <div class="status-indicator"></div>
                 </div>
@@ -245,7 +245,7 @@
               </a>
               <a class="dropdown-item d-flex align-items-center" href="#">
                 <div class="dropdown-list-image mr-3">
-                  <img class="rounded-circle" src="img/undraw_profile_3.svg"
+                  <img class="rounded-circle" src="assets/img/undraw_profile_3.svg"
                        alt="...">
                   <div class="status-indicator bg-warning"></div>
                 </div>
@@ -328,16 +328,9 @@
             <br />
             <form [formGroup]="createForm" (ngSubmit)="onSubmit(createForm)">
               <div class="form-group">
-                <label for="comments">Comment:</label>
-                <input formControlName="comments"
-                       id="comments"
-                       type="text"
-                       class="form-control" />
-              </div>
-              <div class="form-group">
-                <label for="status">Status:</label>
-                <input formControlName="status"
-                       id="status"
+                <label for="checkAddress">Check Address:</label>
+                <input formControlName="checkAddress"
+                       id="checkAddress"
                        type="text"
                        class="form-control" />
               </div>
@@ -349,6 +342,58 @@
                   </option>
                 </select>
               </div>
+              <div class="form-group">
+                <label >Criterias Name:</label>
+                <select  formControlName="criterias" >
+                  <option *ngFor="let criterias of criterias" [ngValue]="criterias">
+                    {{ criterias.name }}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label >Data Name:</label>
+                <select  formControlName="data" multiple>
+                  <option *ngFor="let data of data" [ngValue]="data">
+                    {{ data.leonI_Part }}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="status">Status:</label>
+                <input formControlName="status"
+                       id="status"
+                       type="text"
+                       class="form-control" />
+              </div>
+              <div class="form-group">
+                <label for="cdqM_comments">CDQM_comments:</label>
+                <input formControlName="cdqM_comments"
+                       id="cdqM_comments"
+                       type="text"
+                       class="form-control" />
+              </div>
+              <div class="form-group">
+                <label for="dqmS_feedback">DQMS_feedback:</label>
+                <input formControlName="dqmS_feedback"
+                       id="dqmS_feedback"
+                       type="text"
+                       class="form-control" />
+              </div>
+              <div class="form-group">
+                <label for="cdqM_feedback">CDQM_feedback:</label>
+                <input formControlName="cdqM_feedback"
+                       id="cdqM_feedback"
+                       type="text"
+                       class="form-control" />
+              </div>
+              <div class="form-group">
+                <label for="topicOwner_feedback">TopicOwner_feedback:</label>
+                <input formControlName="topicOwner_feedback"
+                       id="topicOwner_feedback"
+                       type="text"
+                       class="form-control" />
+              </div>
+
               <button class="btn btn-primary" type="submit" [disabled]="!createForm.valid">Create</button>
             </form>
           </div>

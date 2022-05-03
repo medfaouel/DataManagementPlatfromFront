@@ -6,6 +6,7 @@ import {TeamsService} from "../../../../services/Teams.service";
 import {Teams} from "../../../../models/teams.model";
 import {Env} from "../../../../models/env.model";
 import {workers} from "../../../../models/workers.model";
+import {Criterias} from "../../../../models/Criterias.model";
 
 @Component({
   selector: 'app-teams-add',
@@ -16,6 +17,7 @@ import {workers} from "../../../../models/workers.model";
 export class TeamsAddComponent implements OnInit {
   env:Env[]=[];
   workers:workers[]=[];
+  criterias:Criterias[]=[];
   createForm;
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -25,19 +27,25 @@ export class TeamsAddComponent implements OnInit {
       teamName: ['', Validators.required],
       env:[''],
       workers:[''],
+      criterias:[''],
       teamDescription: ['', Validators.required]
 
     });
   }
 
   ngOnInit(): void {
-this.getEnv();
-this.getWorkers()
-    console.log("workers are",workers)
+    this.getCriterias()
+    this.getEnv();
+    this.getWorkers()
   }
   getWorkers(){
     this.teamService.getWorkers().subscribe((data: workers[]) => {
       this.workers = data;
+    })
+  }
+  getCriterias(){
+    this.teamService.getCriterias().subscribe((data: Criterias[]) => {
+      this.criterias = data;
     })
   }
   getEnv(){
@@ -50,10 +58,13 @@ this.getWorkers()
     for (let i = 0; i < formData.value.workers.length; i++) {
       workerIds.push(formData.value.workers[i].userId);
     }
+    const criteriaIds=[];
+    for (let i = 0; i < formData.value.criterias.length; i++) {
+      criteriaIds.push(formData.value.criterias[i].crtId);
+    }
     const envId= formData.value.env.envId;
-    console.log("workerIds",workerIds);
-    const teamToSave = {...formData.value,envId:envId,workerIds:workerIds}
-    console.log(teamToSave);
+    const teamToSave = {...formData.value,envId:envId,workerIds:workerIds,criteriaIds:criteriaIds}
+    console.log("teamtosave",teamToSave);
     this.teamService.AddTeam(teamToSave).subscribe(res =>{
       this.router.navigateByUrl('teams/list')
     })

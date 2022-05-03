@@ -322,27 +322,45 @@
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                 <tr>
-                  <th>CheckId</th>
+                  <th>Check Name</th>
                   <th>Environment</th>
-                  <th>Comments</th>
+                  <th>Data</th>
+                  <th>Criterias</th>
+                  <th>CDQM_comments</th>
+                  <th>DQMS_feedback</th>
+                  <th>CDQM_feedback</th>
+                  <th>TopicOwner_feedback</th>
+
                   <th>Status</th>
+
                   <th>Actions</th>
                 </tr>
                 </thead>
                 <tfoot>
                 <tr>
-                  <th>CheckId</th>
+                  <th>Check Name</th>
                   <th>Environment</th>
-                  <th>Comments</th>
+                  <th>Data</th>
+                  <th>Criterias</th>
+                  <th>CDQM_comments</th>
+                  <th>DQMS_feedback</th>
+                  <th>CDQM_feedback</th>
+                  <th>TopicOwner_feedback</th>
+
                   <th>Status</th>
                   <th>Actions</th>
                 </tr>
                 </tfoot>
                 <tbody>
                 <tr *ngFor="let check of checks">
-                  <th>{{check.checkId}}</th>
-                  <td>{{check.environment.envName}}</td>
-                  <td >{{check.comments}}</td>
+                  <th>{{check.checkAddress}}</th>
+                  <td>{{check.environment?.envName}}</td>
+                  <td>{{check.data?.leonI_Part}}</td>
+                  <td ><div *ngFor="let checks of check.criterias">{{checks.name}}</div></td>
+                  <td>{{check.cdqM_comments}}</td>
+                  <td>{{check.dqmS_feedback}}</td>
+                  <td>{{check.cdqM_feedback}}</td>
+                  <td>{{check.topicOwner_feedback}}</td>
                   <td >{{check.status}}</td>
                   <td class="text-right">
                     <div class="my-2"></div>
@@ -382,7 +400,6 @@
 
       </div>
       <!-- /.container-fluid -->
-
     </div>
     <!-- End of Main Content -->
 

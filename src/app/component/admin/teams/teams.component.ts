@@ -12,17 +12,10 @@ import {workers} from "../../../models/workers.model";
   ]
 })
 export class TeamsComponent implements OnInit {
-  environment: Env[]=  [];
-  workers:workers[]= [];
   teams: Teams[] = [];
   constructor(public teamService:TeamsService,
               private router: Router) { }
 
-  getAllEnvs() {
-    this.teamService.getEnvs().subscribe((data: Env[]) => {
-      this.environment = data;
-    })
-  }
   getAllTeams() {
     this.teamService.getTeams().subscribe((data: Teams[]) => {
       this.teams = data;
@@ -30,11 +23,7 @@ export class TeamsComponent implements OnInit {
     })
 
     }
-  getAllWorkers(){
-    this.teamService.getWorkers().subscribe((data: workers[]) => {
-      this.workers = data;
-    })
-  }
+
   ngOnInit(): void {
     this.getAllTeams();
 

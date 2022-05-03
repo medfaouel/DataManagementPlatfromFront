@@ -47,14 +47,6 @@ export class EnvService {
         })
       );
   }
-  getCriterias(): Observable<Criterias[]> {
-    return this.httpClient.get<Criterias[]>(this.baseURL + '/Environments/getCriterias')
-      .pipe(
-        map(data =>{
-          return data;
-        })
-      );
-  }
   getEnvs(): Observable<Env[]> {
     return this.httpClient.get<Env[]>(this.baseURL + '/Environments/getEnvironments')
       .pipe(

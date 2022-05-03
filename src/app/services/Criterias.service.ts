@@ -5,6 +5,7 @@ import {catchError} from "rxjs/operators";
 import {Teams} from "../models/teams.model";
 import {Criterias} from "../models/Criterias.model";
 import {Env} from "../models/env.model";
+import {Checks} from "../models/checks.model";
 
 
 @Injectable({
@@ -29,8 +30,20 @@ export class CriteriasServices {
     }
     return throwError(errorMessage);
   }
+  getCheck(): Observable<Checks[]> {
+    return this.httpClient.get<Checks[]>(this.baseURL + '/Criterias/getCheck')
+      .pipe(
+        catchError(this.errorHandler)
+      );
+  }
   getEnvs(): Observable<Env[]> {
     return this.httpClient.get<Env[]>(this.baseURL + '/Criterias/getEnvs')
+      .pipe(
+        catchError(this.errorHandler)
+      );
+  }
+  getTeams(): Observable<Teams[]> {
+    return this.httpClient.get<Teams[]>(this.baseURL + '/Criterias/getTeams')
       .pipe(
         catchError(this.errorHandler)
       );

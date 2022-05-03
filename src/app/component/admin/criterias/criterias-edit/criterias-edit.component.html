@@ -395,10 +395,18 @@
                        class="form-control" />
               </div>
               <div class="form-group">
-                <label >Envs Name:</label>
-                <select  formControlName="env" >
-                  <option *ngFor="let env of env" [ngValue]="env">
-                    {{ env.envName }}
+                <label >Team Name:</label>
+                <select  formControlName="team" >
+                  <option *ngFor="let team of team" [ngValue]="team">
+                    {{ team.teamName }}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label >Check Status:</label>
+                <select  formControlName="check" >
+                  <option *ngFor="let check of check" [ngValue]="check">
+                    {{ check.checkAddress }}
                   </option>
                 </select>
               </div>
@@ -409,6 +417,7 @@
                        type="text"
                        class="form-control" />
               </div>
+
               <button class="btn btn-primary" type="submit" [disabled]="!editForm.valid">Update</button>
             </form>
           </div>

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {Data} from "../../../models/Data.model";
 import {DataService} from "../../../services/Data.service";
+import {Constants} from "../../../Helper/constants";
+import {User} from "../../../models/AppUsers.model";
 
 @Component({
   selector: 'app-data',
@@ -12,6 +14,7 @@ import {DataService} from "../../../services/Data.service";
 export class DataComponent implements OnInit {
 
   data: Data[] = [];
+  ab = JSON.parse(localStorage.getItem("ExcelData"))
   constructor(public dataService:DataService,
               private router: Router) { }
 
@@ -23,6 +26,7 @@ export class DataComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getAllData();
+    console.log("excel items",this.ab)
 
   }
   deleteData(id: number){

@@ -5,6 +5,7 @@ import {workers} from "../models/workers.model";
 import {catchError} from "rxjs/operators";
 import {Teams} from "../models/teams.model";
 import {Env} from "../models/env.model";
+import {Criterias} from "../models/Criterias.model";
 
 
 @Injectable({
@@ -31,6 +32,12 @@ export class TeamsService {
   }
   getEnvs(): Observable<Env[]> {
     return this.httpClient.get<Env[]>(this.baseURL + '/Teams/getEnvs')
+      .pipe(
+        catchError(this.errorHandler)
+      );
+  }
+  getCriterias(): Observable<Criterias[]> {
+    return this.httpClient.get<Criterias[]>(this.baseURL + '/Teams/getCriterias')
       .pipe(
         catchError(this.errorHandler)
       );

@@ -332,8 +332,9 @@
               <h2>File Upload & Image Preview</h2>
               <p class="lead">No Plugins <b>Just Javascript</b></p>
             <!-- Upload  -->
+
             <form id="file-upload-form" class="uploader">
-              <input id="file" name="file" type="file" (change)="getData()" accept=".xls,.xlsx" />
+              <input id="file" multiple="false" name="file" type="file" (change)="onFileSelect($event)" accept=".xls,.xlsx" />
 
               <label for="file" id="file-drag">
                 <img id="file-image" src="#" alt="Preview" class="hidden">

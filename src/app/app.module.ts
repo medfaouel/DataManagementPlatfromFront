@@ -11,7 +11,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
 
-import {HttpClientModule} from "@angular/common/http";
 
 import { DashboardComponent } from './component/admin/dashboard/dashboard.component';
 import { WorkersComponent } from './component/admin/workers/workers.component';
@@ -34,17 +33,23 @@ import { EnvProfileComponent } from './component/admin/env/env-profile/env-profi
 import { DataComponent } from './component/admin/data/data.component';
 import { DataAddComponent } from './component/admin/data/data-add/data-add.component';
 import { DataEditComponent } from './component/admin/data/data-edit/data-edit.component';
-import { DataProfileComponent } from './component/admin/data/data-profile/data-profile.component';
+import { DataCheckComponent } from './component/admin/data/data-check/data-check.component';
 import { ChecksComponent } from './component/admin/checks/checks.component';
 import { ChecksAddComponent } from './component/admin/checks/checks-add/checks-add.component';
 import { ChecksEditComponent } from './component/admin/checks/checks-edit/checks-edit.component';
 import {ExcelUploadComponent} from "./component/admin/data/data-add/excel-upload/excel-upload.component";
 import {AngularFireModule} from "@angular/fire/compat";
 import { UserManagementComponent } from './component/admin/user-management/user-management.component';
+import { GridModule } from '@progress/kendo-angular-grid';
+import { HttpClientModule } from "@angular/common/http";
+
+import {MasterDetailssComponent} from "./component/admin/checks/master-details/master-details.component";
+
 
 
 @NgModule({
   declarations: [
+    MasterDetailssComponent,
     AppComponent,
     RegistrationComponent,
     LoginComponent,
@@ -67,7 +72,7 @@ import { UserManagementComponent } from './component/admin/user-management/user-
     DataComponent,
     DataAddComponent,
     DataEditComponent,
-    DataProfileComponent,
+    DataCheckComponent,
     ChecksComponent,
     ChecksAddComponent,
     ChecksEditComponent,
@@ -92,7 +97,8 @@ import { UserManagementComponent } from './component/admin/user-management/user-
     AppRoutingModule,
     ReactiveFormsModule,
     RouterModule.forRoot([{path: '',component:LoginComponent,pathMatch:'full'},
-      { path: 'workers', component: WorkersComponent },],)
+      { path: 'workers', component: WorkersComponent },],),
+    GridModule
   ],
   providers: [],
   bootstrap: [AppComponent]

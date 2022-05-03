@@ -307,71 +307,169 @@
 
       </nav>
       <!-- End of Topbar -->
-
-      <!-- Begin Page Content -->
+<h1>Checks</h1>
+<p *ngIf="!checks"><em>Loading Student Details please Wait ! ...</em></p>
       <div class="container-fluid">
-
-        <!-- DataTales Example -->
         <div class="card shadow mb-4">
-
           <div class="card-body">
             <div class="card-header py-3">
-              <h2 class="m-0 font-weight-bold text-primary">Table of Environments</h2>
+              <h2 class="m-0 font-weight-bold text-primary">Table of Checks</h2>
               <div class="col text-right">
-                <a href="#" routerLink="/envs/add" class="btn btn-secondary btn-sm">Add Environment</a>
+                <a href="#" routerLink="/checks/add" class="btn btn-secondary btn-sm">Add Check</a>
               </div>
             </div>
             <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" *ngIf="checks">
+                <tr>
+                  <td>
+                  </td>
+                  <td width="120" align="center">Check Id</td>
+                  <td width="250" align="center">Check Name</td>
+                  <td width="250" align="center">Data</td>
+                  <td width="250" align="center">Criterias</td>
+                  <td width="200" align="center">status</td>
+                  <td width="120" align="center"></td>
+                </tr>
+                <tbody *ngFor="let check of checks">
+                <tr>
+                  <td>
+                    <a (click)=getChecksDetails(check.checkId) class="btn btn-info btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-info-circle"></i>
+                                        </span>
+                      <span class="text">Details</span>
+                    </a>
+                  </td>
+                  <td>
+                    <span width="120" align="center">{{check.checkId}}</span>
+                  </td>
+                  <td width="240" align="center">
+                    <span width="240" align="center" >{{check.checkAddress}}</span>
+                  </td>
+                  <td width="240" align="center">
+                    <span width="240" align="center">{{check.data.leonI_Part}}</span>
+                  </td>
+
+                  <td width="240" align="center">
+
+                    <span width="240" align="center" *ngFor="let checks of check.criterias" >{{checks.name}}</span>
+                  </td>
+                  <td width="240" align="center">
+                    <span>{{check.status}}</span>
+                  </td>
+                  <td class="text-right">
+                    <div class="my-2"></div>
+                    <div class="my-2"></div>
+                    <!--<a href="checks/{{check.checkId}}/edit" class="btn btn-warning btn-icon-split" >
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                        </span>
+                      <span class="text">Edit</span>
+                    </a>-->
+                    <div class="my-2"></div>
+                    <a  (click)="deleteCheck(check.checkId)" class="btn btn-danger btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-trash"></i>
+                                        </span>
+                      <span class="text"  >Delete</span>
+                    </a>
+                    <!--<a  class="btn btn-info btn-sm">View</a>
+                    <a  class="btn btn-primary btn-sm">Edit</a>
+                    <button type="button"  class="btn btn-danger btn-sm">Delete</button>-->
+                  </td>
+                </tr>
+                <tr *ngIf="activeRow==check.checkId">
+                  <td colspan="6" style="border: solid 1px #659EC7; padding: 5px;table-layout:fixed;">
+                    <table class="table table-bordered" id="dataTabl" width="100%" cellspacing="0" *ngIf="checksDetails">
+                      <tr >
+                        <td width="120" align="center"></td>
+                        <td width="240" align="center">cdqM_comments</td>
+                        <td width="240" align="center">cdqM_feedback</td>
+                        <td width="240" align="center">dqmS_feedback</td>
+                        <td width="240" align="center">topicOwner_feedback</td>
+                      </tr>
+                      <tbody *ngFor="let checkdetails of checksDetails">
+                      <tr>
+                        <td >
+                        </td>
+                        <td width="240" align="center">{{checkdetails.cdqM_comments}}</td>
+                        <td width="240" align="center">{{checkdetails.cdqM_feedback}}</td>
+                        <td width="240" align="center">{{checkdetails.dqmS_feedback}}</td>
+                        <td width="240" align="center">{{checkdetails.topicOwner_feedback}}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+<!--<pre>{{studentdetails|json}}</pre>-->
+
+      <div class="container-fluid">
+        <div class="card shadow mb-4">
+          <div class="card-body">
+            <div class="card-header py-3">
+              <h2 class="m-0 font-weight-bold text-primary">Table of Checks</h2>
+              <div class="col text-right">
+                <a href="#" routerLink="/checks/add" class="btn btn-secondary btn-sm">Add Check</a>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTab" width="100%" cellspacing="0">
                 <thead>
                 <tr>
-                  <th>Id</th>
-                  <th>EnvName</th>
-                  <th>Description</th>
-                  <th>Teams</th>
-
-                  <th>Checks</th>
+                  <td >Check Id</td>
+                  <td >Check Name</td>
+                  <td >environment</td>
+                  <td >Criterias</td>
+                  <td >status</td>
                   <th>Actions</th>
-
                 </tr>
                 </thead>
                 <tfoot>
                 <tr>
-                  <th>Id</th>
-                  <th>EnvName</th>
-                  <th>Description</th>
-                  <th>Teams</th>
-
-                  <th>Checks</th>
+                  <td >Check Id</td>
+                  <td >Check Name</td>
+                  <td >environment</td>
+                  <td >Criterias</td>
+                  <td >status</td>
                   <th>Actions</th>
-
                 </tr>
                 </tfoot>
                 <tbody>
-                <tr *ngFor="let env of env">
-                  <td >{{env.envId}}</td>
-                  <td >{{env.envName}}</td>
-                  <td >{{env.description}}</td>
-
-                  <td ><div *ngFor="let team of env.teams">{{team.teamName}}</div></td>
-                  <td ><div *ngFor="let checks of env.checks">{{checks.checkAddress}}</div></td>
+                <tr *ngFor="let check of checks">
+                  <th>{{check.checkAddress}}</th>
+                  <td>{{check.environment?.envName}}</td>
+                  <td>{{check.data?.leonI_Part}}</td>
+                  <td ><div *ngFor="let checks of check.criterias">{{checks.name}}</div></td>
+                  <td>{{check.cdqM_comments}}</td>
+                  <td>{{check.dqmS_feedback}}</td>
+                  <td>{{check.cdqM_feedback}}</td>
+                  <td>{{check.topicOwner_feedback}}</td>
+                  <td >{{check.status}}</td>
                   <td class="text-right">
                     <div class="my-2"></div>
-                    <a  href="envs/{{env.envId}}/profile" class="btn btn-info btn-icon-split" >
+                    <a  href="checks/{{check.checkId}}/profil" class="btn btn-info btn-icon-split" >
                                         <span class="icon text-white-50">
                                             <i class="fas fa-info-circle"></i>
                                         </span>
                       <span style="display: inline-block" class="text" data-inline="true">Profil</span>
                     </a>
                     <div class="my-2"></div>
-                    <a href="envs/{{env.envId}}/edit" class="btn btn-warning btn-icon-split" >
+                    <a href="checks/{{check.checkId}}/edit" class="btn btn-warning btn-icon-split" >
                                         <span class="icon text-white-50">
                                             <i class="fas fa-exclamation-triangle"></i>
                                         </span>
                       <span class="text">Edit</span>
                     </a>
                     <div class="my-2"></div>
-                    <a  (click)="deleteEnv(env.envId)" class="btn btn-danger btn-icon-split">
+                    <a  (click)="deleteCheck(check.checkId)" class="btn btn-danger btn-icon-split">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-trash"></i>
                                         </span>
@@ -390,55 +488,49 @@
             </div>
           </div>
         </div>
-
-      </div>
-      <!-- /.container-fluid -->
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2020</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
 
     </div>
-    <!-- End of Main Content -->
+    <!-- End of Content Wrapper -->
 
-    <!-- Footer -->
-    <footer class="sticky-footer bg-white">
-      <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-          <span>Copyright &copy; Your Website 2020</span>
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
         </div>
       </div>
-    </footer>
-    <!-- End of Footer -->
-
-  </div>
-  <!-- End of Content Wrapper -->
-
-</div>
-<!-- End of Page Wrapper -->
-
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-  <i class="fas fa-angle-up"></i>
-</a>
-
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
-      <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-        <a class="btn btn-primary" href="login.html">Logout</a>
-      </div>
     </div>
   </div>
+
+
 </div>
-
-
-
+</div>
 </body>
 

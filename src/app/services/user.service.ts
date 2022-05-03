@@ -5,6 +5,7 @@ import {ResponseModel} from "../models/ResponseModel.model";
 import {ResponseCode} from "../models/Enums/ResponseCode.enum";
 import {User} from "../models/AppUsers.model";
 import {user} from "@angular/fire/auth";
+import {Role} from "../models/Roles.model";
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,29 @@ export class UserService {
       }
       console.log(res)
       return userList;
+    }));
+  }
+  public getAllRoles(){
+    let tokenAuth=JSON.parse(localStorage.getItem("tokenAuth"));
+    const headers=new HttpHeaders({
+      'Authorization':`Bearer ${tokenAuth}`
+    });
+    console.log("headers",headers)
+    return this.httpClient.get<ResponseModel>(this.baseURL+"/AppUser/GetRoles",{headers:headers}).pipe(map(res=>{
+      let roleList=new Array<Role>();
+      if(res.responseCode==1)
+      {
+
+        if(res.dataSet)
+        {
+          res.dataSet.map((x:string)=>{
+            roleList.push(new Role(x));
+          })
+        }
+
+      }
+      console.log(res)
+      return roleList;
     }));
   }
 

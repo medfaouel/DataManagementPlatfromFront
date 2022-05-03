@@ -5,6 +5,9 @@ import {Observable, throwError} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {Checks} from "../models/checks.model";
 import {Env} from "../models/env.model";
+import {Criterias} from "../models/Criterias.model";
+import {Data} from "../models/Data.model";
+import {ChecksDetails} from "../models/checksDetails.model";
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +31,26 @@ export class ChecksService{
     }
     return throwError(errorMessage);
   }
+  getData(): Observable<Data[]> {
+    return this.httpClient.get<Data[]>(this.baseURL + '/checks/getData')
+      .pipe(
+        catchError(this.errorHandler)
+      );
+  }
+  getCriterias(): Observable<Criterias[]> {
+    return this.httpClient.get<Criterias[]>(this.baseURL + '/checks/getCriterias')
+      .pipe(
+        catchError(this.errorHandler)
+      );
+  }
   getChecks(): Observable<Checks[]> {
     return this.httpClient.get<Checks[]>(this.baseURL + '/checks/getChecks')
+      .pipe(
+        catchError(this.errorHandler)
+      );
+  }
+  getChecksDetails(id:number): Observable<ChecksDetails[]>{
+    return this.httpClient.get<ChecksDetails[]>(this.baseURL + '/checks/getChecksDetails/'+id)
       .pipe(
         catchError(this.errorHandler)
       );

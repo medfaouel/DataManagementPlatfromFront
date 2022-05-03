@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
+import {Teams} from "../../../../models/teams.model";
 import {WorkersService} from "../../../../services/workers.service";
+import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Data} from "../../../../models/Data.model";
 import {DataService} from "../../../../services/Data.service";
-import {FormBuilder, Validators} from "@angular/forms";
-import {Env} from "../../../../models/env.model";
 import {Checks} from "../../../../models/checks.model";
+import {FormBuilder} from "@angular/forms";
 
 @Component({
-  selector: 'app-data-add',
-  templateUrl: './data-add.component.html',
+  selector: 'app-data-check',
+  templateUrl: './data-check.component.html',
   styles: [
   ]
 })
-export class DataAddComponent implements OnInit {
+export class DataCheckComponent implements OnInit {
+
   check:Checks[]=[];
   data:Data[]=[];
   createForm;
@@ -33,31 +35,23 @@ export class DataAddComponent implements OnInit {
 
     });
   }
-  getCheck(){
-    this.dataservice.getCheck().subscribe((data: Checks[]) => {
-      this.check = data;
-    })
-  }
-  getData(){
+
+  getAllData() {
     this.dataservice.getData().subscribe((data: Data[]) => {
       this.data = data;
+      console.log(this.data)
     })
   }
-
   ngOnInit(): void {
-    this.getData();
-    this.getCheck();
-    console.log("data",this.data)
+    this.getAllData();
 
   }
-  onSubmit(formData : any){
-    const checkId=formData.value.check.checkId;
-    console.log("data",this.data)
-    const DataToSave = {...formData.value,checkId:checkId}
-    console.log(DataToSave);
-    this.dataservice.AddData(DataToSave).subscribe(res =>{
-      this.router.navigateByUrl('data/list')
-    })
+  deleteData(id: number){
+    this.dataservice.DeleteData(id).then(() => {
+      console.log(" u sure to delete?")
+      this.getAllData();
+
+    });
   }
 
 }

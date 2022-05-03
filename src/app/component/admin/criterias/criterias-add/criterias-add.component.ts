@@ -4,6 +4,8 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {TeamsService} from "../../../../services/Teams.service";
 import {CriteriasServices} from "../../../../services/Criterias.service";
 import {Env} from "../../../../models/env.model";
+import {Checks} from "../../../../models/checks.model";
+import {Teams} from "../../../../models/teams.model";
 
 @Component({
   selector: 'app-criterias-add',
@@ -12,7 +14,8 @@ import {Env} from "../../../../models/env.model";
   ]
 })
 export class CriteriasAddComponent implements OnInit {
-  env:Env[]=[];
+  check:Checks[]=[];
+  team:Teams[]=[];
   createForm;
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -21,25 +24,30 @@ export class CriteriasAddComponent implements OnInit {
     this.createForm =this.formBuilder.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      env:[''],
-
+      check:[''],
+      team:[''],
     });
   }
-  getEnv(){
-    this.criteriasServices.getEnvs().subscribe((data: Env[]) => {
-      this.env = data;
+
+  getCheck(){
+    this.criteriasServices.getCheck().subscribe((data: Checks[]) => {
+      this.check = data;
+    })
+  }
+  getTeam(){
+    this.criteriasServices.getTeams().subscribe((data: Teams[]) => {
+      this.team = data;
     })
   }
   ngOnInit(): void {
-    this.getEnv();
-    console.log("this is the env",this.env)
-
+    this.getCheck();
+    this.getTeam();
   }
   onSubmit(formData : any){
-    const envId= formData.value.env.envId;
-    console.log("aaa",formData.value.env.envId);
-    const criteriasToSave = {...formData.value,envId:envId};
-    console.log(criteriasToSave);
+    const teamId=formData.value.team.teamId;
+    const checkId=formData.value.check.checkId;
+    const criteriasToSave = {...formData.value,checkId:checkId,teamId:teamId};
+    console.log("criteriaToSave",criteriasToSave);
     this.criteriasServices.AddCriterias(criteriasToSave).subscribe(res =>{
       this.router.navigateByUrl('criterias/list')
     })

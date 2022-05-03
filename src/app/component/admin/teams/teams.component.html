@@ -330,9 +330,9 @@
                   <th>Id</th>
                   <th>TeamName</th>
                   <th>Environment</th>
+                  <th>Criterias</th>
                   <th>Workers</th>
                   <th>TeamDescription</th>
-
                   <th>Actions</th>
 
                 </tr>
@@ -342,9 +342,9 @@
                   <th>Id</th>
                   <th>TeamName</th>
                   <th>Environment</th>
+                  <th>Criterias</th>
                   <th>Workers</th>
                   <th>TeamDescription</th>
-
                   <th>Actions</th>
 
                 </tr>
@@ -353,8 +353,9 @@
                 <tr *ngFor="let team of teams">
                   <td >{{team.teamId}}</td>
                   <td >{{team.teamName}}</td>
-                  <td>{{team.environment.envName}}</td>
-                  <td ><div *ngFor="let worker of team.workers">{{worker.userName}}</div></td>
+                  <td>{{team.environment?.envName}}</td>
+                  <td ><div *ngFor="let criterias of team.criterias">{{criterias?.name}}</div></td>
+                  <td ><div *ngFor="let worker of team.workers">{{worker?.userName}}</div></td>
                   <td >{{team.teamDescription}}</td>
                   <td class="text-right">
                     <div class="my-2"></div>
