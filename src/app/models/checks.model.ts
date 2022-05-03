@@ -2,6 +2,7 @@ import {CriteriasServices} from "../services/Criterias.service";
 import {Env} from "./env.model";
 import {Criterias} from "./Criterias.model";
 import {Data} from "./Data.model";
+import {ChecksDetails} from "./checksDetails.model";
 
 export class Checks{
   checkId: number;
@@ -16,5 +17,6 @@ export class Checks{
   status:string;
   environment:Env;
   criterias:Criterias[];
+  checkDetails:ChecksDetails[];
   data:Data;
 }
