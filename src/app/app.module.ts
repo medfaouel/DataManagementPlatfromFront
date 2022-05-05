@@ -44,6 +44,7 @@ import { GridModule } from '@progress/kendo-angular-grid';
 import { HttpClientModule } from "@angular/common/http";
 
 import {MasterDetailssComponent} from "./component/admin/checks/master-details/master-details.component";
+import { FillMasterDetailsComponent } from './component/admin/checks/master-details/fill-master-details/fill-master-details/fill-master-details.component';
 
 
 
@@ -78,6 +79,7 @@ import {MasterDetailssComponent} from "./component/admin/checks/master-details/m
     ChecksEditComponent,
     ExcelUploadComponent,
     UserManagementComponent,
+    FillMasterDetailsComponent,
 
   ],
   imports: [

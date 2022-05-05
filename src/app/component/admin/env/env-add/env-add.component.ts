@@ -25,14 +25,12 @@ export class EnvAddComponent implements OnInit {
     this.createForm =this.formBuilder.group({
       envName: ['', Validators.required],
       teams: ['',],
-      checks:['',],
       description: ['', Validators.required]
 
     });
   }
 
   ngOnInit(): void {
-    this.getAllChecks();
     this.getAllTeams();
   }
   getAllTeams(){
@@ -40,22 +38,13 @@ export class EnvAddComponent implements OnInit {
       this.teams = data;
     })
   }
-  getAllChecks(){
-    this.envService.getChecks().subscribe((data: Checks[]) => {
-      this.checks = data;
-    })
-  }
+
   onSubmit(formData : any){
     const teamIds =[];
     for (let i = 0; i < formData.value.teams.length; i++) {
       teamIds.push(formData.value.teams[i].teamId);
     }
-    const ChecksIds =[];
-    for (let i = 0; i < formData.value.checks.length; i++) {
-      ChecksIds.push(formData.value.checks[i].checkId);
-    }
-
-    const envToSave = {...formData.value,teamIds:teamIds,ChecksIds:ChecksIds}
+    const envToSave = {...formData.value,teamIds:teamIds}
     console.log(envToSave);
     this.envService.AddEnvironments(envToSave).subscribe(res =>{
       this.router.navigateByUrl('envs/list')

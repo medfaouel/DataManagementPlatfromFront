@@ -8,6 +8,5 @@ export class Env{
   envName:string;
   description:string;
   teams:Teams[];
-  checks:Checks[];
 
 }

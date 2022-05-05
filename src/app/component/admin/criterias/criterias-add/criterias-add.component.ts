@@ -24,7 +24,6 @@ export class CriteriasAddComponent implements OnInit {
     this.createForm =this.formBuilder.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      check:[''],
       team:[''],
     });
   }
@@ -45,8 +44,7 @@ export class CriteriasAddComponent implements OnInit {
   }
   onSubmit(formData : any){
     const teamId=formData.value.team.teamId;
-    const checkId=formData.value.check.checkId;
-    const criteriasToSave = {...formData.value,checkId:checkId,teamId:teamId};
+    const criteriasToSave = {...formData.value,teamId:teamId};
     console.log("criteriaToSave",criteriasToSave);
     this.criteriasServices.AddCriterias(criteriasToSave).subscribe(res =>{
       this.router.navigateByUrl('criterias/list')

@@ -15,8 +15,7 @@ export class Checks{
   cdqM_feedback:string;
   topicOwner_feedback:string;
   status:string;
-  environment:Env;
   criterias:Criterias[];
   checkDetails:ChecksDetails[];
-  data:Data;
+  data:Data[];
 }

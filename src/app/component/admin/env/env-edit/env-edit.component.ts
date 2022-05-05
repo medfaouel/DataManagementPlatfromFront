@@ -26,7 +26,6 @@ export class EnvEditComponent implements OnInit {
     this.editForm =this.formBuilder.group({
       envName: ['', Validators.required],
       teams: ['',],
-      checks:['',],
       description: ['', Validators.required]
     });
   }
@@ -42,7 +41,6 @@ export class EnvEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllChecks();
     this.getAllTeams();
     this.id = this.route.snapshot.params['id'];
 
@@ -58,12 +56,8 @@ export class EnvEditComponent implements OnInit {
     for (let i = 0; i < formData.value.teams.length; i++) {
       teamIds.push(formData.value.teams[i].teamId);
     }
-    const ChecksIds =[];
-    for (let i = 0; i < formData.value.checks.length; i++) {
-      ChecksIds.push(formData.value.checks[i].checkId);
-    }
 
-    const envToUpdate = {...formData.value,teamIds:teamIds,ChecksIds:ChecksIds}
+    const envToUpdate = {...formData.value,teamIds:teamIds}
     console.log(envToUpdate);
     this.envservice.UpdateEnvironment(this.id, envToUpdate).subscribe(res => {
       this.router.navigateByUrl('envs/list');

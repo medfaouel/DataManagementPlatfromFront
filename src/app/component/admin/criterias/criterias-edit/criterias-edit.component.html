@@ -402,14 +402,7 @@
                   </option>
                 </select>
               </div>
-              <div class="form-group">
-                <label >Check Status:</label>
-                <select  formControlName="check" >
-                  <option *ngFor="let check of check" [ngValue]="check">
-                    {{ check.checkAddress }}
-                  </option>
-                </select>
-              </div>
+
               <div class="form-group">
                 <label for="description">Description:</label>
                 <input formControlName="description"

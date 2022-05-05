@@ -334,22 +334,7 @@
                        type="text"
                        class="form-control" />
               </div>
-              <div class="form-group">
-                <label >Envs Name:</label>
-                <select  formControlName="env" >
-                  <option *ngFor="let env of env" [ngValue]="env"> <!--[selected]="check?.environment?.envId == env.envId"-->
-                    {{ env.envName }}
-                  </option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label >Criterias Name:</label>
-                <select  formControlName="criterias" multiple>
-                  <option *ngFor="let criteria of criterias" [ngValue]="criteria" [selected]="check?.criterias?.includes(criteria)">
-                    {{ criteria.name }}
-                  </option>
-                </select>
-              </div>
+
               <div class="form-group">
                 <label >Data Name:</label>
                 <select  formControlName="data"  >
@@ -358,42 +343,6 @@
                   </option>
                 </select>
               </div>
-              <div class="form-group">
-                <label for="cdqM_comments">CDQM_comments:</label>
-                <input formControlName="cdqM_comments"
-                       id="cdqM_comments"
-                       type="text"
-                       class="form-control" />
-              </div>
-              <div class="form-group">
-                <label for="dqmS_feedback">DQMS_feedback:</label>
-                <input formControlName="dqmS_feedback"
-                       id="dqmS_feedback"
-                       type="text"
-                       class="form-control" />
-              </div>
-              <div class="form-group">
-                <label for="cdqM_feedback">CDQM_feedback:</label>
-                <input formControlName="cdqM_feedback"
-                       id="cdqM_feedback"
-                       type="text"
-                       class="form-control" />
-              </div>
-              <div class="form-group">
-                <label for="topicOwner_feedback">TopicOwner_feedback:</label>
-                <input formControlName="topicOwner_feedback"
-                       id="topicOwner_feedback"
-                       type="text"
-                       class="form-control" />
-              </div>
-              <div class="form-group">
-                <label for="status">Status:</label>
-                <input formControlName="status"
-                       id="status"
-                       type="text"
-                       class="form-control" />
-              </div>
-
 
               <button class="btn btn-primary" type="submit" [disabled]="!editForm.valid">Update</button>
             </form>

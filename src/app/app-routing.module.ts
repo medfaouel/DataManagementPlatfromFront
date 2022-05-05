@@ -30,6 +30,9 @@ import {UserManagementComponent} from "./component/admin/user-management/user-ma
 import {NormalAuthService} from "./guards/normal-auth.service";
 import {MasterDetailssComponent} from "./component/admin/checks/master-details/master-details.component";
 import {DataCheckComponent} from "./component/admin/data/data-check/data-check.component";
+import {
+  FillMasterDetailsComponent
+} from "./component/admin/checks/master-details/fill-master-details/fill-master-details/fill-master-details.component";
 
 export const routes: Routes = [
   {
@@ -96,6 +99,7 @@ export const routes: Routes = [
       { path: 'add', component: ChecksAddComponent ,canActivate:[AuthGuard]},
       { path: ':id/edit', component: ChecksEditComponent ,canActivate:[AuthGuard]},
       { path: 'test', component: MasterDetailssComponent ,canActivate:[AuthGuard]},
+      { path: 'test/:id/fill', component: FillMasterDetailsComponent ,canActivate:[AuthGuard]},
     ]
   },
 

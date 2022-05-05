@@ -5,10 +5,9 @@ import {Data} from "./Data.model";
 import {Checks} from "./checks.model";
 
 export class ChecksDetails{
-  Id:number;
+  checkDetailId:number;
   checkId:number;
   check: Checks;
-  criteriaId:number;
   criteria: Criterias;
   cdqM_comments:string;
   dqmS_feedback:string;

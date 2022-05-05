@@ -345,14 +345,7 @@
                   </option>
                 </select>
               </div>
-              <div class="form-group">
-                <label >checks Name:</label>
-                <select  formControlName="checks" multiple>
-                  <option *ngFor="let check of checks" [ngValue]="check">
-                    {{ check.checkAddress }}
-                  </option>
-                </select>
-              </div>
+
               <div class="form-group">
                 <label for="description">Description:</label>
                 <input formControlName="description"

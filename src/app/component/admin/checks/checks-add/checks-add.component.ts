@@ -14,7 +14,7 @@ import {Data} from "../../../../models/Data.model";
   ]
 })
 export class ChecksAddComponent implements OnInit {
-  env:Env[]=[];
+
   data:Data[]=[];
   criterias:Criterias[]=[];
   createForm;
@@ -23,50 +23,31 @@ export class ChecksAddComponent implements OnInit {
               private formBuilder: FormBuilder,
               public checkService: ChecksService) {
     this.createForm =this.formBuilder.group({
-      cdqM_comments:[''],
-      dqmS_feedback:[''],
-      cdqM_feedback:[''],
-      topicOwner_feedback:[''],
       checkAddress:['', Validators.required],
-      env: ['', ],
-      status: ['',],
-      criterias:[''],
+
       data:[''],
 
     });
-  }
-  getCriterias(){
-    this.checkService.getCriterias().subscribe((data: Criterias[]) => {
-      this.criterias = data;
-    })
   }
   getData(){
     this.checkService.getData().subscribe((data: Data[]) => {
       this.data = data;
     })
   }
-  getEnv(){
-    this.checkService.getEnvs().subscribe((data: Env[]) => {
-      this.env = data;
-    })
-  }
   ngOnInit(): void {
     this.getData();
-    this.getCriterias();
-    this.getEnv();
+
   }
   onSubmit(formData : any){
-    const DataId=formData.value.data.dataId;
-    const CriteriaIds = [];
-    for (let i = 0; i < formData.value.criterias.length; i++) {
-      CriteriaIds.push(formData.value.criterias[i].crtId);
+    const DataIds= [];
+    for (let i = 0; i < formData.value.data.length; i++) {
+      DataIds.push(formData.value.data[i].dataId);
     }
-    console.log("criteriaIds",CriteriaIds)
-    const envId= formData.value.env.envId;
-    const checksToSave = {...formData.value,envId:envId,CriteriaIds:CriteriaIds,DataId:DataId}
+    const checksToSave = {...formData.value,DataIds:DataIds}
+
     console.log("checksToSave",checksToSave);
     this.checkService.AddCheck(checksToSave).subscribe(res =>{
-      this.router.navigateByUrl('checks/list')
+      this.router.navigateByUrl('checks/test')
     })
   }
 

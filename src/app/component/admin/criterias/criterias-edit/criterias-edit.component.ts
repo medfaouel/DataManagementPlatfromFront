@@ -28,7 +28,6 @@ export class CriteriasEditComponent implements OnInit {
 
       name: ['', Validators.required],
       description: ['', Validators.required],
-      check:[''],
       team:[''],
     });
   }
@@ -58,10 +57,9 @@ export class CriteriasEditComponent implements OnInit {
 
   }
   onSubmit(formData:any) {
-    const checkId=formData.value.check.checkId;
     const teamId=formData.value.team.teamId;
 
-    const EnvToUpdate = {...formData.value,checkId:checkId,teamId:teamId}
+    const EnvToUpdate = {...formData.value,teamId:teamId}
     this.criteriasService.UpdateCriteria(this.id, EnvToUpdate).subscribe(res => {
       this.router.navigateByUrl('criterias/list');
     });

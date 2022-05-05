@@ -88,4 +88,10 @@ export class ChecksService{
   }
 
 
+  FillCheckDetailsById(id:number,checkDetails:ChecksDetails): Observable<ChecksDetails> {
+    return this.httpClient.put<ChecksDetails>(this.baseURL + '/checks/FillCheckDetails/' + id,checkDetails ,this.httpOptions)
+      .pipe(
+        catchError(this.errorHandler)
+      );
+  }
 }

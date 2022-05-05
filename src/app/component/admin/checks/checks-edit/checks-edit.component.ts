@@ -44,12 +44,6 @@ export class ChecksEditComponent implements OnInit {
 
     })
   }
-  getCriterias(){
-    this.checkservice.getCriterias().subscribe((data: Criterias[]) => {
-      this.criterias = data;
-
-    })
-  }
   getData(){
     this.checkservice.getData().subscribe((data: Data[]) => {
       this.data = data;
@@ -59,7 +53,6 @@ export class ChecksEditComponent implements OnInit {
   ngOnInit(): void {
     this.getEnvs();
     this.getData();
-    this.getCriterias();
     this.id = this.route.snapshot.params['id'];
     this.checkservice.getCheckById(this.id).subscribe((data: Checks) => {
       this.check = data;
@@ -67,13 +60,17 @@ export class ChecksEditComponent implements OnInit {
     });
   }
   onSubmit(formData:any) {
-    const DataId=formData.value.data.dataId;
     const CriteriaIds= [];
     for (let i = 0; i < formData.value.criterias.length; i++) {
       CriteriaIds.push(formData.value.criterias[i].crtId);
     }
-    const envId= formData.value.env.envId;
-    const CheckToUpdate = {...formData.value,envId:envId,DataId:DataId,CriteriaIds:CriteriaIds}
+    const DataIds= [];
+    for (let i = 0; i < formData.value.data.length; i++) {
+      DataIds.push(formData.value.data[i].dataId);
+    }
+    const checksToSave = {...formData.value,DataIds:DataIds}
+    console.log("checksToSave",checksToSave);
+    const CheckToUpdate = {...formData.value,DataIds:DataIds,CriteriaIds:CriteriaIds}
     console.log("checkto update",CheckToUpdate)
     this.checkservice.UpdateCheck(this.id, CheckToUpdate).subscribe(res => {
       this.router.navigateByUrl('checks/list');

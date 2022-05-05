@@ -10,7 +10,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Add Criterias</title>
+  <title>Check</title>
 
   <!-- Custom fonts for this template -->
 
@@ -279,7 +279,7 @@
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
               <img class="img-profile rounded-circle"
-                   src="assets/img/undraw_profile.svg">
+                   src="img/undraw_profile.svg">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -319,41 +319,44 @@
             <br />
             <div class="row">
               <div class="col">
-                <h3>Add Criteria</h3>
+                <h3>Fill Check</h3>
               </div>
               <div class="col text-right">
-                <a href="#" routerLink="/criterias/list" class="btn btn-secondary btn-sm">Back To Criterias List</a>
+                <a href="#" routerLink="/checks/test" class="btn btn-secondary btn-sm">Back To Checks List</a>
               </div>
             </div>
             <br />
             <form [formGroup]="createForm" (ngSubmit)="onSubmit(createForm)">
               <div class="form-group">
-                <label for="name">Name:</label>
-                <input formControlName="name"
-                       id="name"
+                <label for="cdqM_comments">CDQM_comments:</label>
+                <input formControlName="cdqM_comments"
+                       id="cdqM_comments"
                        type="text"
                        class="form-control" />
               </div>
               <div class="form-group">
-                <label >Team Name:</label>
-                <select  formControlName="team" >
-                  <option *ngFor="let team of team" [ngValue]="team">
-                    {{ team.teamName }}
-                  </option>
-                </select>
+                <label for="dqmS_feedback">DQMS_feedback:</label>
+                <input formControlName="dqmS_feedback"
+                       id="dqmS_feedback"
+                       type="text"
+                       class="form-control" />
               </div>
-
               <div class="form-group">
-                <label for="description">Description:</label>
-                <input formControlName="description"
-                       id="description"
+                <label for="cdqM_feedback">CDQM_feedback:</label>
+                <input formControlName="cdqM_feedback"
+                       id="cdqM_feedback"
+                       type="text"
+                       class="form-control" />
+              </div>
+              <div class="form-group">
+                <label for="topicOwner_feedback">TopicOwner_feedback:</label>
+                <input formControlName="topicOwner_feedback"
+                       id="topicOwner_feedback"
                        type="text"
                        class="form-control" />
               </div>
 
-
-
-              <button class="btn btn-primary" type="submit" [disabled]="!createForm.valid">Create</button>
+              <button class="btn btn-primary" type="submit" [disabled]="!createForm.valid">Save</button>
             </form>
           </div>
           <div class="card-body">
