@@ -1,5 +1,7 @@
 
 
+
+
 <head>
 
   <meta charset="utf-8">
@@ -8,7 +10,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Tables</title>
+  <title>Check</title>
 
   <!-- Custom fonts for this template -->
 
@@ -25,7 +27,6 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-
       <div class="sidebar-brand-text mx-3">L E O N I </div>
     </a>
 
@@ -278,7 +279,7 @@
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
               <img class="img-profile rounded-circle"
-                   src="assets/img/undraw_profile.svg">
+                   src="img/undraw_profile.svg">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -308,226 +309,130 @@
       </nav>
       <!-- End of Topbar -->
 
-<p *ngIf="!checks"><em>Loading Student Details please Wait ! ...</em></p>
+      <!-- Begin Page Content -->
       <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <!-- DataTales Example -->
         <div class="card shadow mb-4">
-          <div class="card-body">
-            <div class="card-header py-3">
-              <h2 class="m-0 font-weight-bold text-primary">Table of Checks</h2>
+          <div class="container">
+            <br />
+            <div class="row">
+              <div class="col">
+                <h3>Fill Check</h3>
+              </div>
               <div class="col text-right">
-                <a href="#" routerLink="/checks/add" class="btn btn-secondary btn-sm">Add Check</a>
+                <a href="#" routerLink="/checks/test" class="btn btn-secondary btn-sm">Back To Checks List</a>
               </div>
             </div>
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" *ngIf="checks">
-                <tr>
-                  <td>
-                  </td>
-                  <td width="120" align="center">Check Id</td>
-                  <td width="250" align="center">Check Name</td>
-                  <td width="250" align="center">Data</td>
-                  <td width="200" align="center">status</td>
-                  <td width="120" align="center"></td>
-                </tr>
-                <tbody *ngFor="let check of checks">
-                <tr>
-                  <td>
-                    <a (click)=getChecksDetails(check.checkId) class="btn btn-info btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-info-circle"></i>
-                                        </span>
-                      <span class="text">Details</span>
+            <br />
 
-                    </a>
-                    <a  href="checks/test/{{check.checkId}}/fill-all" type="button"  class="btn btn-primary btn-sm">Fill all</a>
-                  </td>
-                  <td>
-                    <span width="120" align="center">{{check.checkId}}</span>
-                  </td>
-                  <td width="240" align="center">
-                    <span width="240" align="center" >{{check.checkAddress}}</span>
-                  </td>
-                  <td *ngIf="check.data.length>0;else nodata">{{check.data[0]?.leonI_Part}}</td>
-                  <ng-template #nodata>
-                    <td>None</td>
-                  </ng-template>
-                  <td width="240" align="center">
-                    <span>{{check.status}}</span>
-                  </td>
-                  <td class="text-right">
-                    <div class="my-2"></div>
-                    <div class="my-2"></div>
-                    <!--<a href="checks/{{check.checkId}}/edit" class="btn btn-warning btn-icon-split" >
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-exclamation-triangle"></i>
-                                        </span>
-                      <span class="text">Edit</span>
-                    </a>-->
-                    <div class="my-2"></div>
-                    <a  (click)="deleteCheck(check.checkId)" class="btn btn-danger btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-trash"></i>
-                                        </span>
-                      <span class="text"  >Delete</span>
-                    </a>
-                    <!--<a  class="btn btn-info btn-sm">View</a>
-                    <a  class="btn btn-primary btn-sm">Edit</a>
-                    <button type="button"  class="btn btn-danger btn-sm">Delete</button>-->
-                  </td>
-                </tr>
-                <tr *ngIf="activeRow==check.checkId">
-                  <td colspan="6" style="border: solid 1px #659EC7; padding: 5px;table-layout:fixed;">
-                    <table class="table table-bordered" id="dataTabl" width="100%" cellspacing="0" *ngIf="checksDetails">
-                      <tr >
-                        <td width="120" align="center">Id</td>
-                        <td width="240" align="center">cdqM_comments</td>
-                        <td width="240" align="center">cdqM_feedback</td>
-                        <td width="240" align="center">dqmS_feedback</td>
-                        <td width="240" align="center">topicOwner_feedback</td>
-                        <td width="120" align="center">Fill</td>
-                      </tr>
-                      <tbody *ngFor="let checkdetails of checksDetails">
-                      <tr>
-                        <td width="120" align="center">{{checkdetails.checkDetailId}}</td>
-                        <td width="240" align="center">{{checkdetails.cdqM_comments}}</td>
-                        <td width="240" align="center">{{checkdetails.cdqM_feedback}}</td>
-                        <td width="240" align="center">{{checkdetails.dqmS_feedback}}</td>
-                        <td width="240" align="center">{{checkdetails.topicOwner_feedback}}</td>
-                        <td width="120" align="center">
-                        <a  href="checks/test/{{checkdetails.checkDetailId}}/fill" type="button"  class="btn btn-primary btn-sm">Fill</a>
 
-                        </td>
-                      </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
+            <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit(dynamicForm)">
+              <div class="card m-3">
+                <h5 class="card-header">Angular 10 Dynamic Reactive Forms Example</h5>
+                <div class="card-body border-bottom">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label>Number of Tickets</label>
+                      <select formControlName="numberOfTickets" class="form-control" (change)="onChangeTickets()" [ngClass]="{ 'is-invalid': submitted && f.numberOfTickets.errors }">
+                        <option value=""></option>
+                        <option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">{{i}}</option>
+                      </select>
+                      <div *ngIf="submitted && f.numberOfTickets.errors" class="invalid-feedback">
+                        <div *ngIf="f.numberOfTickets.errors.required">Number of tickets is required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngFor="let ticket of ticketFormGroups; let i = index" class="list-group list-group-flush">
+                  <div class="list-group-item">
+                    <h5 class="card-title">Ticket {{i + 1}}</h5>
+                    <div [formGroup]="ticket" class="form-row">
+                      <div class="form-group col-6">
+                        <label>CDQM_comments</label>
+                        <input type="text" formControlName="cdqM_comments" class="form-control"  />
+
+                      </div>
+                      <div class="form-group col-6">
+                        <label>dqmS_feedback</label>
+                        <input type="text" formControlName="dqmS_feedback" class="form-control"  />
+
+                      </div>
+                      <div class="form-group col-6">
+                        <label>cdqM_feedback</label>
+                        <input type="text" formControlName="cdqM_feedback" class="form-control"  />
+
+                      </div>
+                      <div class="form-group col-6">
+                        <label>topicOwner_feedback</label>
+                        <input type="text" formControlName="topicOwner_feedback" class="form-control"  />
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer text-center border-top-0">
+                  <button class="btn btn-primary mr-1">Submit</button>
+                  <button class="btn btn-secondary mr-1" type="reset" (click)="onReset()">Reset</button>
+                  <button class="btn btn-secondary" type="button" (click)="onClear()">Clear</button>
+                </div>
+              </div>
+            </form>
           </div>
+          <div class="card-body">
 
+          </div>
         </div>
 
       </div>
-<!--<pre>{{studentdetails|json}}</pre>-->
-
-      <div class="container-fluid">
-        <div class="card shadow mb-4">
-          <div class="card-body">
-            <div class="card-header py-3">
-              <h2 class="m-0 font-weight-bold text-primary">Table of Checks</h2>
-              <div class="col text-right">
-                <a href="#" routerLink="/checks/add" class="btn btn-secondary btn-sm">Add Check</a>
-              </div>
-            </div>
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTab" width="100%" cellspacing="0">
-                <thead>
-                <tr>
-                  <td >Check Id</td>
-                  <td >Check Name</td>
-                  <td >Criterias</td>
-                  <td >status</td>
-                  <th>Actions</th>
-                </tr>
-                </thead>
-                <tfoot>
-                <tr>
-                  <td >Check Id</td>
-                  <td >Check Name</td>
-                  <td >Criterias</td>
-                  <td >status</td>
-                  <th>Actions</th>
-                </tr>
-                </tfoot>
-                <tbody>
-                <tr *ngFor="let check of checks">
-                  <th>{{check.checkAddress}}</th>
-                  <td *ngIf="check.data.length>0;else nodata">{{check.data[0]?.leonI_Part}}</td>
-                  <ng-template #nodata>
-                    <td>None</td>
-                  </ng-template>
-                  <td ><div *ngFor="let checks of check.criterias">{{checks.name}}</div></td>
-                  <td >{{check.status}}</td>
-                  <td class="text-right">
-                    <div class="my-2"></div>
-                    <a  href="checks/{{check.checkId}}/profil" class="btn btn-info btn-icon-split" >
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-info-circle"></i>
-                                        </span>
-                      <span style="display: inline-block" class="text" data-inline="true">Profil</span>
-                    </a>
-                    <div class="my-2"></div>
-                    <a href="checks/{{check.checkId}}/edit" class="btn btn-warning btn-icon-split" >
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-exclamation-triangle"></i>
-                                        </span>
-                      <span class="text">Edit</span>
-                    </a>
-                    <div class="my-2"></div>
-                    <a  (click)="deleteCheck(check.checkId)" class="btn btn-danger btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-trash"></i>
-                                        </span>
-                      <span class="text"  >Delete</span>
-                    </a>
-                    <!--<a  class="btn btn-info btn-sm">View</a>
-                    <a  class="btn btn-primary btn-sm">Edit</a>
-                    <button type="button"  class="btn btn-danger btn-sm">Delete</button>-->
-                  </td>
-
-                </tr>
-
-
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2020</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
+      <!-- /.container-fluid -->
 
     </div>
-    <!-- End of Content Wrapper -->
+    <!-- End of Main Content -->
+
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+      <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+          <span>Copyright &copy; Your Website 2020</span>
+        </div>
+      </div>
+    </footer>
+    <!-- End of Footer -->
 
   </div>
-  <!-- End of Page Wrapper -->
+  <!-- End of Content Wrapper -->
 
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
+</div>
+<!-- End of Page Wrapper -->
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-       aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+        <a class="btn btn-primary" href="login.html">Logout</a>
       </div>
     </div>
   </div>
+</div>
 
 
-</div>
-</div>
+
 </body>
 

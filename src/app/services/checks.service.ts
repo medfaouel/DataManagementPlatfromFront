@@ -55,6 +55,13 @@ export class ChecksService{
         catchError(this.errorHandler)
       );
   }
+  getAllCheckdetailsByCheckId(id: number): Observable<ChecksDetails[]> {
+    return this.httpClient.get<ChecksDetails[]>(this.baseURL + '/checks/getAllCheckdetailsByCheckId/' + id)
+      .pipe(
+        catchError(this.errorHandler)
+      );
+
+  }
   getEnvs(): Observable<Env[]> {
     return this.httpClient.get<Env[]>(this.baseURL + '/checks/getEnvs')
       .pipe(
@@ -68,6 +75,7 @@ export class ChecksService{
       );
 
   }
+
   AddCheck(checks: Checks): Observable<Checks> {
     return this.httpClient.post<Checks>(this.baseURL + '/checks/Create', checks, this.httpOptions)
       .pipe(
@@ -90,6 +98,12 @@ export class ChecksService{
 
   FillCheckDetailsById(id:number,checkDetails:ChecksDetails): Observable<ChecksDetails> {
     return this.httpClient.put<ChecksDetails>(this.baseURL + '/checks/FillCheckDetails/' + id,checkDetails ,this.httpOptions)
+      .pipe(
+        catchError(this.errorHandler)
+      );
+  }
+  FillAllCheckDetailsById(id:number,checkDetails:any): Observable<any> {
+    return this.httpClient.put<any>(this.baseURL + '/checks/FillAllCheckDetailsById/' + id,checkDetails ,this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       );

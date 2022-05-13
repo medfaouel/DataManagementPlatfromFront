@@ -4,6 +4,8 @@ import {Checks} from "../../../../models/checks.model";
 import {ChecksDetails} from "../../../../models/checksDetails.model";
 import {HttpClient} from "@angular/common/http";
 import {ChecksService} from "../../../../services/checks.service";
+import {CriteriasServices} from "../../../../services/Criterias.service";
+import {Criterias} from "../../../../models/Criterias.model";
 
 
 
@@ -14,12 +16,12 @@ import {ChecksService} from "../../../../services/checks.service";
 })
 export class MasterDetailssComponent implements OnInit {
   public checks: Checks[] = [];
+  public criterias:Criterias[]= [];
   public checksDetails: ChecksDetails[] = [];
-  myName: string;
   activeRow: number = 0;
 
-  constructor(public http: HttpClient, private checkService: ChecksService,) {
-    this.myName = "Shanu";
+  constructor(public http: HttpClient, private checkService: ChecksService,private criteriaService: CriteriasServices) {
+
     this.getAllChecks();
   }
 
@@ -36,6 +38,7 @@ export class MasterDetailssComponent implements OnInit {
       console.log("checks", this.checks)
     })
   }
+
 
   getChecksDetails(CheckId) {
     this.checkService.getChecksDetails(CheckId).subscribe((data: ChecksDetails[]) => {

@@ -33,7 +33,7 @@ export class FillMasterDetailsComponent implements OnInit {
   onSubmit(formData : any){
 
     const checksToSave = {...formData.value}
-    console.log("checksToSave",checksToSave);
+    console.log("checkstosav",checksToSave)
     this.checkService.FillCheckDetailsById(this.id,checksToSave).subscribe(res =>{
       this.router.navigateByUrl('checks/test')
     })

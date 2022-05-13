@@ -2,6 +2,7 @@
 import {Env} from "./env.model";
 
 import {Teams} from "./teams.model";
+import {ChecksDetails} from "./checksDetails.model";
 
 export class Criterias{
   crtId: number;
@@ -12,4 +13,5 @@ export class Criterias{
   description:string;
   environment:Env;
   team:Teams;
+  checkDetails:ChecksDetails;
 }

@@ -33,6 +33,9 @@ import {DataCheckComponent} from "./component/admin/data/data-check/data-check.c
 import {
   FillMasterDetailsComponent
 } from "./component/admin/checks/master-details/fill-master-details/fill-master-details/fill-master-details.component";
+import {
+  FillAllMasterDetailsComponent
+} from "./component/admin/checks/master-details/fill-all-master-details/fill-all-master-details/fill-all-master-details.component";
 
 export const routes: Routes = [
   {
@@ -100,6 +103,7 @@ export const routes: Routes = [
       { path: ':id/edit', component: ChecksEditComponent ,canActivate:[AuthGuard]},
       { path: 'test', component: MasterDetailssComponent ,canActivate:[AuthGuard]},
       { path: 'test/:id/fill', component: FillMasterDetailsComponent ,canActivate:[AuthGuard]},
+      { path: 'test/:id/fill-all', component: FillAllMasterDetailsComponent ,canActivate:[AuthGuard]},
     ]
   },
 

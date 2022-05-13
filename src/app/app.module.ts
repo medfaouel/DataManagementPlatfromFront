@@ -45,6 +45,7 @@ import { HttpClientModule } from "@angular/common/http";
 
 import {MasterDetailssComponent} from "./component/admin/checks/master-details/master-details.component";
 import { FillMasterDetailsComponent } from './component/admin/checks/master-details/fill-master-details/fill-master-details/fill-master-details.component';
+import { FillAllMasterDetailsComponent } from './component/admin/checks/master-details/fill-all-master-details/fill-all-master-details/fill-all-master-details.component';
 
 
 
@@ -80,6 +81,7 @@ import { FillMasterDetailsComponent } from './component/admin/checks/master-deta
     ExcelUploadComponent,
     UserManagementComponent,
     FillMasterDetailsComponent,
+    FillAllMasterDetailsComponent,
 
   ],
   imports: [
