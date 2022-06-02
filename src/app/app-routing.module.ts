@@ -36,6 +36,7 @@ import {
 import {
   FillAllMasterDetailsComponent
 } from "./component/admin/checks/master-details/fill-all-master-details/fill-all-master-details/fill-all-master-details.component";
+import {FullcalendarComponent} from "./component/admin/dashboard/fullcalendar/fullcalendar.component";
 
 export const routes: Routes = [
   {
@@ -47,6 +48,11 @@ export const routes: Routes = [
     path: 'register',
     pathMatch: 'full',
     component: RegistrationComponent,
+  },
+  {
+    path: 'fullcalendar',
+    pathMatch: 'full',
+    component: FullcalendarComponent,
   },
   {
     path: 'workers',children:[

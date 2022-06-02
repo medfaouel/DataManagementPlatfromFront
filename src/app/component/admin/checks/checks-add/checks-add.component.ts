@@ -24,9 +24,7 @@ export class ChecksAddComponent implements OnInit {
               public checkService: ChecksService) {
     this.createForm =this.formBuilder.group({
       checkAddress:['', Validators.required],
-
       data:[''],
-
     });
   }
   getData(){

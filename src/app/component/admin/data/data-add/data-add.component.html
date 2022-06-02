@@ -330,14 +330,6 @@
             <br />
             <form [formGroup]="createForm" (ngSubmit)="onSubmit(createForm)">
               <div class="form-group">
-                <label >Check:</label>
-                <select  formControlName="check" >
-                  <option *ngFor="let check of check" [ngValue]="check">
-                    {{ check.checkAddress }}
-                  </option>
-                </select>
-              </div>
-              <div class="form-group">
                 <label for="month">Month:</label>
                 <input formControlName="month"
                        id="month"

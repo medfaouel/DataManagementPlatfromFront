@@ -6,6 +6,7 @@ import {catchError} from "rxjs/operators";
 import {Teams} from "../models/teams.model";
 import {Env} from "../models/env.model";
 import {Criterias} from "../models/Criterias.model";
+import {User} from "../models/AppUsers.model";
 
 
 @Injectable({
@@ -38,6 +39,12 @@ export class TeamsService {
   }
   getCriterias(): Observable<Criterias[]> {
     return this.httpClient.get<Criterias[]>(this.baseURL + '/Teams/getCriterias')
+      .pipe(
+        catchError(this.errorHandler)
+      );
+  }
+  getUsers(): Observable<User[]> {
+    return this.httpClient.get<User[]>(this.baseURL + '/AppUser/GetAllUser')
       .pipe(
         catchError(this.errorHandler)
       );

@@ -50,9 +50,7 @@ export class DataEditComponent implements OnInit {
 
   }
   onSubmit(formData : any){
-    const checkId= formData.value.check.checkId;
-    console.log("checkId",checkId);
-    const DataToSave = {...formData.value,checkId:checkId}
+    const DataToSave = {...formData.value}
     console.log(DataToSave);
     this.dataservice.UpdateData(this.id,DataToSave).subscribe(res =>{
       this.router.navigateByUrl('data/list')

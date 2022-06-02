@@ -15,18 +15,16 @@ export class DataComponent implements OnInit {
 
   data: Data[] = [];
   ab = JSON.parse(localStorage.getItem("ExcelData"))
-  constructor(public dataService:DataService,
-              private router: Router) { }
+  constructor(public dataService:DataService,) { }
 
   getAllData() {
     this.dataService.getData().subscribe((data: Data[]) => {
       this.data = data;
-      console.log(this.data)
+      console.log("dataset of front",this.data)
     })
   }
   ngOnInit(): void {
     this.getAllData();
-    console.log("excel items",this.ab)
 
   }
   deleteData(id: number){

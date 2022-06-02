@@ -40,13 +40,17 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("hello")
+
     let firstName=this.RegistrationForm.controls["firstName"].value;
     let lastName=this.RegistrationForm.controls["lastName"].value;
     let email=this.RegistrationForm.controls["email"].value;
-    let password=this.RegistrationForm.controls["password"].value;
-
-    this.userService.register(firstName,lastName,email,password).subscribe((data)=>{
+    let password=this.RegistrationForm.controls["password"].value
+    this.userService.register(firstName,lastName,email,password,this.roles.filter(x=>x.isSelected)[0].role).subscribe((data)=>{
+      this.RegistrationForm.controls["firstName"].setValue("");
+      this.RegistrationForm.controls["lastName"].setValue("");
+      this.RegistrationForm.controls["email"].setValue("");
+      this.RegistrationForm.controls["password"].setValue("");
+      this.roles.forEach(x=>x.isSelected=false)
       if (data.responseCode==1) {
         this.router.navigateByUrl('login')
       }
@@ -61,5 +65,19 @@ export class RegistrationComponent implements OnInit {
       this.roles=roles;
 
     })
+  }
+
+  onRoleChange(role: string) {
+    this.roles.forEach(x=>{
+      if(x.role==role){
+
+        x.isSelected=true;
+      }
+      else {
+        x.isSelected=false;
+      }
+
+    })
+    console.log("onsubmit",this.roles)
   }
 }

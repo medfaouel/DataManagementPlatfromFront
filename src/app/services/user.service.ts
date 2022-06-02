@@ -21,12 +21,13 @@ export class UserService {
     }
     return this.httpClient.post<ResponseModel>(this.baseURL+"/AppUser/Login",body);
   }
-  public register(firstName:string,lastName:string,email:string,password:string){
+  public register(firstName:string,lastName:string,email:string,password:string,role:string){
     const body ={
       firstName:firstName,
       lastName:lastName,
       Email:email,
-      Password:password
+      Password:password,
+      Role:role,
     }
     return this.httpClient.post<ResponseModel>(this.baseURL+"/AppUser/RegisterUser",body);
   }
@@ -40,14 +41,13 @@ export class UserService {
       let userList=new Array<User>();
       if(res.responseCode==1)
       {
-
         if(res.dataSet)
         {
           res.dataSet.map((x:User)=>{
-            userList.push(new User(x.firstName,x.lastName,x.email,x.userName));
+            userList.push(new User(x.firstName,x.lastName,x.email,x.userName,x.dateCreated,x.id));
           })
+          console.log("userList1",userList)
         }
-
       }
       console.log(res)
       return userList;
@@ -63,14 +63,12 @@ export class UserService {
       let roleList=new Array<Role>();
       if(res.responseCode==1)
       {
-
         if(res.dataSet)
         {
           res.dataSet.map((x:string)=>{
             roleList.push(new Role(x));
           })
         }
-
       }
       console.log(res)
       return roleList;

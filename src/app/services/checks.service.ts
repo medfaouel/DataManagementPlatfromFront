@@ -83,8 +83,6 @@ export class ChecksService{
       );
   }
   UpdateCheck(id:number, checks: Checks): Observable<Checks> {
-    const test =JSON.stringify(checks)
-    console.log(test)
     return this.httpClient.put<Checks>(this.baseURL + '/checks/UpdateCheck/' + id,checks, this.httpOptions)
       .pipe(
         catchError(this.errorHandler)

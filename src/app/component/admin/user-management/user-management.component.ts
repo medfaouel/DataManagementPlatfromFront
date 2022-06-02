@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from "../../../services/user.service";
 import {User} from "../../../models/AppUsers.model";
-import {user} from "@angular/fire/auth";
 import {Router} from "@angular/router";
-import {routes} from "../../../app-routing.module";
+import {Teams} from "../../../models/teams.model";
+import {TeamsService} from "../../../services/Teams.service";
+
 
 @Component({
   selector: 'app-user-management',
@@ -13,19 +14,27 @@ import {routes} from "../../../app-routing.module";
 export class UserManagementComponent implements OnInit {
 
   public userList:User[]=[];
-  constructor(private userService:UserService,private router:Router) { }
+   teams: Teams[];
+  constructor(private userService:UserService,private teamsService:TeamsService,private router:Router) { }
 
   ngOnInit(): void {
+    this.getTeams()
     this.getAllUsers();
   }
   getAllUsers(){
     this.userService.getAllUsers().subscribe((data:User[])=>{
       this.userList=data;
-      console.log("userlist",this.userList)
+      console.log("userlist2",this.userList)
 
     })
   }
+  getTeams(){
+    this.teamsService.getTeams().subscribe((data:Teams[])=>{
+      this.teams=data;
+      console.log("teams",this.teams)
 
+    })
+  }
 
   onLogout() {
     localStorage.removeItem("tokenAuth");

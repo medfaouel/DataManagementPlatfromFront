@@ -46,7 +46,15 @@ import { HttpClientModule } from "@angular/common/http";
 import {MasterDetailssComponent} from "./component/admin/checks/master-details/master-details.component";
 import { FillMasterDetailsComponent } from './component/admin/checks/master-details/fill-master-details/fill-master-details/fill-master-details.component';
 import { FillAllMasterDetailsComponent } from './component/admin/checks/master-details/fill-all-master-details/fill-all-master-details/fill-all-master-details.component';
-
+import { FullcalendarComponent } from './component/admin/dashboard/fullcalendar/fullcalendar.component';
+import {FullCalendarModule} from "@fullcalendar/angular";
+import interactionPlugin from "@fullcalendar/interaction";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import { UserAddComponent } from './component/admin/user-management/user-add/user-add.component';
+import { UserEditComponent } from './component/admin/user-management/user-edit/user-edit.component';
+import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
+import {NotifierModule, NotifierService} from "angular-notifier";
+FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
 
 
 @NgModule({
@@ -82,9 +90,16 @@ import { FillAllMasterDetailsComponent } from './component/admin/checks/master-d
     UserManagementComponent,
     FillMasterDetailsComponent,
     FillAllMasterDetailsComponent,
+    FullcalendarComponent,
+    UserAddComponent,
+    UserEditComponent,
+    ForgotPasswordComponent,
+
 
   ],
   imports: [
+
+    NotifierModule,
     AngularFireModule.initializeApp({
       apiKey: "AIzaSyC4-yDG6MNn6oWK0x0BBpp1zyqUkfXXF-Q",
       authDomain: "pfe-project-cef56.firebaseapp.com",
@@ -100,9 +115,10 @@ import { FillAllMasterDetailsComponent } from './component/admin/checks/master-d
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    RouterModule.forRoot([{path: '',component:LoginComponent,pathMatch:'full'},
-      { path: 'workers', component: WorkersComponent },],),
-    GridModule
+    RouterModule.forRoot([{path: '', component: LoginComponent, pathMatch: 'full'},
+      {path: 'workers', component: WorkersComponent},],),
+    GridModule,
+    FullCalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

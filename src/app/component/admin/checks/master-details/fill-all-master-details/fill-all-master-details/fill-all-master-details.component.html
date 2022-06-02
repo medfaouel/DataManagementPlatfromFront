@@ -330,51 +330,39 @@
 
             <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit(dynamicForm)">
               <div class="card m-3">
-                <h5 class="card-header">Angular 10 Dynamic Reactive Forms Example</h5>
-                <div class="card-body border-bottom">
-                  <div class="form-row">
-                    <div class="form-group">
-                      <label>Number of Tickets</label>
-                      <select formControlName="numberOfTickets" class="form-control" (change)="onChangeTickets()" [ngClass]="{ 'is-invalid': submitted && f.numberOfTickets.errors }">
-                        <option value=""></option>
-                        <option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">{{i}}</option>
-                      </select>
-                      <div *ngIf="submitted && f.numberOfTickets.errors" class="invalid-feedback">
-                        <div *ngIf="f.numberOfTickets.errors.required">Number of tickets is required</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <h5 *ngIf="dataName?.length>0;else nodata" class="card-header">{{dataName}}</h5>
+                <ng-template #nodata>
+                  <h5 class="card-header">No Data Affected</h5>
+                </ng-template>
                 <div *ngFor="let ticket of ticketFormGroups; let i = index" class="list-group list-group-flush">
                   <div class="list-group-item">
-                    <h5 class="card-title">Ticket {{i + 1}}</h5>
+                    <h4 class="card-title">{{Criteria[i]?.name}}</h4>
                     <div [formGroup]="ticket" class="form-row">
                       <div class="form-group col-6">
                         <label>CDQM_comments</label>
-                        <input type="text" formControlName="cdqM_comments" class="form-control"  />
-
+                        <div *ngIf="UserRole=='CDQM' || UserRole=='Admin'; else elseBlock"><input type="text" formControlName="cdqM_comments" class="form-control"  /></div>
+                        <ng-template #elseBlock><fieldset disabled><input type="text" formControlName="cdqM_comments" class="form-control" /></fieldset> </ng-template>
                       </div>
                       <div class="form-group col-6">
-                        <label>dqmS_feedback</label>
-                        <input type="text" formControlName="dqmS_feedback" class="form-control"  />
-
+                        <label>DQMS_feedback</label>
+                        <div *ngIf="UserRole=='DQMS'|| UserRole=='Admin'; else elseBlock2"><input type="text" formControlName="dqmS_feedback" class="form-control"  /></div>
+                        <ng-template #elseBlock2><fieldset disabled><input type="text" formControlName="dqmS_feedback" class="form-control"  /></fieldset> </ng-template>
                       </div>
                       <div class="form-group col-6">
-                        <label>cdqM_feedback</label>
-                        <input type="text" formControlName="cdqM_feedback" class="form-control"  />
-
+                        <label>CDQM_feedback</label>
+                        <div *ngIf="UserRole=='CDQM' && cdqM_comments[i]==='A Remplir'|| UserRole=='Admin'; else elseBlock3"><input type="text" formControlName="cdqM_feedback" class="form-control"  /></div>
+                        <ng-template #elseBlock3><fieldset disabled><input type="text" formControlName="cdqM_feedback" class="form-control"  /></fieldset> </ng-template>
                       </div>
                       <div class="form-group col-6">
-                        <label>topicOwner_feedback</label>
-                        <input type="text" formControlName="topicOwner_feedback" class="form-control"  />
-
+                        <label>TopicOwner_feedback</label>
+                        <div *ngIf="UserRole=='TopicOwner'|| UserRole=='Admin'; else elseBlock4"><input type="text" formControlName="topicOwner_feedback" class="form-control"   /></div>
+                        <ng-template #elseBlock4><fieldset disabled><input type="text" formControlName="topicOwner_feedback" class="form-control" p  /></fieldset> </ng-template>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="card-footer text-center border-top-0">
                   <button class="btn btn-primary mr-1">Submit</button>
-                  <button class="btn btn-secondary mr-1" type="reset" (click)="onReset()">Reset</button>
                   <button class="btn btn-secondary" type="button" (click)="onClear()">Clear</button>
                 </div>
               </div>

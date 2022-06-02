@@ -344,9 +344,9 @@
 
               <div class="form-group">
                 <label >Workers Names:</label>
-                <select  formControlName="workers" multiple>
-                  <option *ngFor="let worker of workers" [ngValue]="worker">
-                    {{ worker.userName }}
+                <select  formControlName="users" multiple>
+                  <option *ngFor="let user of users" [ngValue]="user">
+                    {{ user.firstName }}
                   </option>
                 </select>
               </div>

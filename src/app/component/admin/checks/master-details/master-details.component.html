@@ -379,16 +379,17 @@
                   <td colspan="6" style="border: solid 1px #659EC7; padding: 5px;table-layout:fixed;">
                     <table class="table table-bordered" id="dataTabl" width="100%" cellspacing="0" *ngIf="checksDetails">
                       <tr >
-                        <td width="120" align="center">Id</td>
+                        <td width="120" align="center">Criteria</td>
                         <td width="240" align="center">cdqM_comments</td>
                         <td width="240" align="center">cdqM_feedback</td>
                         <td width="240" align="center">dqmS_feedback</td>
                         <td width="240" align="center">topicOwner_feedback</td>
                         <td width="120" align="center">Fill</td>
                       </tr>
-                      <tbody *ngFor="let checkdetails of checksDetails">
+
+                      <tbody *ngFor="let checkdetails of checksDetails;let index = index">
                       <tr>
-                        <td width="120" align="center">{{checkdetails.checkDetailId}}</td>
+                        <td width="120" align="center" >{{names[index]}}</td>
                         <td width="240" align="center">{{checkdetails.cdqM_comments}}</td>
                         <td width="240" align="center">{{checkdetails.cdqM_feedback}}</td>
                         <td width="240" align="center">{{checkdetails.dqmS_feedback}}</td>
@@ -399,6 +400,7 @@
                         </td>
                       </tr>
                       </tbody>
+
                     </table>
                   </td>
                 </tr>

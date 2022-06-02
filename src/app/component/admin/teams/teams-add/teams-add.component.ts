@@ -7,6 +7,8 @@ import {Teams} from "../../../../models/teams.model";
 import {Env} from "../../../../models/env.model";
 import {workers} from "../../../../models/workers.model";
 import {Criterias} from "../../../../models/Criterias.model";
+import {User} from "../../../../models/AppUsers.model";
+import {UserService} from "../../../../services/user.service";
 
 @Component({
   selector: 'app-teams-add',
@@ -19,14 +21,16 @@ export class TeamsAddComponent implements OnInit {
   workers:workers[]=[];
   criterias:Criterias[]=[];
   createForm;
+  users: User[]=[];
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private formBuilder: FormBuilder,
-              public teamService: TeamsService) {
+              public teamService: TeamsService,public userService: UserService) {
     this.createForm =this.formBuilder.group({
       teamName: ['', Validators.required],
       env:[''],
-      workers:[''],
+      users:[''],
       criterias:[''],
       teamDescription: ['', Validators.required]
 
@@ -36,16 +40,19 @@ export class TeamsAddComponent implements OnInit {
   ngOnInit(): void {
     this.getCriterias()
     this.getEnv();
-    this.getWorkers()
+    this.getAllUsers()
   }
-  getWorkers(){
-    this.teamService.getWorkers().subscribe((data: workers[]) => {
-      this.workers = data;
-    })
-  }
+
   getCriterias(){
     this.teamService.getCriterias().subscribe((data: Criterias[]) => {
       this.criterias = data;
+    })
+  }
+  getAllUsers(){
+    this.userService.getAllUsers().subscribe((data:User[])=>{
+      this.users=data;
+      console.log("userlist2",this.users)
+
     })
   }
   getEnv(){
@@ -54,16 +61,18 @@ export class TeamsAddComponent implements OnInit {
     })
   }
   onSubmit(formData : any){
-    const workerIds =[];
-    for (let i = 0; i < formData.value.workers.length; i++) {
-      workerIds.push(formData.value.workers[i].userId);
+    const userIds =[];
+    for (let i = 0; i < formData.value.users.length; i++) {
+      console.log("userids",formData.value.users[i].id)
+      userIds.push(formData.value.users[i].id);
     }
+
     const criteriaIds=[];
     for (let i = 0; i < formData.value.criterias.length; i++) {
       criteriaIds.push(formData.value.criterias[i].crtId);
     }
     const envId= formData.value.env.envId;
-    const teamToSave = {...formData.value,envId:envId,workerIds:workerIds,criteriaIds:criteriaIds}
+    const teamToSave = {...formData.value,envId:envId,userIds:userIds}
     console.log("teamtosave",teamToSave);
     this.teamService.AddTeam(teamToSave).subscribe(res =>{
       this.router.navigateByUrl('teams/list')

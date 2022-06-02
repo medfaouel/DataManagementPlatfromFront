@@ -41,9 +41,10 @@ export class LoginComponent implements OnInit {
     this.userService.login(email,password).subscribe((data:any)=>{
       console.log(data.responseCode==1);
       if (data.responseCode==1){
+        console.log("data.dataset",data.dataSet);
         localStorage.setItem("tokenAuth",JSON.stringify(data.dataSet.token));
         localStorage.setItem("userInfo",JSON.stringify(data.dataSet));
-        this.router.navigate(["/workers/list"])
+        this.router.navigate(["/checks/test"])
       }
       console.log("response",data);
     },error =>

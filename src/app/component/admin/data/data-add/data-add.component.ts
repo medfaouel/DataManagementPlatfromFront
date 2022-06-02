@@ -51,9 +51,7 @@ export class DataAddComponent implements OnInit {
 
   }
   onSubmit(formData : any){
-    const checkId=formData.value.check.checkId;
-    console.log("data",this.data)
-    const DataToSave = {...formData.value,checkId:checkId}
+    const DataToSave = {...formData.value}
     console.log(DataToSave);
     this.dataservice.AddData(DataToSave).subscribe(res =>{
       this.router.navigateByUrl('data/list')
