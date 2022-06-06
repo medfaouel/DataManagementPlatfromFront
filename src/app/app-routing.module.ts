@@ -37,12 +37,30 @@ import {
   FillAllMasterDetailsComponent
 } from "./component/admin/checks/master-details/fill-all-master-details/fill-all-master-details/fill-all-master-details.component";
 import {FullcalendarComponent} from "./component/admin/dashboard/fullcalendar/fullcalendar.component";
+import {ConfirmEmailComponent} from "./login/confirm-email/confirm-email.component";
+import {ForgotPasswordComponent} from "./login/reset-password/forgot-password.component";
+import {ChangePasswordComponent} from "./login/change-password/change-password.component";
 
 export const routes: Routes = [
   {
-    path: 'login',
+    path: 'Login',
     pathMatch: 'full',
     component: LoginComponent,
+  },
+  {
+    path: 'confirmEmail',
+    pathMatch: 'full',
+    component: ConfirmEmailComponent,
+  },
+  {
+    path: 'ResetPassword',
+    pathMatch: 'full',
+    component: ForgotPasswordComponent,
+  },
+  {
+    path: 'ChangePassword',
+    pathMatch: 'full',
+    component: ChangePasswordComponent,
   },
   {
     path: 'register',

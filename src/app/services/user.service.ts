@@ -31,6 +31,16 @@ export class UserService {
     }
     return this.httpClient.post<ResponseModel>(this.baseURL+"/AppUser/RegisterUser",body);
   }
+  confirmEmail(model:any){
+    return this.httpClient.post(this.baseURL+"/AppUser/ConfirmEmail",model)
+
+  }
+  resetPassword(model: any) {
+    return this.httpClient.post(this.baseURL + "/AppUser/ResetPassword", model);
+  }
+  changePassword(model: any) {
+    return this.httpClient.post(this.baseURL + "/AppUser/ChangePassword", model);
+  }
   public getAllUsers(){
     let tokenAuth=JSON.parse(localStorage.getItem("tokenAuth"));
     const headers=new HttpHeaders({

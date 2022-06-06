@@ -21,4 +21,5 @@ export class NormalAuthService implements CanActivate{
       return false;
     }
   }
+
 }

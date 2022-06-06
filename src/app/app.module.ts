@@ -52,8 +52,12 @@ import interactionPlugin from "@fullcalendar/interaction";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import { UserAddComponent } from './component/admin/user-management/user-add/user-add.component';
 import { UserEditComponent } from './component/admin/user-management/user-edit/user-edit.component';
-import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
+import { ForgotPasswordComponent } from './login/reset-password/forgot-password.component';
 import {NotifierModule, NotifierService} from "angular-notifier";
+import {NgToastModule} from "ng-angular-popup";
+import { ConfirmEmailComponent } from './login/confirm-email/confirm-email.component';
+import { ChangePasswordComponent } from './login/change-password/change-password.component';
+import {AlertModule, AlertService} from "ngx-alerts";
 FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
 
 
@@ -94,6 +98,8 @@ FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
     UserAddComponent,
     UserEditComponent,
     ForgotPasswordComponent,
+    ConfirmEmailComponent,
+    ChangePasswordComponent,
 
 
   ],
@@ -118,7 +124,9 @@ FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
     RouterModule.forRoot([{path: '', component: LoginComponent, pathMatch: 'full'},
       {path: 'workers', component: WorkersComponent},],),
     GridModule,
-    FullCalendarModule
+    FullCalendarModule,
+    NgToastModule,
+    AlertModule
   ],
   providers: [],
   bootstrap: [AppComponent]
