@@ -7,6 +7,8 @@ import {TeamsService} from "../../../../services/Teams.service";
 import {Teams} from "../../../../models/teams.model";
 import {Env} from "../../../../models/env.model";
 import {Criterias} from "../../../../models/Criterias.model";
+import {Constants} from "../../../../Helper/constants";
+import {User} from "../../../../models/AppUsers.model";
 
 @Component({
   selector: 'app-teams-edit',
@@ -15,12 +17,14 @@ import {Criterias} from "../../../../models/Criterias.model";
   ]
 })
 export class TeamsEditComponent implements OnInit {
+  user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
   env:Env[]=[];
   criterias:Criterias[]=[];
   workers:workers[]=[];
   editForm;
   id: number;
   team: Teams;
+  IsUserLogin: any;
   constructor(public teamService: TeamsService,private route: ActivatedRoute,
               private router: Router,
               private formBuilder: FormBuilder) {
@@ -75,4 +79,7 @@ export class TeamsEditComponent implements OnInit {
     });
   }
 
+  onLogout() {
+
+  }
 }

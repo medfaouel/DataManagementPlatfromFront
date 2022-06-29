@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
         console.log("data.dataset",data.dataSet);
         localStorage.setItem("tokenAuth",JSON.stringify(data.dataSet.token));
         localStorage.setItem("userInfo",JSON.stringify(data.dataSet));
-        this.router.navigate(["/checks/test"])
+        this.router.navigate(["/checks/list"])
       }
       else if (data.responseCode==2){
         this.toast.warning({detail:"Error Message",summary:" Login Failed, invalid Email or Password",duration:5000})

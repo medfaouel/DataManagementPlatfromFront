@@ -7,6 +7,8 @@ import {Env} from "../../../../models/env.model";
 import {EnvService} from "../../../../services/env.service";
 import {Checks} from "../../../../models/checks.model";
 import {Criterias} from "../../../../models/Criterias.model";
+import {Constants} from "../../../../Helper/constants";
+import {User} from "../../../../models/AppUsers.model";
 
 @Component({
   selector: 'app-env-edit',
@@ -15,7 +17,9 @@ import {Criterias} from "../../../../models/Criterias.model";
   ]
 })
 export class EnvEditComponent implements OnInit {
+  user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
   teams:Teams[]=[];
+  UserRole: any;
   checks:Checks[]=[];
   editForm;
   id: number;
@@ -29,10 +33,17 @@ export class EnvEditComponent implements OnInit {
       description: ['', Validators.required]
     });
   }
+  IsUserLogin() {
+    Constants.IsUserLogin();
+  }
   getAllTeams(){
     this.envservice.getTeams().subscribe((data: Teams[]) => {
       this.teams = data;
     })
+  }
+  getUserItem(){
+    const user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
+    this.UserRole=Object.values(user)[7];
   }
   getAllChecks(){
     this.envservice.getChecks().subscribe((data: Checks[]) => {
@@ -64,4 +75,7 @@ export class EnvEditComponent implements OnInit {
     });
   }
 
+  onLogout() {
+
+  }
 }

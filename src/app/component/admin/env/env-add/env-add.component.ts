@@ -6,6 +6,8 @@ import {EnvService} from "../../../../services/env.service";
 import {Teams} from "../../../../models/teams.model";
 import {Checks} from "../../../../models/checks.model";
 import {Criterias} from "../../../../models/Criterias.model";
+import {Constants} from "../../../../Helper/constants";
+import {User} from "../../../../models/AppUsers.model";
 
 @Component({
   selector: 'app-env-add',
@@ -14,7 +16,9 @@ import {Criterias} from "../../../../models/Criterias.model";
   ]
 })
 export class EnvAddComponent implements OnInit {
+  user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
  teams:Teams[]=[];
+  UserRole: any;
  checks:Checks[]=[];
 
   createForm;
@@ -38,6 +42,9 @@ export class EnvAddComponent implements OnInit {
       this.teams = data;
     })
   }
+  IsUserLogin() {
+    Constants.IsUserLogin();
+  }
 
   onSubmit(formData : any){
     const teamIds =[];
@@ -52,4 +59,7 @@ export class EnvAddComponent implements OnInit {
     console.log(formData.value);
   }
 
+  onLogout() {
+
+  }
 }

@@ -8,6 +8,8 @@ import {ChecksService} from "../../../../services/checks.service";
 import {Checks} from "../../../../models/checks.model";
 import {Data} from "../../../../models/Data.model";
 import {Criterias} from "../../../../models/Criterias.model";
+import {Constants} from "../../../../Helper/constants";
+import {User} from "../../../../models/AppUsers.model";
 
 @Component({
   selector: 'app-checks-edit',
@@ -16,12 +18,14 @@ import {Criterias} from "../../../../models/Criterias.model";
   ]
 })
 export class ChecksEditComponent implements OnInit {
+  user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
   env:Env[]=[];
   data:Data[]=[];
   criterias:Criterias[]=[];
   id: number;
   editForm: FormGroup;
   check : Checks;
+  private UserRole: any;
   constructor(private route: ActivatedRoute,
               private router: Router,
               private formBuilder: FormBuilder,
@@ -37,6 +41,9 @@ export class ChecksEditComponent implements OnInit {
       criterias:[''],
       data:[''],
     });
+  }
+  IsUserLogin() {
+    Constants.IsUserLogin();
   }
   getEnvs(){
     this.checkservice.getEnvs().subscribe((data: Env[]) => {
@@ -76,5 +83,14 @@ export class ChecksEditComponent implements OnInit {
       this.router.navigateByUrl('checks/list');
     });
   }
+  getUserItem(){
+    const user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
+    console.log("USER INFO",user);
+    console.log("trying user team id",user.team.teamId)
+    this.UserRole=Object.values(user)[7];
+  }
 
+  onLogout() {
+
+  }
 }

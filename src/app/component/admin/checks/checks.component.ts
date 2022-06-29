@@ -6,6 +6,8 @@ import {ChecksService} from "../../../services/checks.service";
 import {Env} from "../../../models/env.model";
 import {ChecksDetails} from "../../../models/checksDetails.model";
 import {resolve} from "@angular/compiler-cli/src/ngtsc/file_system";
+import {Constants} from "../../../Helper/constants";
+import {User} from "../../../models/AppUsers.model";
 
 @Component({
   selector: 'app-checks',
@@ -19,6 +21,7 @@ export class ChecksComponent implements OnInit {
   activeRow: number = 0;
   public checkDetails: ChecksDetails[] = [];
   public checkDetailsJSON;
+  private UserRole: any;
   constructor(public checkService:ChecksService,
               private router: Router) { }
 
@@ -27,6 +30,7 @@ export class ChecksComponent implements OnInit {
       this.checks = data;
       console.log("checks",this.checks)
     })
+
   }
   getChecksDetails() {
     this.checkService.getChecksDetails(this.id).subscribe((data: ChecksDetails[]) => {
@@ -45,5 +49,21 @@ export class ChecksComponent implements OnInit {
 
     });
   }
+
+  IsUserLogin() {
+    Constants.IsUserLogin();
+  }
+  onLogout() {
+    Constants.onLogout();
+    console.log("test")
+    this.router.navigateByUrl('/Login')
+  }
+  getUserItem(){
+    const user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
+    console.log("USER INFO",user);
+    console.log("trying user team id",user.team.teamId)
+    this.UserRole=Object.values(user)[7];
+  }
+
 
 }

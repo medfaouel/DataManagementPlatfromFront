@@ -3,10 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import {LoginComponent} from "./login/login.component";
 import {RegistrationComponent} from "./registration/registration.component";
 import {DashboardComponent} from "./component/admin/dashboard/dashboard.component";
-import {WorkersComponent} from "./component/admin/workers/workers.component";
-import {WorkersEditComponent} from "./component/admin/workers/workers-edit/workers-edit.component";
-import {WorkersProfilComponent} from "./component/admin/workers/workers-profil/workers-profil.component";
-import {WorkersAddComponent} from "./component/admin/workers/workers-add/workers-add.component";
 import {TeamsComponent} from "./component/admin/teams/teams.component";
 import {TeamsAddComponent} from "./component/admin/teams/teams-add/teams-add.component";
 import {TeamsEditComponent} from "./component/admin/teams/teams-edit/teams-edit.component";
@@ -40,6 +36,7 @@ import {FullcalendarComponent} from "./component/admin/dashboard/fullcalendar/fu
 import {ConfirmEmailComponent} from "./login/confirm-email/confirm-email.component";
 import {ForgotPasswordComponent} from "./login/reset-password/forgot-password.component";
 import {ChangePasswordComponent} from "./login/change-password/change-password.component";
+import {UserEditComponent} from "./component/admin/user-management/user-edit/user-edit.component";
 
 export const routes: Routes = [
   {
@@ -73,41 +70,33 @@ export const routes: Routes = [
     component: FullcalendarComponent,
   },
   {
-    path: 'workers',children:[
-      { path:'list', component: WorkersComponent,canActivate:[AuthGuard]},
-      { path: ':id/profile', component: WorkersProfilComponent,canActivate:[AuthGuard] },
-      { path: 'add', component: WorkersAddComponent ,canActivate:[AuthGuard]},
-      { path: ':id/edit', component: WorkersEditComponent ,canActivate:[AuthGuard]},
-    ]
-  },
-  {
     path: 'teams',children:[
-      { path:'list', component: TeamsComponent,canActivate:[AuthGuard]},
-      { path: ':id/profile', component: TeamsProfileComponent,canActivate:[AuthGuard]},
-      { path: 'add', component: TeamsAddComponent ,canActivate:[AuthGuard]},
-      { path: ':id/edit', component: TeamsEditComponent,canActivate:[AuthGuard] },
+      { path:'list', component: TeamsComponent,canActivate:[NormalAuthService]},
+      { path: ':id/profile', component: TeamsProfileComponent,canActivate:[NormalAuthService]},
+      { path: 'add', component: TeamsAddComponent ,canActivate:[NormalAuthService]},
+      { path: ':id/edit', component: TeamsEditComponent,canActivate:[NormalAuthService] },
     ]
   },
   {
     path: 'users',children:[
       { path:'list', component: UserManagementComponent,canActivate:[NormalAuthService]},
+      { path: ':id/edit', component: UserEditComponent,canActivate:[NormalAuthService] },
     ]
   },
 
   {
     path: 'criterias',children:[
-      { path:'list', component: CriteriasComponent,canActivate:[AuthGuard]},
-      //{ path: ':id/profile', component: Criter},
-      { path: 'add', component: CriteriasAddComponent,canActivate:[AuthGuard] },
-      { path: ':id/edit', component: CriteriasEditComponent,canActivate:[AuthGuard] },
+      { path:'list', component: CriteriasComponent,canActivate:[NormalAuthService]},
+      { path: 'add', component: CriteriasAddComponent,canActivate:[NormalAuthService] },
+      { path: ':id/edit', component: CriteriasEditComponent,canActivate:[NormalAuthService] },
     ]
   },
   {
     path: 'envs',children:[
-      { path:'list', component: EnvComponent,canActivate:[AuthGuard]},
-      { path: ':id/profile', component: EnvProfileComponent,canActivate:[AuthGuard] },
-      { path: 'add', component: EnvAddComponent,canActivate:[AuthGuard] },
-      { path: ':id/edit', component: EnvEditComponent ,canActivate:[AuthGuard]},
+      { path:'list', component: EnvComponent,canActivate:[NormalAuthService]},
+      { path: ':id/profile', component: EnvProfileComponent,canActivate:[NormalAuthService] },
+      { path: 'add', component: EnvAddComponent,canActivate:[NormalAuthService] },
+      { path: ':id/edit', component: EnvEditComponent ,canActivate:[NormalAuthService]},
     ],
   },
   {
@@ -121,54 +110,21 @@ export const routes: Routes = [
   },
   {
     path: 'checks',children:[
-      { path:'list', component: ChecksComponent,canActivate:[AuthGuard]},
-      //{ path: ':id/profile', component: EnvProfileComponent },
-      { path: 'add', component: ChecksAddComponent ,canActivate:[AuthGuard]},
-      { path: ':id/edit', component: ChecksEditComponent ,canActivate:[AuthGuard]},
-      { path: 'test', component: MasterDetailssComponent ,canActivate:[AuthGuard]},
-      { path: 'test/:id/fill', component: FillMasterDetailsComponent ,canActivate:[AuthGuard]},
-      { path: 'test/:id/fill-all', component: FillAllMasterDetailsComponent ,canActivate:[AuthGuard]},
+      { path: 'add', component: ChecksAddComponent ,canActivate:[NormalAuthService]},
+      { path: ':id/edit', component: ChecksEditComponent ,canActivate:[NormalAuthService]},
+      { path: 'list', component: MasterDetailssComponent ,canActivate:[NormalAuthService]},
+      { path: 'list/:id/fill', component: FillMasterDetailsComponent ,canActivate:[NormalAuthService]},
+      { path: 'list/:id/fill-all', component: FillAllMasterDetailsComponent ,canActivate:[NormalAuthService]},
     ]
   },
-
-  /*{
-    path: 'workers/edit',
-    pathMatch: 'full',
-    component: WorkersEditComponent,
-  },
-  {
-    path: 'workers/edit/:id',
-    pathMatch: 'full',
-    component: WorkersEditComponent,
-  },
-  {
-    path: 'workers/add',
-    pathMatch: 'full',
-    component: WorkersAddComponent,
-  },
-  {
-    path: 'workers-profil',
-    pathMatch: 'full',
-    component: WorkersProfilComponent,
-  },
-  {
-    path: 'workers/profil/:id',
-    pathMatch: 'full',
-    component: WorkersProfilComponent,
-  },*/
   {
     path: 'dashboard',
     pathMatch: 'full',
-    component: DashboardComponent,
+    component: DashboardComponent
   },
-  /*{
-    path: 'interface',
-    loadChildren: () => import('./interface').then(m => m.InterfaceComponent),
-    canActivate:[AdminAuthorization]
-  },*/
   {
     path: '**',
-    redirectTo: '/inteface'
+    redirectTo: '/Login'
   },
 
 ];

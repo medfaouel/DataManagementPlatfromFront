@@ -6,6 +6,8 @@ import {DataService} from "../../../../../services/Data.service";
 import {Router} from "@angular/router";
 import {Data} from "../../../../../models/Data.model";
 import {NotifierService} from "angular-notifier";
+import {Constants} from "../../../../../Helper/constants";
+import {User} from "../../../../../models/AppUsers.model";
 
 @Component({
   selector: 'app-excel-upload',
@@ -13,6 +15,7 @@ import {NotifierService} from "angular-notifier";
   styleUrls: ['./excel-upload.component.scss']
 })
 export class ExcelUploadComponent implements OnInit {
+  user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
   data:any[][];
   nb=0;
   dataSet: Data[] = [];
@@ -29,6 +32,9 @@ export class ExcelUploadComponent implements OnInit {
       this.dataSet = data;
       console.log("dataset of excel",this.dataSet)
     })
+  }
+  IsUserLogin() {
+    Constants.IsUserLogin();
   }
   SaveData() {
     const dataToSend = {
@@ -99,5 +105,9 @@ export class ExcelUploadComponent implements OnInit {
 
   onFileSelect(files: any) {
     this.onFileChange(files);
+  }
+
+  onLogout() {
+
   }
 }

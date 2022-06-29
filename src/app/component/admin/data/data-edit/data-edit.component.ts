@@ -4,6 +4,8 @@ import {Data} from "../../../../models/Data.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder} from "@angular/forms";
 import {DataService} from "../../../../services/Data.service";
+import {Constants} from "../../../../Helper/constants";
+import {User} from "../../../../models/AppUsers.model";
 
 @Component({
   selector: 'app-data-edit',
@@ -12,6 +14,7 @@ import {DataService} from "../../../../services/Data.service";
   ]
 })
 export class DataEditComponent implements OnInit {
+  user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
   check:Checks[]=[];
   data:Data;
   editForm;
@@ -38,7 +41,9 @@ export class DataEditComponent implements OnInit {
     })
   }
 
-
+  IsUserLogin() {
+    Constants.IsUserLogin();
+  }
   ngOnInit(): void {
     this.getCheck();
     this.id = this.route.snapshot.params['id'];
@@ -56,5 +61,10 @@ export class DataEditComponent implements OnInit {
       this.router.navigateByUrl('data/list')
     })
   }
+
+  onLogout() {
+
+  }
+
 
 }

@@ -6,6 +6,8 @@ import {ChecksService} from "../../../../services/checks.service";
 import {Env} from "../../../../models/env.model";
 import {Criterias} from "../../../../models/Criterias.model";
 import {Data} from "../../../../models/Data.model";
+import {Constants} from "../../../../Helper/constants";
+import {User} from "../../../../models/AppUsers.model";
 
 @Component({
   selector: 'app-checks-add',
@@ -14,10 +16,11 @@ import {Data} from "../../../../models/Data.model";
   ]
 })
 export class ChecksAddComponent implements OnInit {
-
+  user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
   data:Data[]=[];
   criterias:Criterias[]=[];
   createForm;
+  private UserRole: any;
   constructor(private route: ActivatedRoute,
               private router: Router,
               private formBuilder: FormBuilder,
@@ -32,6 +35,9 @@ export class ChecksAddComponent implements OnInit {
       this.data = data;
     })
   }
+  IsUserLogin() {
+    Constants.IsUserLogin();
+  }
   ngOnInit(): void {
     this.getData();
 
@@ -45,8 +51,17 @@ export class ChecksAddComponent implements OnInit {
 
     console.log("checksToSave",checksToSave);
     this.checkService.AddCheck(checksToSave).subscribe(res =>{
-      this.router.navigateByUrl('checks/test')
+      this.router.navigateByUrl('checks/list')
     })
   }
+  getUserItem(){
+    const user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
+    console.log("USER INFO",user);
+    console.log("trying user team id",user.team.teamId)
+    this.UserRole=Object.values(user)[7];
+  }
 
+  onLogout() {
+
+  }
 }

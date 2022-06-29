@@ -6,6 +6,8 @@ import {CriteriasServices} from "../../../../services/Criterias.service";
 import {Env} from "../../../../models/env.model";
 import {Checks} from "../../../../models/checks.model";
 import {Teams} from "../../../../models/teams.model";
+import {Constants} from "../../../../Helper/constants";
+import {User} from "../../../../models/AppUsers.model";
 
 @Component({
   selector: 'app-criterias-add',
@@ -14,9 +16,12 @@ import {Teams} from "../../../../models/teams.model";
   ]
 })
 export class CriteriasAddComponent implements OnInit {
+  user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
   check:Checks[]=[];
   team:Teams[]=[];
   createForm;
+  private UserRole: any;
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private formBuilder: FormBuilder,
@@ -26,6 +31,9 @@ export class CriteriasAddComponent implements OnInit {
       description: ['', Validators.required],
       team:[''],
     });
+  }
+  IsUserLogin() {
+    Constants.IsUserLogin();
   }
 
   getCheck(){
@@ -50,5 +58,13 @@ export class CriteriasAddComponent implements OnInit {
       this.router.navigateByUrl('criterias/list')
     })
   }
+  getUserItem(){
+    const user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
+    console.log("USER INFO",user);
+    console.log("trying user team id",user.team.teamId)
+    this.UserRole=Object.values(user)[7];
+  }
+  onLogout() {
 
+  }
 }

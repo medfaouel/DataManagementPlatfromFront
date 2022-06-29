@@ -7,6 +7,7 @@ import {Data} from "../../../../models/Data.model";
 import {DataService} from "../../../../services/Data.service";
 import {Checks} from "../../../../models/checks.model";
 import {FormBuilder} from "@angular/forms";
+import {Constants} from "../../../../Helper/constants";
 
 @Component({
   selector: 'app-data-check',
@@ -19,6 +20,7 @@ export class DataCheckComponent implements OnInit {
   check:Checks[]=[];
   data:Data[]=[];
   createForm;
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private formBuilder: FormBuilder,
@@ -34,6 +36,9 @@ export class DataCheckComponent implements OnInit {
       check:['', ]
 
     });
+  }
+  IsUserLogin() {
+    Constants.IsUserLogin();
   }
 
   getAllData() {
@@ -54,4 +59,7 @@ export class DataCheckComponent implements OnInit {
     });
   }
 
+  onLogout() {
+
+  }
 }

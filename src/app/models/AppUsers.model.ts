@@ -8,15 +8,18 @@ export class User{
   public lastName:string="";
   public email:string="";
   public userName:string="";
+  public role:string="";
   public team:Teams;
 
 
-  constructor(firstName:string,lastName:string,email:string,username:string,dateCreated:string,id:string) {
+  constructor(firstName:string,lastName:string,email:string,username:string,dateCreated:string,id:string,team:Teams,role:string) {
     this.firstName=firstName;
     this.lastName=lastName;
     this.email=email;
     this.userName=username;
     this.dateCreated=dateCreated;
     this.id=id;
+    this.team=team;
+    this.role=role;
   }
 }

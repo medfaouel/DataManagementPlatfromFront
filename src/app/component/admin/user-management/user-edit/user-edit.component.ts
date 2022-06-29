@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, Validators} from "@angular/forms";
 import {User} from "../../../../models/AppUsers.model";
 import {UserService} from "../../../../services/user.service";
+import {Constants} from "../../../../Helper/constants";
 
 @Component({
   selector: 'app-user-edit',
@@ -25,9 +26,11 @@ export class UserEditComponent implements OnInit {
       firstName: ['',],
       lastName: ['',],
       userName: ['',],
-      email: ['',],
       team:['',],
     });
+  }
+  IsUserLogin() {
+    Constants.IsUserLogin();
   }
 
   ngOnInit(): void {
@@ -38,6 +41,10 @@ export class UserEditComponent implements OnInit {
 
 
   onSubmit(editForm) {
+
+  }
+
+  onLogout() {
 
   }
 }

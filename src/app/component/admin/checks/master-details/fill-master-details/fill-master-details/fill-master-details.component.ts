@@ -5,6 +5,8 @@ import {Criterias} from "../../../../../../models/Criterias.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, Validators} from "@angular/forms";
 import {ChecksService} from "../../../../../../services/checks.service";
+import {Constants} from "../../../../../../Helper/constants";
+import {User} from "../../../../../../models/AppUsers.model";
 
 @Component({
   selector: 'app-fill-master-details',
@@ -14,6 +16,7 @@ import {ChecksService} from "../../../../../../services/checks.service";
 export class FillMasterDetailsComponent implements OnInit {
   createForm;
   id: number;
+   UserRole: any;
   constructor(private route: ActivatedRoute,
               private router: Router,
               private formBuilder: FormBuilder,
@@ -39,4 +42,16 @@ export class FillMasterDetailsComponent implements OnInit {
     })
   }
 
+  IsUserLogin() {
+    Constants.IsUserLogin();
+  }
+  getUserItem(){
+    const user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
+    console.log("USER INFO",user);
+    console.log("trying user team id",user.team.teamId)
+    this.UserRole=Object.values(user)[7];
+  }
+  onLogout() {
+
+  }
 }

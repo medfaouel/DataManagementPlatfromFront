@@ -9,6 +9,7 @@ import {workers} from "../../../../models/workers.model";
 import {Criterias} from "../../../../models/Criterias.model";
 import {User} from "../../../../models/AppUsers.model";
 import {UserService} from "../../../../services/user.service";
+import {Constants} from "../../../../Helper/constants";
 
 @Component({
   selector: 'app-teams-add',
@@ -17,6 +18,7 @@ import {UserService} from "../../../../services/user.service";
   ]
 })
 export class TeamsAddComponent implements OnInit {
+  user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
   env:Env[]=[];
   workers:workers[]=[];
   criterias:Criterias[]=[];
@@ -35,6 +37,9 @@ export class TeamsAddComponent implements OnInit {
       teamDescription: ['', Validators.required]
 
     });
+  }
+  IsUserLogin() {
+    Constants.IsUserLogin();
   }
 
   ngOnInit(): void {
@@ -77,5 +82,9 @@ export class TeamsAddComponent implements OnInit {
     this.teamService.AddTeam(teamToSave).subscribe(res =>{
       this.router.navigateByUrl('teams/list')
     })
+  }
+
+  onLogout() {
+
   }
 }

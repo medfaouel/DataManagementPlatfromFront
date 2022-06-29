@@ -19,8 +19,7 @@ export class ChecksService{
       'Content-Type': 'application/json'
     })
   };
-  constructor(private httpClient: HttpClient) {
-  }
+  constructor(private httpClient: HttpClient) {}
   errorHandler(error: { error: { message: string; }; status: any; message: any; }) {
     let errorMessage = '';
 
@@ -49,6 +48,12 @@ export class ChecksService{
         catchError(this.errorHandler)
       );
   }
+  getAllChecksDetails(): Observable<ChecksDetails[]>{
+    return this.httpClient.get<ChecksDetails[]>(this.baseURL + '/checks/getAllChecksDetails/')
+      .pipe(
+        catchError(this.errorHandler)
+      );
+  }
   getChecksDetails(id:number): Observable<ChecksDetails[]>{
     return this.httpClient.get<ChecksDetails[]>(this.baseURL + '/checks/getChecksDetails/'+id)
       .pipe(
@@ -57,6 +62,13 @@ export class ChecksService{
   }
   getAllCheckdetailsByCheckId(id: number): Observable<ChecksDetails[]> {
     return this.httpClient.get<ChecksDetails[]>(this.baseURL + '/checks/getAllCheckdetailsByCheckId/' + id)
+      .pipe(
+        catchError(this.errorHandler)
+      );
+
+  }
+  getAllCheckdetailsByCheckIdAndTeamId(idcheck: number,idTeam:number): Observable<ChecksDetails[]> {
+    return this.httpClient.get<ChecksDetails[]>(this.baseURL + '/checks/getAllCheckdetailsByTeamId/' + idcheck+'/'+idTeam)
       .pipe(
         catchError(this.errorHandler)
       );

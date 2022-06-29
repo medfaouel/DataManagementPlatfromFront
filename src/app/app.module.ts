@@ -50,7 +50,6 @@ import { FullcalendarComponent } from './component/admin/dashboard/fullcalendar/
 import {FullCalendarModule} from "@fullcalendar/angular";
 import interactionPlugin from "@fullcalendar/interaction";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import { UserAddComponent } from './component/admin/user-management/user-add/user-add.component';
 import { UserEditComponent } from './component/admin/user-management/user-edit/user-edit.component';
 import { ForgotPasswordComponent } from './login/reset-password/forgot-password.component';
 import {NotifierModule, NotifierService} from "angular-notifier";
@@ -95,7 +94,6 @@ FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
     FillMasterDetailsComponent,
     FillAllMasterDetailsComponent,
     FullcalendarComponent,
-    UserAddComponent,
     UserEditComponent,
     ForgotPasswordComponent,
     ConfirmEmailComponent,

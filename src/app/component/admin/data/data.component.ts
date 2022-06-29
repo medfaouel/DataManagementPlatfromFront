@@ -12,9 +12,10 @@ import {User} from "../../../models/AppUsers.model";
   ]
 })
 export class DataComponent implements OnInit {
-
+  user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
   data: Data[] = [];
   ab = JSON.parse(localStorage.getItem("ExcelData"))
+  UserRole: any;
   constructor(public dataService:DataService,) { }
 
   getAllData() {
@@ -23,9 +24,19 @@ export class DataComponent implements OnInit {
       console.log("dataset of front",this.data)
     })
   }
+
+  IsUserLogin() {
+    Constants.IsUserLogin();
+  }
   ngOnInit(): void {
     this.getAllData();
 
+  }
+  getUserItem(){
+    const user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
+    console.log("USER INFO",user);
+    console.log("trying user team id",user.team.teamId)
+    this.UserRole=Object.values(user)[7];
   }
   deleteData(id: number){
     this.dataService.DeleteData(id).then(() => {
@@ -35,4 +46,7 @@ export class DataComponent implements OnInit {
     });
   }
 
+  onLogout() {
+
+  }
 }

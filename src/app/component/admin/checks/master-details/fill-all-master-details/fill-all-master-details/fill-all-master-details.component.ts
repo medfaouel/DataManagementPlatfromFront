@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {ChecksService} from "../../../../../../services/checks.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormArray, FormGroup, FormControl, Validators} from "@angular/forms";
@@ -9,6 +9,9 @@ import {DynamicFormModel} from "../../../../../../models/dynamicForm.model";
 import {Constants} from "../../../../../../Helper/constants";
 import {Criterias} from "../../../../../../models/Criterias.model";
 import {User} from "../../../../../../models/AppUsers.model";
+import {ResponseModel} from "../../../../../../models/ResponseModel.model";
+import {catchError} from "rxjs/operators";
+import {throwError} from "rxjs";
 
 @Component({
   selector: 'app-fill-all-master-details',
@@ -16,29 +19,54 @@ import {User} from "../../../../../../models/AppUsers.model";
   styleUrls: ['./fill-all-master-details.component.css']
 })
 export class FillAllMasterDetailsComponent implements OnInit {
+  private baseURL="https://localhost:5001/api";
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
+  errorHandler(error: { error: { message: string; }; status: any; message: any; }) {
+    let errorMessage = '';
+
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = error.error.message;
+    } else {
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    return throwError(errorMessage);
+  }
+  user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
   testForPass = false;
+  testForv2 = false;
   dynamicForm: FormGroup;
   submitted = false;
   UserRole:any;
+  numberOfDQMS:number=0;
+  teamid:any;
+  ListOfNumber=[];
   checkdetails:ChecksDetails[];
   keys:any;
   len:number;
   CheckId:number;
   dataName;
   id:number;
+  CDQMTest:boolean=true;
  ExactCheck: any;
    Criteria: Criterias[];
    ExactId: any;
    cdqM_comments: any[];
   dqmS_feedback: any[];
    cdqM_feedback: any[];
+   status:any[];
    topicOwner_feedback: any[];
+   CriteriaList=[];
 
-  constructor(private route: ActivatedRoute,
+  constructor(private httpClient:HttpClient,private route: ActivatedRoute,
               private formBuilder: FormBuilder,
               private router: Router,
               public checkService: ChecksService
               ) {
+
 
     this.dynamicForm = this.formBuilder.group({
       numberOfTickets: ['',],
@@ -49,12 +77,7 @@ export class FillAllMasterDetailsComponent implements OnInit {
 
 
     }
-  onChangeTickets() {
-    this.dynamicForm.controls['numberOfTickets'].setValue(this.len);
-    const numberOfTickets = this.len ;
 
-
-  }
   searchForTheExactCheck(id:number){
     const ExactCheckk =[];
     const Checks = JSON.parse(localStorage.getItem(Constants.CHECKS_KEY));
@@ -78,7 +101,7 @@ export class FillAllMasterDetailsComponent implements OnInit {
 
       if(Object.values(Checks[Object.keys(Checks)[i]])[0] == id){
         ExactCriteria.push(Checks[i]);
-        const JsonCriteriaList = JSON.stringify(Checks[i].checkDetails);
+
         this.ExactCheck=JSON.stringify(Checks[i].data[0].leonI_Part);
         this.dataName=this.ExactCheck;
 
@@ -87,6 +110,9 @@ export class FillAllMasterDetailsComponent implements OnInit {
     }
 
 
+  }
+  IsUserLogin() {
+    Constants.IsUserLogin();
   }
 
   ngOnInit() {
@@ -106,30 +132,43 @@ export class FillAllMasterDetailsComponent implements OnInit {
     }
   getUserItem(){
     const user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
-    console.log("user",Object.values(user)[7]);
+    console.log("USER INFO",user);
+    console.log("trying user team id",user.team.teamId)
     this.UserRole=Object.values(user)[7];
-    console.log("what",this.UserRole);
+    this.teamid=user.team.teamId;
+
 
   }
   getAllCriterias() {
     this.checkService.getCriterias().subscribe((data: Criterias[]) => {
       this.Criteria = data;
+      console.log("criterias",this.Criteria)
 
     })
   }
 
   getCheckDetailsByCheckId(id:number){
-    this.checkService.getAllCheckdetailsByCheckId(id).subscribe((data: ChecksDetails[]) => {
+    this.checkService.getAllCheckdetailsByCheckIdAndTeamId(id,this.user.team.teamId).subscribe((data: ChecksDetails[]) => {
       this.checkdetails = data;
+      for (let i = 0; i < Object.values(this.checkdetails).length; i++) {
+        console.log(Object.values(this.checkdetails)[i].criteria.name)
+        this.CriteriaList.push(Object.values(this.checkdetails)[i].criteria.name)
+
+      }
+
+      console.log("criterialist,",this.CriteriaList)
+
+      console.log("this is it",this.checkdetails)
       this.checkdetails.forEach(
-        ({checkDetailId, cdqM_comments, dqmS_feedback,cdqM_feedback, topicOwner_feedback}) =>
+        ({checkDetailId, cdqM_comments, dqmS_feedback,cdqM_feedback, topicOwner_feedback,status}) =>
           this.t.push(this.formBuilder.group(
             {
               checkDetailId,
               cdqM_comments,
               dqmS_feedback,
               cdqM_feedback,
-              topicOwner_feedback
+              topicOwner_feedback,
+              status
             }
           ))
       )
@@ -144,26 +183,25 @@ export class FillAllMasterDetailsComponent implements OnInit {
       const dqmS_feedback= [];
       const cdqM_feedback= [];
       const topicOwner_feedback=[];
+      const status=[];
 
       for (let i = 0; i < Object.values(this.checkdetails).length; i++) {
-        console.log("test,",(Object.values(this.checkdetails))[i].cdqM_comments)
+
         cdqM_comments.push((Object.values(this.checkdetails))[i].cdqM_comments)
         dqmS_feedback.push((Object.values(this.checkdetails))[i].dqmS_feedback);
         cdqM_feedback.push((Object.values(this.checkdetails))[i].cdqM_feedback);
         topicOwner_feedback.push((Object.values(this.checkdetails))[i].topicOwner_feedback)
-
-
-
+        status.push((Object.values(this.checkdetails))[i].status)
       }
       this.cdqM_comments=cdqM_comments;
       this.dqmS_feedback=dqmS_feedback;
       this.cdqM_feedback=cdqM_feedback;
       this.topicOwner_feedback=topicOwner_feedback;
-      console.log("bruh",cdqM_comments,dqmS_feedback,cdqM_feedback,topicOwner_feedback)
+      this.status=status;
+      console.log("bruh",this.cdqM_comments,this.dqmS_feedback,this.cdqM_feedback,this.topicOwner_feedback)
       console.log("test",Object.values(this.checkdetails))
 
       this.len=len;
-      this.onChangeTickets();
     })
   }
   onSubmit(formData:any) {
@@ -179,34 +217,41 @@ export class FillAllMasterDetailsComponent implements OnInit {
       dynamicForm.push(formData.value.tickets[i]);
     }
     let nb=0;
+    let nbv2=0;
     for (let i = 0; i < Object.values(dynamicForm).length; i++) {
+
       if(Object.values(Object.values(dynamicForm))[i].cdqM_comments == "ok"){
+
+        Object.values(Object.values(dynamicForm))[i].status = "Passed"
+
          nb=nb+1;
+
          if (nb==Object.values(dynamicForm).length){
            this.testForPass=true;
-
          }
 
+      }
+      if(Object.values(Object.values(dynamicForm))[i].status=="Passed"){
+        nbv2=nbv2+1;
+        console.log("show test everytime",this.testForv2)
+        if (nbv2==Object.values(dynamicForm).length){
+          this.testForv2=true;
+        }
       }
 
     }
     localStorage.setItem(Constants.STATUS_STATUS,JSON.stringify(this.testForPass));
+    localStorage.setItem("testforv2",JSON.stringify(this.testForv2));
+    console.log("this.testforv2",this.testForv2)
     this.ExactId = this.route.snapshot.params['id'];
     localStorage.setItem('ExactId',JSON.stringify(this.ExactId));
-    const testForStatus = JSON.parse(localStorage.getItem(Constants.STATUS_STATUS));
-
-    console.log("testforstatus",testForStatus)
-    console.log("test for pass before true",this.testForPass)
-
-
-    console.log("dynamic form",Object.values(Object.values(dynamicForm))[2].cdqM_comments)
     const checksToSave = {FillMasterDetailsChecks:dynamicForm}
-    console.log("checksToSave",checksToSave)
+
     Object.values(formData.controls)
   this.checkService.FillAllCheckDetailsById(this.id,checksToSave).subscribe(res => {
-    this.router.navigateByUrl('checks/test');
+    this.router.navigateByUrl('checks/list');
   });
-
+    console.log("list of number",this.ListOfNumber)
   }
   onReset() {
     // reset whole form back to initial state
@@ -218,7 +263,29 @@ export class FillAllMasterDetailsComponent implements OnInit {
   onClear() {
     // clear errors and reset ticket fields
     this.submitted = false;
-    this.t.reset();
+    this.t.patchValue(this.checkdetails);
   }
 
+  onLogout() {
+
+  }
+
+  Number() {
+    this.numberOfDQMS=this.numberOfDQMS+1;
+    this.ListOfNumber.push(this.numberOfDQMS)
+    console.log("numberofdqms",this.ListOfNumber)
+    console.log("this.listofNumber")
+    localStorage.setItem('CDQMNumber',JSON.stringify(this.numberOfDQMS));
+    return true
+  }
+
+  public SendEmailToTopicOwner(idCheck:any,idCheckDetails:any) {
+    const body ={
+      teamId:this.user.team.teamId,
+      idCheck:idCheck,
+      idCheckDetails:idCheckDetails,
+    }
+     this.httpClient.post<ResponseModel>('https://localhost:5001/api/checks/SendEmailToTopicOwner',body).subscribe(()=>{})
+
+  }
 }

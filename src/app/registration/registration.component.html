@@ -15,20 +15,30 @@
               <label for="floatingInputFirstName">First Name</label>
             </div>
 
+
             <div class="form-floating mb-3">
               <input type="text" class="form-control" formControlName="lastName" id="floatingInputLastName" placeholder="Last Name">
               <label for="floatingInputLastName">Last Name</label>
             </div>
 
             <div class="form-floating mb-3">
+              <input type="text" class="form-control" formControlName="userName" id="floatingInputUsername" placeholder="User Name">
+              <label for="floatingInputLastName">User Name</label>
+            </div>
+            <div class="form-floating mb-3">
               <input type="email" class="form-control" formControlName="email" id="floatingInputEmail" placeholder="name@example.com">
               <label for="floatingInputEmail">Email address</label>
             </div>
+            <label >Choose Team:</label>
+            <div class="form-floating mb-1">
 
-            <div class="form-floating mb-3">
-              <input type="password" class="form-control" formControlName="password" id="floatingPassword" placeholder="Password">
-              <label for="floatingPassword">Password</label>
+              <select  formControlName="team" class="form-control" id="floatingInputTeam" >
+                <option *ngFor="let team of teams" [ngValue]="team">
+                  {{ team.teamName }}
+                </option>
+              </select>
             </div>
+
             <div class="form-check" *ngFor="let role of roles; let index=index">
               <input class="form-check-input" type="radio" name="role" (change)="onRoleChange(role.role)" [checked]="role.isSelected"  id="{{index}}">
               <label class="form-check-label" for="{{index}}">
@@ -43,7 +53,7 @@
               <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" [disabled]="!RegistrationForm.valid" type="submit">Register</button>
             </div>
           </form>
-            <a class="d-block text-center mt-2 small" routerLink="/login">Have an account? Sign In</a>
+
 
             <hr class="my-4">
 
@@ -53,13 +63,6 @@
                 <i ></i> Sign up with Google
               </button>
             </div>
-
-            <div class="d-grid">
-              <button style="background-color: orange" class="btn btn-lg btn-google btn-login fw-bold text-uppercase" type="submit">
-                <i  ></i> Sign up with Firebase
-              </button>
-            </div>
-
 
         </div>
       </div>

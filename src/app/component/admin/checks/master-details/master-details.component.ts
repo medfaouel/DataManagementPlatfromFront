@@ -8,6 +8,7 @@ import {CriteriasServices} from "../../../../services/Criterias.service";
 import {Criterias} from "../../../../models/Criterias.model";
 import {Constants} from "../../../../Helper/constants";
 import {Router} from "@angular/router";
+import {User} from "../../../../models/AppUsers.model";
 
 
 
@@ -17,13 +18,14 @@ import {Router} from "@angular/router";
   styleUrls: ['./master-details.component.css']
 })
 export class MasterDetailssComponent implements OnInit {
+  user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
   public checks: Checks[] = [];
   names = [];
-
   public criterias:Criterias[]= [];
   public checksDetails: ChecksDetails[] = [];
-  JsonCriteriaList;
+  CriteriaList = [];
   activeRow: number = 0;
+   UserRole: any;
 
   constructor(public http: HttpClient, private checkService: ChecksService,private checksService: ChecksService,private router:Router) {
 
@@ -35,13 +37,18 @@ export class MasterDetailssComponent implements OnInit {
 
 
   }
+  IsUserLogin() {
+    Constants.IsUserLogin();
+  }
 
   getAllChecks() {
     this.checkService.getChecks().subscribe((data: Checks[]) => {
       this.checks = data;
-      console.log("checksaaaaa",this.checks)
+      console.log("this checks",this.checks)
       localStorage.setItem("ChecksInfo",JSON.stringify(this.checks));
       const test = JSON.parse(localStorage.getItem(Constants.STATUS_STATUS));
+      const testv2 = JSON.parse(localStorage.getItem("testforv2"));
+      console.log("testv2", testv2)
       const ExactId = JSON.parse(localStorage.getItem('ExactId'));
       console.log("test and ExactId",test,"fasel",ExactId)
       let ExactCheck;
@@ -51,77 +58,58 @@ export class MasterDetailssComponent implements OnInit {
 
         }
       }
-      console.log("ListofPassed",Constants.ListOfPassed)
-      for (let i = 0; i < Constants.ListOfPassed.length; i++) {
-        if (ExactId.toString()==Constants.ListOfPassed[i]){
+      for (let i = 0; i < this.checks.length; i++) {
+        if (Object.values(Object.values(this.checks))[i].checkId == ExactId && testv2 == true) {
+          Constants.ListOfPassedByDropList.push(ExactId)
+          console.log("listofpassedbydroplist",Constants.ListOfPassedByDropList)
+
+        }
+      }
+
+      for (let i = 0; i < Constants.ListOfPassedByDropList.length; i++) {
+        if (ExactId.toString()==Constants.ListOfPassedByDropList[i]){
           for (let i = 0; i < this.checks.length; i++) {
             if (Object.values(Object.values(this.checks))[i].checkId == ExactId){
-              console.log("brooo")
               Object.values(Object.values(this.checks))[i].status="Passed";
               ExactCheck = Object.values(this.checks)[i]
               this.checksService.UpdateCheck(ExactId, ExactCheck).subscribe()
 
             }
 
-
           }
         }
-
       }
-
-
-
     })
   }
 
-
-
   getChecksDetails(CheckId) {
-    this.checkService.getChecksDetails(CheckId).subscribe((data: ChecksDetails[]) => {
+    this.checkService.getAllCheckdetailsByCheckIdAndTeamId(CheckId, this.user.team.teamId).subscribe((data: ChecksDetails[]) => {
       this.checksDetails = data;
-      console.log("checkdetails",this.checksDetails)
-    });
-    this.activeRow = CheckId;
-    const ExactCheckDetailsList =[]
-    const Checks = JSON.parse(localStorage.getItem(Constants.CHECKS_KEY));
+      this.activeRow = CheckId;
+      const Checks = JSON.parse(localStorage.getItem(Constants.CHECKS_KEY));
 
-
-
-    for (let i = 0; i < Object.keys(Checks).length; i++) {
-
-      if(Object.values(Checks[Object.keys(Checks)[i]])[0] == CheckId){
-        ExactCheckDetailsList.push(Checks[i]);
-        const JsonCheckDetailsList = JSON.stringify(Checks[i].checkDetails);
-
-
-        console.log("ExactCheckDetailsList",(ExactCheckDetailsList));
-        console.log("ExactCheckDetailsList",Object.values(Object.values(ExactCheckDetailsList)[0])[8])
-        const CheckDetailsList=Object.values(Object.values(ExactCheckDetailsList)[0])[8];
-        console.log("CheckDetailsList",CheckDetailsList)
-        for (let i = 0; i < Object.keys(CheckDetailsList).length; i++) {
-
-          console.log("CheckDetailsList test",Object.values(Object.values(Object.values(CheckDetailsList)[i])[6])[1])
-          this.names.push(Object.values(Object.values(Object.values(CheckDetailsList)[i])[6])[1])
-
-
-        }
-        console.log("names of criterias",this.names)
-
-
-
-        this.JsonCriteriaList=CheckDetailsList;
-
+      for (let i = 0; i < Object.keys(this.checksDetails).length; i++) {
+        this.CriteriaList.push(Object.values(this.checksDetails)[i].criteria.name)
       }
+    });
 
-    }
+
+
+
   }
-
 
   deleteCheck(id: number){
     this.checkService.DeleteCheck(id).then(() => {
       this.getAllChecks();
 
     });
+  }
+  getUserItem(){
+    const user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
+    this.UserRole=Object.values(user)[7];
+  }
+  onLogout() {
+
   }
 }
 

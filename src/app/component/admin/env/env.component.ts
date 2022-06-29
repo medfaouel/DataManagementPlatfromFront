@@ -6,6 +6,8 @@ import {Env} from "../../../models/env.model";
 import {EnvService} from "../../../services/env.service";
 import {Criterias} from "../../../models/Criterias.model";
 import {Checks} from "../../../models/checks.model";
+import {Constants} from "../../../Helper/constants";
+import {User} from "../../../models/AppUsers.model";
 
 @Component({
   selector: 'app-env',
@@ -14,7 +16,9 @@ import {Checks} from "../../../models/checks.model";
   ]
 })
 export class EnvComponent implements OnInit {
+  user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
   env: Env[] = [];
+  UserRole: any;
 
   constructor(public envService:EnvService,
               private router: Router) { }
@@ -25,8 +29,12 @@ export class EnvComponent implements OnInit {
       console.log("environment",this.env)
     })
   }
+  IsUserLogin() {
+    Constants.IsUserLogin();
+  }
   ngOnInit(): void {
     this.getAllEnvs();
+    this.getUserItem()
   }
   deleteEnv(id: number){
     this.envService.DeleteEnvironment(id).then(() => {
@@ -34,5 +42,12 @@ export class EnvComponent implements OnInit {
 
     });
   }
+  getUserItem(){
+    const user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
+    this.UserRole=Object.values(user)[7];
+  }
 
+  onLogout() {
+
+  }
 }

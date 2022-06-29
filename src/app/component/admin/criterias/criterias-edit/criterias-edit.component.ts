@@ -7,6 +7,8 @@ import {Criterias} from "../../../../models/Criterias.model";
 import {CriteriasServices} from "../../../../services/Criterias.service";
 import {Env} from "../../../../models/env.model";
 import {Checks} from "../../../../models/checks.model";
+import {Constants} from "../../../../Helper/constants";
+import {User} from "../../../../models/AppUsers.model";
 
 @Component({
   selector: 'app-criterias-edit',
@@ -15,12 +17,15 @@ import {Checks} from "../../../../models/checks.model";
   ]
 })
 export class CriteriasEditComponent implements OnInit {
+  user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
   check:Checks[]=[];
   team:Teams[]=[];
   editForm;
 
   id: number;
   criteria: Criterias;
+  IsUserLogin: any;
+  private UserRole: any;
   constructor(public criteriasService: CriteriasServices,private route: ActivatedRoute,
               private router: Router,
               private formBuilder: FormBuilder) {
@@ -64,5 +69,13 @@ export class CriteriasEditComponent implements OnInit {
       this.router.navigateByUrl('criterias/list');
     });
   }
+  getUserItem(){
+    const user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
+    console.log("USER INFO",user);
+    console.log("trying user team id",user.team.teamId)
+    this.UserRole=Object.values(user)[7];
+  }
+  onLogout() {
 
+  }
 }

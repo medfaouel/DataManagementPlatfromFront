@@ -1,7 +1,5 @@
 
 
-
-
 <head>
 
   <meta charset="utf-8">
@@ -10,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Check</title>
+  <title>SB Admin 2 - Tables</title>
 
   <!-- Custom fonts for this template -->
 
@@ -27,6 +25,7 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+
       <div class="sidebar-brand-text mx-3">L E O N I </div>
     </a>
 
@@ -56,32 +55,32 @@
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-      <a class="nav-link" routerLink="/workers/list">
+      <a class="nav-link" *ngIf="IsUserLogin"routerLink="/users/list">
         <i class="fas fa-fw fa-table"></i>
         <span>Employees</span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/teams/list">
+      <a class="nav-link" *ngIf="IsUserLogin" routerLink="/teams/list">
         <i class="fas fa-fw fa-table"></i>
         <span>Teams</span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/envs/list">
+      <a class="nav-link" *ngIf="IsUserLogin" routerLink="/envs/list">
         <i class="fas fa-fw fa-table"></i>
         <span>Environments</span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/data/list">
+      <a class="nav-link" *ngIf="IsUserLogin" routerLink="/data/list">
         <i class="fas fa-fw fa-table"></i>
         <span>Data</span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/criterias/list">
+      <a class="nav-link" *ngIf="IsUserLogin" routerLink="/criterias/list">
         <i class="fas fa-fw fa-table"></i>
         <span>Criterias</span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/checks/list">
+      <a class="nav-link" *ngIf="IsUserLogin" routerLink="/checks/list">
         <i class="fas fa-fw fa-table"></i>
         <span>Checks</span></a>
     </li>
@@ -277,28 +276,16 @@
           <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small" >Douglas McGee</span>
               <img class="img-profile rounded-circle"
-                   src="img/undraw_profile.svg">
+                   src="assets/img/undraw_profile.svg">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                  aria-labelledby="userDropdown">
-              <a class="dropdown-item" href="#">
-                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                Profile
-              </a>
-              <a class="dropdown-item" href="#">
-                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                Settings
-              </a>
-              <a class="dropdown-item" href="#">
-                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                Activity Log
-              </a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+              <a (click)="onLogout()" class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                <i  class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                 Logout
               </a>
             </div>
@@ -328,32 +315,31 @@
             <br />
             <form [formGroup]="createForm" (ngSubmit)="onSubmit(createForm)">
               <div class="form-group">
-                <label for="cdqM_comments">CDQM_comments:</label>
-                <input formControlName="cdqM_comments"
-                       id="cdqM_comments"
-                       type="text"
-                       class="form-control" />
+                <label>CDQM_comments</label>
+                <div  *ngIf="UserRole=='CDQM'|| UserRole=='Admin'; else elseBlock"><input type="text"  formControlName="cdqM_comments" class="form-control"  /></div>
+                <ng-template #elseBlock><fieldset disabled>
+                  <input type="text" formControlName="cdqM_comments" class="form-control" /></fieldset> </ng-template>
               </div>
               <div class="form-group">
-                <label for="dqmS_feedback">DQMS_feedback:</label>
-                <input formControlName="dqmS_feedback"
-                       id="dqmS_feedback"
-                       type="text"
-                       class="form-control" />
+                <label>DQMS_feedback</label>
+                <div *ngIf="UserRole=='DQMS' || UserRole=='Admin' ; else elseBlock2"><input type="text" formControlName="dqmS_feedback" class="form-control"  /></div>
+                <ng-template #elseBlock2><fieldset disabled><input type="text" formControlName="dqmS_feedback" class="form-control"  /></fieldset> </ng-template>
               </div>
               <div class="form-group">
-                <label for="cdqM_feedback">CDQM_feedback:</label>
-                <input formControlName="cdqM_feedback"
-                       id="cdqM_feedback"
-                       type="text"
-                       class="form-control" />
+                <label>CDQM_feedback</label>
+                <div  *ngIf="UserRole=='CDQM'  || UserRole=='Admin'; else elseBlock3"><input type="text" formControlName="cdqM_feedback" class="form-control"  /></div>
+                <ng-template #elseBlock3><fieldset disabled><input type="text" formControlName="cdqM_feedback" class="form-control"  /></fieldset> </ng-template>
               </div>
               <div class="form-group">
-                <label for="topicOwner_feedback">TopicOwner_feedback:</label>
-                <input formControlName="topicOwner_feedback"
-                       id="topicOwner_feedback"
-                       type="text"
-                       class="form-control" />
+                <label style="margin-left: 50%">Status</label>
+                <div   *ngIf=" UserRole=='CDQM'; else Block">
+                  <select style="margin-left: 50%" formControlName="status" class="form-select" aria-label="Default select example">
+                    <option selected></option>
+                    <option  >Not Passed</option>
+                    <option  >Passed</option>
+                  </select>
+                </div>
+                <ng-template #Block><fieldset disabled><input style="margin-left: 50%" type="text" formControlName="status" class="form-control" /></fieldset> </ng-template>
               </div>
 
               <button class="btn btn-primary" type="submit" [disabled]="!createForm.valid">Save</button>

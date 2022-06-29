@@ -4,6 +4,8 @@ import {TeamsService} from "../../../services/Teams.service";
 import {Router} from "@angular/router";
 import {Env} from "../../../models/env.model";
 import {workers} from "../../../models/workers.model";
+import {Constants} from "../../../Helper/constants";
+import {User} from "../../../models/AppUsers.model";
 
 @Component({
   selector: 'app-teams',
@@ -12,7 +14,9 @@ import {workers} from "../../../models/workers.model";
   ]
 })
 export class TeamsComponent implements OnInit {
+  user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
   teams: Teams[] = [];
+   UserRole: any;
   constructor(public teamService:TeamsService,
               private router: Router) { }
 
@@ -23,9 +27,17 @@ export class TeamsComponent implements OnInit {
     })
 
     }
+  IsUserLogin() {
+    Constants.IsUserLogin();
+  }
+  getUserItem(){
+    const user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
+    this.UserRole=Object.values(user)[7];
+  }
 
   ngOnInit(): void {
     this.getAllTeams();
+    this.getUserItem()
 
   }
   deleteTeam(id: number){
@@ -36,4 +48,7 @@ export class TeamsComponent implements OnInit {
     });
   }
 
+  onLogout() {
+
+  }
 }

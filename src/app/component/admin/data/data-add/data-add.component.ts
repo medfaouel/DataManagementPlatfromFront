@@ -6,6 +6,8 @@ import {DataService} from "../../../../services/Data.service";
 import {FormBuilder, Validators} from "@angular/forms";
 import {Env} from "../../../../models/env.model";
 import {Checks} from "../../../../models/checks.model";
+import {Constants} from "../../../../Helper/constants";
+import {User} from "../../../../models/AppUsers.model";
 
 @Component({
   selector: 'app-data-add',
@@ -14,6 +16,7 @@ import {Checks} from "../../../../models/checks.model";
   ]
 })
 export class DataAddComponent implements OnInit {
+  user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
   check:Checks[]=[];
   data:Data[]=[];
   createForm;
@@ -32,6 +35,9 @@ export class DataAddComponent implements OnInit {
       check:['', ]
 
     });
+  }
+  IsUserLogin() {
+    Constants.IsUserLogin();
   }
   getCheck(){
     this.dataservice.getCheck().subscribe((data: Checks[]) => {
@@ -58,4 +64,7 @@ export class DataAddComponent implements OnInit {
     })
   }
 
+  onLogout() {
+
+  }
 }

@@ -1,7 +1,5 @@
 
 
-
-
 <head>
 
   <meta charset="utf-8">
@@ -10,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Check</title>
+  <title>SB Admin 2 - Tables</title>
 
   <!-- Custom fonts for this template -->
 
@@ -27,18 +25,19 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+
       <div class="sidebar-brand-text mx-3">L E O N I </div>
     </a>
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard -->
+    <!-- Nav Item - Dashboard
     <li class="nav-item">
       <a class="nav-link" routerLink="/dashboard">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span></a>
-    </li>
+    </li>-->
 
 
 
@@ -56,32 +55,32 @@
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-      <a class="nav-link" routerLink="/workers/list">
+      <a class="nav-link"*ngIf="IsUserLogin" routerLink="/users/list">
         <i class="fas fa-fw fa-table"></i>
         <span>Employees</span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/teams/list">
+      <a class="nav-link" *ngIf="IsUserLogin" routerLink="/teams/list">
         <i class="fas fa-fw fa-table"></i>
         <span>Teams</span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/envs/list">
+      <a class="nav-link" *ngIf="IsUserLogin" routerLink="/envs/list">
         <i class="fas fa-fw fa-table"></i>
         <span>Environments</span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/data/list">
+      <a class="nav-link" *ngIf="IsUserLogin" routerLink="/data/list">
         <i class="fas fa-fw fa-table"></i>
         <span>Data</span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/criterias/list">
+      <a class="nav-link" *ngIf="IsUserLogin" routerLink="/criterias/list">
         <i class="fas fa-fw fa-table"></i>
         <span>Criterias</span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/checks/list">
+      <a class="nav-link" *ngIf="IsUserLogin" routerLink="/checks/list">
         <i class="fas fa-fw fa-table"></i>
         <span>Checks</span></a>
     </li>
@@ -89,10 +88,6 @@
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
-    <!-- Sidebar Toggler (Sidebar) -->
-    <div class="text-center d-none d-md-inline">
-      <button class="rounded-circle border-0" id="sidebarToggle"></button>
-    </div>
 
   </ul>
   <!-- End of Sidebar -->
@@ -111,20 +106,6 @@
           <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
           </button>
-        </form>
-
-        <!-- Topbar Search -->
-        <form
-          class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-          <div class="input-group">
-            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                   aria-label="Search" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-              <button class="btn btn-primary" type="button">
-                <i class="fas fa-search fa-sm"></i>
-              </button>
-            </div>
-          </div>
         </form>
 
         <!-- Topbar Navbar -->
@@ -154,151 +135,23 @@
             </div>
           </li>
 
-          <!-- Nav Item - Alerts -->
-          <li class="nav-item dropdown no-arrow mx-1">
-            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-bell fa-fw"></i>
-              <!-- Counter - Alerts -->
-              <span class="badge badge-danger badge-counter">3+</span>
-            </a>
-            <!-- Dropdown - Alerts -->
-            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                 aria-labelledby="alertsDropdown">
-              <h6 class="dropdown-header">
-                Alerts Center
-              </h6>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="mr-3">
-                  <div class="icon-circle bg-primary">
-                    <i class="fas fa-file-alt text-white"></i>
-                  </div>
-                </div>
-                <div>
-                  <div class="small text-gray-500">December 12, 2019</div>
-                  <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                </div>
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="mr-3">
-                  <div class="icon-circle bg-success">
-                    <i class="fas fa-donate text-white"></i>
-                  </div>
-                </div>
-                <div>
-                  <div class="small text-gray-500">December 7, 2019</div>
-                  $290.29 has been deposited into your account!
-                </div>
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="mr-3">
-                  <div class="icon-circle bg-warning">
-                    <i class="fas fa-exclamation-triangle text-white"></i>
-                  </div>
-                </div>
-                <div>
-                  <div class="small text-gray-500">December 2, 2019</div>
-                  Spending Alert: We've noticed unusually high spending for your account.
-                </div>
-              </a>
-              <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-            </div>
-          </li>
-
-          <!-- Nav Item - Messages -->
-          <li class="nav-item dropdown no-arrow mx-1">
-            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-envelope fa-fw"></i>
-              <!-- Counter - Messages -->
-              <span class="badge badge-danger badge-counter">7</span>
-            </a>
-            <!-- Dropdown - Messages -->
-            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                 aria-labelledby="messagesDropdown">
-              <h6 class="dropdown-header">
-                Message Center
-              </h6>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="dropdown-list-image mr-3">
-                  <img class="rounded-circle" src="assets/img/undraw_profile_1.svg"
-                       alt="...">
-                  <div class="status-indicator bg-success"></div>
-                </div>
-                <div class="font-weight-bold">
-                  <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                    problem I've been having.</div>
-                  <div class="small text-gray-500">Emily Fowler · 58m</div>
-                </div>
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="dropdown-list-image mr-3">
-                  <img class="rounded-circle" src="assets/img/undraw_profile_2.svg"
-                       alt="...">
-                  <div class="status-indicator"></div>
-                </div>
-                <div>
-                  <div class="text-truncate">I have the photos that you ordered last month, how
-                    would you like them sent to you?</div>
-                  <div class="small text-gray-500">Jae Chun · 1d</div>
-                </div>
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="dropdown-list-image mr-3">
-                  <img class="rounded-circle" src="assets/img/undraw_profile_3.svg"
-                       alt="...">
-                  <div class="status-indicator bg-warning"></div>
-                </div>
-                <div>
-                  <div class="text-truncate">Last month's report looks great, I am very happy with
-                    the progress so far, keep up the good work!</div>
-                  <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                </div>
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="dropdown-list-image mr-3">
-                  <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                       alt="...">
-                  <div class="status-indicator bg-success"></div>
-                </div>
-                <div>
-                  <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                    told me that people say this to all dogs, even if they aren't good...</div>
-                  <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                </div>
-              </a>
-              <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-            </div>
-          </li>
-
           <div class="topbar-divider d-none d-sm-block"></div>
+
 
           <!-- Nav Item - User Information -->
           <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small" >{{user.email}}</span>
               <img class="img-profile rounded-circle"
-                   src="img/undraw_profile.svg">
+                   src="assets/img/undraw_profile.svg">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                  aria-labelledby="userDropdown">
-              <a class="dropdown-item" href="#">
-                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                Profile
-              </a>
-              <a class="dropdown-item" href="#">
-                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                Settings
-              </a>
-              <a class="dropdown-item" href="#">
-                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                Activity Log
-              </a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+              <a (click)="onLogout()" class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                <i  class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                 Logout
               </a>
             </div>
@@ -322,7 +175,7 @@
                 <h3>Fill Check</h3>
               </div>
               <div class="col text-right">
-                <a href="#" routerLink="/checks/test" class="btn btn-secondary btn-sm">Back To Checks List</a>
+                <a href="#" routerLink="/checks/list" class="btn btn-secondary btn-sm">Back To Checks List</a>
               </div>
             </div>
             <br />
@@ -336,28 +189,45 @@
                 </ng-template>
                 <div *ngFor="let ticket of ticketFormGroups; let i = index" class="list-group list-group-flush">
                   <div class="list-group-item">
-                    <h4 class="card-title">{{Criteria[i]?.name}}</h4>
+
+                    <h4 class="card-title">{{CriteriaList[i]}}</h4>
+                    <div class="col text-right">
+                      <button  (click)="SendEmailToTopicOwner(this.id,checkdetails[i].checkDetailId)" [disabled]="status[i]=='Passed'" class="btn btn-secondary btn-sm">Send an email notifier to the Topic Owner</button>
+                    </div>
                     <div [formGroup]="ticket" class="form-row">
                       <div class="form-group col-6">
                         <label>CDQM_comments</label>
-                        <div *ngIf="UserRole=='CDQM' || UserRole=='Admin'; else elseBlock"><input type="text" formControlName="cdqM_comments" class="form-control"  /></div>
-                        <ng-template #elseBlock><fieldset disabled><input type="text" formControlName="cdqM_comments" class="form-control" /></fieldset> </ng-template>
+                        <div  *ngIf="UserRole=='CDQM'&& status[i]=='Not Passed' && cdqM_comments[i].length>5 && cdqM_comments[i]== 'Need to be filled'  && cdqM_comments[i]!== 'ok'|| UserRole=='Admin'; else elseBlock"><input type="text"  formControlName="cdqM_comments" class="form-control"  /></div>
+                        <ng-template #elseBlock><fieldset disabled>
+                          <input type="text" formControlName="cdqM_comments" class="form-control" /></fieldset> </ng-template>
                       </div>
                       <div class="form-group col-6">
                         <label>DQMS_feedback</label>
-                        <div *ngIf="UserRole=='DQMS'|| UserRole=='Admin'; else elseBlock2"><input type="text" formControlName="dqmS_feedback" class="form-control"  /></div>
+                        <div *ngIf="UserRole=='DQMS' && cdqM_comments[i]!== 'ok'&& status[i]=='Not Passed' && cdqM_comments[i]!== 'Need to be filled'|| UserRole=='Admin' ; else elseBlock2"><input type="text" formControlName="dqmS_feedback" class="form-control"  /></div>
                         <ng-template #elseBlock2><fieldset disabled><input type="text" formControlName="dqmS_feedback" class="form-control"  /></fieldset> </ng-template>
                       </div>
                       <div class="form-group col-6">
                         <label>CDQM_feedback</label>
-                        <div *ngIf="UserRole=='CDQM' && cdqM_comments[i]==='A Remplir'|| UserRole=='Admin'; else elseBlock3"><input type="text" formControlName="cdqM_feedback" class="form-control"  /></div>
+                        <div  *ngIf="UserRole=='CDQM' && dqmS_feedback[i].length>5 && cdqM_comments[i]!== 'ok' && status[i]=='Not Passed' && cdqM_comments[i]!== 'Need to be filled' && dqmS_feedback[i]!== 'Need to be filled' || UserRole=='Admin'; else elseBlock3"><input type="text" formControlName="cdqM_feedback" class="form-control"  /></div>
                         <ng-template #elseBlock3><fieldset disabled><input type="text" formControlName="cdqM_feedback" class="form-control"  /></fieldset> </ng-template>
                       </div>
                       <div class="form-group col-6">
                         <label>TopicOwner_feedback</label>
-                        <div *ngIf="UserRole=='TopicOwner'|| UserRole=='Admin'; else elseBlock4"><input type="text" formControlName="topicOwner_feedback" class="form-control"   /></div>
-                        <ng-template #elseBlock4><fieldset disabled><input type="text" formControlName="topicOwner_feedback" class="form-control" p  /></fieldset> </ng-template>
+                        <div *ngIf="UserRole=='TopicOwner'&& cdqM_comments[i].length>5 && status[i]=='Not Passed' && dqmS_feedback[i].length>5 && cdqM_comments[i]!== 'ok'&& cdqM_comments[i]!== 'Need to be filled' && dqmS_feedback[i]!== 'Need to be filled'|| UserRole=='Admin'; else elseBlock4"><input type="text" formControlName="topicOwner_feedback" class="form-control"   /></div>
+                        <ng-template #elseBlock4><fieldset disabled><input type="text" formControlName="topicOwner_feedback" class="form-control"   /></fieldset> </ng-template>
                       </div>
+                      <div class="form-group col-6">
+                        <label style="margin-left: 50%">Status</label>
+                        <div   *ngIf="status[i]=='Not Passed' && UserRole=='CDQM'; else Block">
+                          <select style="margin-left: 50%" formControlName="status" class="form-select" aria-label="Default select example">
+                            <option selected>{{status[i]}}</option>
+                            <option *ngIf="status[i] =='Passed'"  >Not Passed</option>
+                            <option *ngIf="status[i] =='Not Passed'" >Passed</option>
+                          </select>
+                        </div>
+                        <ng-template #Block><fieldset disabled><input style="margin-left: 50%" type="text" formControlName="status" class="form-control" /></fieldset> </ng-template>
+                      </div>
+
                     </div>
                   </div>
                 </div>
