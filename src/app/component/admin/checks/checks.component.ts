@@ -16,6 +16,7 @@ import {User} from "../../../models/AppUsers.model";
   ]
 })
 export class ChecksComponent implements OnInit {
+  user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
   checks: Checks[] = [];
   id:number;
   activeRow: number = 0;

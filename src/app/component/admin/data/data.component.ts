@@ -16,7 +16,7 @@ export class DataComponent implements OnInit {
   data: Data[] = [];
   ab = JSON.parse(localStorage.getItem("ExcelData"))
   UserRole: any;
-  constructor(public dataService:DataService,) { }
+  constructor(private router: Router,public dataService:DataService,) { }
 
   getAllData() {
     this.dataService.getData().subscribe((data: Data[]) => {
@@ -47,6 +47,8 @@ export class DataComponent implements OnInit {
   }
 
   onLogout() {
-
+    Constants.onLogout();
+    console.log("test")
+    this.router.navigateByUrl('/Login')
   }
 }

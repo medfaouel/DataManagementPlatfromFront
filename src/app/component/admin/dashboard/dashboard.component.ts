@@ -9,6 +9,9 @@ import {ChecksDetails} from "../../../models/checksDetails.model";
 import {Chart} from "chart.js"
 import {TeamsService} from "../../../services/Teams.service";
 import {Teams} from "../../../models/teams.model";
+import { map } from 'rxjs/operators';
+import {Router} from "@angular/router";
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -17,6 +20,7 @@ import {Teams} from "../../../models/teams.model";
 })
 export class DashboardComponent implements OnInit {
   UserRole: any;
+  dashboardDetails:any[]=[];
   ListOfChecksPassed=[]
   ListOfConflictedCheckDetails=[]
   user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
@@ -32,7 +36,7 @@ export class DashboardComponent implements OnInit {
   ListOfTeams= [];
   ListOfChecksByTeam= [];
 
-  constructor(private teamService: TeamsService, private dataService:DataService,private checkservice:ChecksService) { }
+  constructor(private router: Router, private teamService: TeamsService, private dataService:DataService,private checkservice:ChecksService) { }
   IsUserLogin() {
     Constants.IsUserLogin();
   }
@@ -46,44 +50,14 @@ export class DashboardComponent implements OnInit {
       console.log("listofteams",this.ListOfTeams)
     })
     console.log("this.checkslength",this.ChecksLength)
-    const myChart = new Chart("myChart", {
-      type: 'bar',
-      data: {
-        labels: ['Total classification', 'Total Validation PM', 'Validation ERP', 'Total Documentation', 'Total'],
-        datasets: [{
-          label: 'Checked Parts',
-          data: [100, 19, 3, 5, 2, 3],
-          backgroundColor: "#00008B",
-          borderWidth: 1
-        },
-          {
-            label: 'Passed Parts',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: "#228B22",
 
-            borderWidth: 1
-          },{
-            label: 'Not Passed Parts',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: "#8B0000",
-
-            borderWidth: 1
-          },]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
 
   }
 
   ngOnInit(): void {
     this.getAllCheckDetails()
     this.getAllChecks()
+    this.getDashboardTeamDetails()
     this.getAllData()
     this.getAllTeams()
 
@@ -113,15 +87,66 @@ export class DashboardComponent implements OnInit {
       console.log("this checks",this.checks)
       this.ChecksLength=data.length
       this.checkIfPassed()
-      for (let i = 0; i < this.checks.length; i++) {
-        console.log("test",Object.values(this.checks)[i].checkDetails)
-        for (let j = 0; j < this.checks.length; j++) {
-          this.ListOfChecksByTeam.push(Object.values(this.checks)[i])
-        }
-        console.log("listofchecksbyteam",this.ListOfChecksByTeam)
 
-      }
     })}
+  getDashboardTeamDetails() {
+    this.checkservice.DashboardTeamDetails().subscribe((data: any[]) => {
+      this.dashboardDetails = Object.entries(data);
+      console.log("dashboard",this.dashboardDetails)
+
+      const myChart = new Chart("myChart", {
+        type: 'bar',
+        data: {
+          labels: this.dashboardDetails.map(x=>x[0]),
+          datasets: [{
+            label: 'Total Checked Parts',
+            data: this.dashboardDetails.map(x=>x[1].length),
+            backgroundColor: "#00008B",
+            borderWidth: 1
+          },
+            {
+              label: 'Passed Parts',
+              data: this.dashboardDetails.map(x=>{
+                console.log(x)
+                let y=0;
+                for (let i = 0; i < x[1].length; i++) {
+                  if (x[1][i]=='Passed'){
+                    y++
+                  }
+                }
+                return y;
+
+              }),
+              backgroundColor: "#228B22",
+
+              borderWidth: 1
+            },{
+              label: 'Not Passed Parts',
+              data: this.dashboardDetails.map(x=>{
+                let y=0;
+                for (let i = 0; i < x[1].length; i++) {
+                  if (x[1][i]!=='Passed'){
+                    y++
+                  }
+                }
+                return y;
+
+              }),
+              backgroundColor: "#8B0000",
+
+              borderWidth: 1
+            },]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    })}
+
   getAllData() {
     this.dataService.getData().subscribe((data: Data[]) => {
       this.data = data;
@@ -158,6 +183,8 @@ export class DashboardComponent implements OnInit {
   }
 
   onLogout() {
-
+    Constants.onLogout();
+    console.log("test")
+    this.router.navigateByUrl('/Login')
   }
 }

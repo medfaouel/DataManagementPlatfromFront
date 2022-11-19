@@ -9,6 +9,7 @@ import {Role} from "../models/Roles.model";
 import {Teams} from "../models/teams.model";
 import {TeamsService} from "../services/Teams.service";
 import {Env} from "../models/env.model";
+import {NgToastService} from "ng-angular-popup";
 
 @Component({
   selector: 'app-registration',
@@ -28,7 +29,7 @@ export class RegistrationComponent implements OnInit {
 
   })
 
-  constructor(public teamService: TeamsService,public angularFireAuth:AngularFireAuth,private router: Router,private formBuilder:FormBuilder,private userService:UserService)
+  constructor(private toast:NgToastService,public teamService: TeamsService,public angularFireAuth:AngularFireAuth,private router: Router,private formBuilder:FormBuilder,private userService:UserService)
   { }
   signIn(){
     const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
@@ -69,12 +70,15 @@ export class RegistrationComponent implements OnInit {
       console.log("data.dataset2",data.dataSet);
       this.roles.forEach(x=>x.isSelected=false)
       if (data.responseCode==1) {
-        this.router.navigateByUrl('Login')
+        this.toast.success({detail:'Registration done successfully ',summary:data.ResponseMessage,duration:5000})
       }
       console.log("response",data);
+      if (data.responseCode==2) {      this.toast.error({detail:'Error',summary:data.dataSet,duration:5000})}
+
     },error =>
     {
       console.log("error",error)
+      this.toast.error({detail:'Error Message',summary:error,duration:5000})
     })
   }
   getAllRoles(){

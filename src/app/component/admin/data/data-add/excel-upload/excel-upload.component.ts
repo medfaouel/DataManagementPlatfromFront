@@ -38,7 +38,8 @@ export class ExcelUploadComponent implements OnInit {
   }
   SaveData() {
     const dataToSend = {
-      CreatedDataFromExcel: this.data
+      CreatedDataFromExcel: this.data,
+      teamid:this.user.team.teamId
     }
     this.dataService.CreateDataFromExcel(dataToSend).subscribe(()=>{
       this.router.navigateByUrl('data/list')
@@ -108,6 +109,8 @@ export class ExcelUploadComponent implements OnInit {
   }
 
   onLogout() {
-
+    Constants.onLogout();
+    console.log("test")
+    this.router.navigateByUrl('/Login')
   }
 }

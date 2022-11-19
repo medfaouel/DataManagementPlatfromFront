@@ -60,8 +60,8 @@ export class ChecksService{
         catchError(this.errorHandler)
       );
   }
-  getAllCheckdetailsByCheckId(id: number): Observable<ChecksDetails[]> {
-    return this.httpClient.get<ChecksDetails[]>(this.baseURL + '/checks/getAllCheckdetailsByCheckId/' + id)
+  DashboardTeamDetails(): Observable<any[]> {
+    return this.httpClient.get<any[]>(this.baseURL + '/checks/DashboardTeamDetails')
       .pipe(
         catchError(this.errorHandler)
       );

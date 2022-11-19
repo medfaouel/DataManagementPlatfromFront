@@ -35,20 +35,28 @@
 
 
     <!-- Divider -->
+
+    <!-- Heading -->
+
+    <!-- Nav Item - Pages Collapse Menu -->
+
+
+    <li class="nav-item">
+      <a class="nav-link" *ngIf="IsUserLogin" routerLink="/dashboard">
+        <i class="fas fa-fw fa-table"></i>
+        <span>Dashboard</span></a>
+    </li>
+
+    <!-- Divider -->
     <hr class="sidebar-divider">
 
     <!-- Heading -->
     <div class="sidebar-heading">
       Tables
     </div>
-
-    <!-- Nav Item - Pages Collapse Menu -->
-
-
-
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-      <a class="nav-link"*ngIf="IsUserLogin" routerLink="/users/list">
+      <a class="nav-link" *ngIf="IsUserLogin" routerLink="/users/list">
         <i class="fas fa-fw fa-table"></i>
         <span>Employees</span></a>
     </li>
@@ -80,8 +88,6 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
-
-    <!-- Sidebar Toggler (Sidebar) -->
 
 
   </ul>
@@ -130,6 +136,14 @@
             </div>
           </li>
 
+          <li class="nav-item dropdown no-arrow mx-1">
+            <a class="nav-link dropdown-toggle"
+               aria-haspopup="true" aria-expanded="false">
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small" >{{user.role}}</span>
+
+            </a>
+
+          </li>
           <div class="topbar-divider d-none d-sm-block"></div>
 
 

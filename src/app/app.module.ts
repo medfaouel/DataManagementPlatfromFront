@@ -57,8 +57,10 @@ import {NgToastModule} from "ng-angular-popup";
 import { ConfirmEmailComponent } from './login/confirm-email/confirm-email.component';
 import { ChangePasswordComponent } from './login/change-password/change-password.component';
 import {AlertModule, AlertService} from "ngx-alerts";
-FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
 
+FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
+import { ChartModule } from '@syncfusion/ej2-angular-charts';
+import { DateTimeService, LineSeriesService, DateTimeCategoryService, StripLineService} from '@syncfusion/ej2-angular-charts';
 
 @NgModule({
   declarations: [
@@ -100,33 +102,35 @@ FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
     ChangePasswordComponent,
 
 
-  ],
-  imports: [
 
-    NotifierModule,
-    AngularFireModule.initializeApp({
-      apiKey: "AIzaSyC4-yDG6MNn6oWK0x0BBpp1zyqUkfXXF-Q",
-      authDomain: "pfe-project-cef56.firebaseapp.com",
-      projectId: "pfe-project-cef56",
-      storageBucket: "pfe-project-cef56.appspot.com",
-      messagingSenderId: "602297702161",
-      appId: "1:602297702161:web:8f92c0aab8afd887ca5eb0"
-    }),
-    BrowserAnimationsModule,
-    HttpClientModule,
-    ToastrModule.forRoot(),
-    FormsModule,
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    RouterModule.forRoot([{path: '', component: LoginComponent, pathMatch: 'full'},
-      {path: 'workers', component: WorkersComponent},],),
-    GridModule,
-    FullCalendarModule,
-    NgToastModule,
-    AlertModule
   ],
-  providers: [],
+    imports: [
+
+        NotifierModule,
+        AngularFireModule.initializeApp({
+            apiKey: "AIzaSyC4-yDG6MNn6oWK0x0BBpp1zyqUkfXXF-Q",
+            authDomain: "pfe-project-cef56.firebaseapp.com",
+            projectId: "pfe-project-cef56",
+            storageBucket: "pfe-project-cef56.appspot.com",
+            messagingSenderId: "602297702161",
+            appId: "1:602297702161:web:8f92c0aab8afd887ca5eb0"
+        }),
+        BrowserAnimationsModule,
+        HttpClientModule,
+        ToastrModule.forRoot(),
+        FormsModule,
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        RouterModule.forRoot([{path: '', component: LoginComponent, pathMatch: 'full'},
+            {path: 'workers', component: WorkersComponent},],),
+        GridModule,
+        FullCalendarModule,
+        NgToastModule,
+        AlertModule,
+        ChartModule
+    ],
+  providers: [ DateTimeService, LineSeriesService, DateTimeCategoryService, StripLineService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

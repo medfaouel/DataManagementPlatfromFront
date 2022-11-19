@@ -4,58 +4,89 @@
 
 </head>
 <style>
-  body {
-    background-color: lightblue;
 
-    margin-top:12%;
-  }
 </style>
-<body style="background: linear-gradient(to bottom, #0062E6, #33AEFF);">
-<div class="container test">
-  <div class="row test" >
-    <div class="col-lg-10 col-xl-9   mx-auto">
-      <div class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
-        <div class="card-img-left d-none d-md-flex">
-          <!-- Background image for card set in CSS! -->
-        </div>
-        <div class="card-body p-4 p-sm-5">
-          <h5 class="card-title text-center mb-5 fw-light fs-5">Login</h5>
-          <hr class="my-4">
+<body >
+<div class="header">
 
-          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <!--Content before waves-->
+  <div class="inner-header flex">
+    <!--Just the logo.. Don't mind this-->
 
+    <div class="container test " style="margin-top: 6%">
 
-            <div class="form-floating mb-3">
-              <input type="email" formControlName="email" class="form-control" id="floatingInputEmail" placeholder="name@example.com">
-              <label for="floatingInputEmail">Email address</label>
-            </div>
+      <div class="row test" >
+        <div class="col-lg-10 col-xl-7 col-md-4  mx-auto">
 
-            <hr>
+          <div class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
 
-            <div class="form-floating mb-3">
-              <input type="password" formControlName="password" class="form-control" id="floatingPassword" placeholder="Password">
-              <label for="floatingPassword">Password</label>
-            </div>
+          </div><h1 >
+
+          <div class="sidebar-brand-text fs-10" style="color: #f8f9fc;font-size:80px;font-weight: bold;height: min-content ">L E O N I </div>
+        </h1>
+
+          <div class="card-body p-4 p-sm-5">
+            <h5 class="card-title text-center mb-5 fw-light fs-5">Login</h5>
 
 
-            <div class="d-grid mb-2">
-              <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" [disabled]="!loginForm.valid" type="submit">Log In</button>
-            </div>
-          </form>
-          <a class="d-block text-center mt-2 small" routerLink="/ResetPassword">Reset Password</a>
-          <!-- <a class="d-block text-center mt-2 small" routerLink="/register">Create an account? Sign Up</a>-->
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+
+                <input type="email" formControlName="email" class="form-control my-4 " id="floatingInputEmail" placeholder="Email">
 
 
 
+              <hr>
+
+                <input type="password" formControlName="password" class="form-control  my-4" id="floatingPassword" placeholder="Password">
+
+
+              <hr>
+
+              <div class="d-grid mb-2">
+                <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" style="background-color: #293c74" [disabled]="!loginForm.valid" type="submit">Log In</button>
+              </div>
+            </form>
+            <a class="d-block text-center mt-2 small" routerLink="/ResetPassword" style="color: #f8f9fc">Reset Password</a>
+
+            <!-- <a class="d-block text-center mt-2 small" routerLink="/register">Create an account? Sign Up</a>-->
 
 
 
+
+
+
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <!--Waves Container-->
+  <div>
+    <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+         viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+      <defs>
+        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+      </defs>
+      <g class="parallax">
+        <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7)" />
+        <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+        <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+
+        <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+      </g>
+    </svg>
+  </div>
+  <!--Waves end-->
+
 </div>
+
 </body>
+
+
+
+<!--Header ends-->
 
 
 </html>

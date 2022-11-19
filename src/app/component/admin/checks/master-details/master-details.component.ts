@@ -45,12 +45,10 @@ export class MasterDetailssComponent implements OnInit {
     this.checkService.getChecks().subscribe((data: Checks[]) => {
       this.checks = data;
       console.log("this checks",this.checks)
-      localStorage.setItem("ChecksInfo",JSON.stringify(this.checks));
+
       const test = JSON.parse(localStorage.getItem(Constants.STATUS_STATUS));
       const testv2 = JSON.parse(localStorage.getItem("testforv2"));
-      console.log("testv2", testv2)
       const ExactId = JSON.parse(localStorage.getItem('ExactId'));
-      console.log("test and ExactId",test,"fasel",ExactId)
       let ExactCheck;
       for (let i = 0; i < this.checks.length; i++) {
         if (Object.values(Object.values(this.checks))[i].checkId == ExactId && test == true) {
@@ -87,6 +85,7 @@ export class MasterDetailssComponent implements OnInit {
       this.checksDetails = data;
       this.activeRow = CheckId;
       const Checks = JSON.parse(localStorage.getItem(Constants.CHECKS_KEY));
+      console.log("checksinfo",Checks)
 
       for (let i = 0; i < Object.keys(this.checksDetails).length; i++) {
         this.CriteriaList.push(Object.values(this.checksDetails)[i].criteria.name)
@@ -109,7 +108,13 @@ export class MasterDetailssComponent implements OnInit {
     this.UserRole=Object.values(user)[7];
   }
   onLogout() {
-
+    Constants.onLogout();
+    console.log("test")
+    this.router.navigateByUrl('/Login')
+  }
+  navigateToFillAll(checkId: number, dataName: string)
+  {
+    this.router.navigate(['checks/list/'+checkId+'/fill-all'], {queryParams: {dataName: dataName}})
   }
 }
 

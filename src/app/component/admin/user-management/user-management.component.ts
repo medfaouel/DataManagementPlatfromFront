@@ -43,8 +43,9 @@ export class UserManagementComponent implements OnInit {
   }
 
   onLogout() {
-    localStorage.removeItem("tokenAuth");
-    localStorage.removeItem("userInfo");
+    Constants.onLogout();
+    console.log("test")
+    this.router.navigateByUrl('/Login')
   }
   get isUserLogin(){
     const user =localStorage.getItem("tokenAuth");

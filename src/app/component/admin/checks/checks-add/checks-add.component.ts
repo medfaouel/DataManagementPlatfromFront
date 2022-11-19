@@ -28,6 +28,7 @@ export class ChecksAddComponent implements OnInit {
     this.createForm =this.formBuilder.group({
       checkAddress:['', Validators.required],
       data:[''],
+
     });
   }
   getData(){
@@ -47,7 +48,7 @@ export class ChecksAddComponent implements OnInit {
     for (let i = 0; i < formData.value.data.length; i++) {
       DataIds.push(formData.value.data[i].dataId);
     }
-    const checksToSave = {...formData.value,DataIds:DataIds}
+    const checksToSave = {...formData.value,DataIds:DataIds,teamid:this.user.team.teamId}
 
     console.log("checksToSave",checksToSave);
     this.checkService.AddCheck(checksToSave).subscribe(res =>{
@@ -62,6 +63,8 @@ export class ChecksAddComponent implements OnInit {
   }
 
   onLogout() {
-
+    Constants.onLogout();
+    console.log("test")
+    this.router.navigateByUrl('/Login')
   }
 }

@@ -34,7 +34,18 @@
 
 
 
+    <!-- Divider -->
 
+    <!-- Heading -->
+
+    <!-- Nav Item - Pages Collapse Menu -->
+
+
+    <li class="nav-item">
+      <a class="nav-link"  routerLink="/dashboard">
+        <i class="fas fa-fw fa-table"></i>
+        <span>Dashboard</span></a>
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -43,46 +54,40 @@
     <div class="sidebar-heading">
       Tables
     </div>
-
-    <!-- Nav Item - Pages Collapse Menu -->
-
-
-
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-      <a class="nav-link"*ngIf="IsUserLogin" routerLink="/users/list">
+      <a class="nav-link"  routerLink="/users/list">
         <i class="fas fa-fw fa-table"></i>
         <span>Employees</span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" *ngIf="IsUserLogin" routerLink="/teams/list">
+      <a class="nav-link"  routerLink="/teams/list">
         <i class="fas fa-fw fa-table"></i>
         <span>Teams</span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" *ngIf="IsUserLogin" routerLink="/envs/list">
+      <a class="nav-link"  routerLink="/envs/list">
         <i class="fas fa-fw fa-table"></i>
         <span>Environments</span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" *ngIf="IsUserLogin" routerLink="/data/list">
+      <a class="nav-link"  routerLink="/data/list">
         <i class="fas fa-fw fa-table"></i>
         <span>Data</span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" *ngIf="IsUserLogin" routerLink="/criterias/list">
+      <a class="nav-link"  routerLink="/criterias/list">
         <i class="fas fa-fw fa-table"></i>
         <span>Criterias</span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" *ngIf="IsUserLogin" routerLink="/checks/list">
+      <a class="nav-link"  routerLink="/checks/list">
         <i class="fas fa-fw fa-table"></i>
         <span>Checks</span></a>
     </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
-
 
 
   </ul>
@@ -131,6 +136,14 @@
             </div>
           </li>
 
+          <li class="nav-item dropdown no-arrow mx-1">
+            <a class="nav-link dropdown-toggle"
+               aria-haspopup="true" aria-expanded="false">
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small" >{{user.role}}</span>
+
+            </a>
+
+          </li>
           <div class="topbar-divider d-none d-sm-block"></div>
 
 
@@ -171,7 +184,7 @@
                 <h3>Edit Team</h3>
               </div>
               <div class="col text-right">
-                <a href="#" routerLink="/workers/list" class="btn btn-secondary btn-sm">Back To Workers List</a>
+                <a href="#" routerLink="/teams/list" class="btn btn-secondary btn-sm">Back To teams List</a>
               </div>
             </div>
             <br />

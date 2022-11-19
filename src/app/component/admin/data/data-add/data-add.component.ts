@@ -57,7 +57,7 @@ export class DataAddComponent implements OnInit {
 
   }
   onSubmit(formData : any){
-    const DataToSave = {...formData.value}
+    const DataToSave = {...formData.value,teamid:this.user.team.teamId}
     console.log(DataToSave);
     this.dataservice.AddData(DataToSave).subscribe(res =>{
       this.router.navigateByUrl('data/list')
@@ -65,6 +65,8 @@ export class DataAddComponent implements OnInit {
   }
 
   onLogout() {
-
+    Constants.onLogout();
+    console.log("test")
+    this.router.navigateByUrl('/Login')
   }
 }

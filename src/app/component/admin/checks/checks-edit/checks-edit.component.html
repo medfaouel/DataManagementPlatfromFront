@@ -32,14 +32,20 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard -->
+
+
+    <!-- Divider -->
+
+    <!-- Heading -->
+
+    <!-- Nav Item - Pages Collapse Menu -->
+
+
     <li class="nav-item">
-      <a class="nav-link" routerLink="/dashboard">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
+      <a class="nav-link"  routerLink="/dashboard">
+        <i class="fas fa-fw fa-table"></i>
         <span>Dashboard</span></a>
     </li>
-
-
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -48,9 +54,6 @@
     <div class="sidebar-heading">
       Tables
     </div>
-
-    <!-- Nav Item - Pages Collapse Menu -->
-
     <!-- Nav Item - Tables -->
     <li class="nav-item">
       <a class="nav-link" *ngIf="IsUserLogin" routerLink="/users/list">
@@ -86,10 +89,6 @@
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
-    <!-- Sidebar Toggler (Sidebar) -->
-    <div class="text-center d-none d-md-inline">
-      <button class="rounded-circle border-0" id="sidebarToggle"></button>
-    </div>
 
   </ul>
   <!-- End of Sidebar -->
@@ -136,7 +135,11 @@
               </form>
             </div>
           </li>
-
+          <li class="nav-item dropdown no-arrow mx-1">
+            <a class="nav-link dropdown-toggle">
+              <span class="mr-0 d-none d-lg-inline text-gray-600 small" >{{user.role}}</span>
+            </a>
+          </li>
           <div class="topbar-divider d-none d-sm-block"></div>
 
 
@@ -208,7 +211,7 @@
     <footer class="sticky-footer bg-white">
       <div class="container my-auto">
         <div class="copyright text-center my-auto">
-          <span>Copyright &copy; Your Website 2020</span>
+          <span>Copyright &copy; Mohamed Habib Faouel</span>
         </div>
       </div>
     </footer>

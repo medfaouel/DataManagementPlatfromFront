@@ -11,7 +11,8 @@ import {Criterias} from "../../../../../../models/Criterias.model";
 import {User} from "../../../../../../models/AppUsers.model";
 import {ResponseModel} from "../../../../../../models/ResponseModel.model";
 import {catchError} from "rxjs/operators";
-import {throwError} from "rxjs";
+import {Observable, throwError} from "rxjs";
+import {NgToastService} from "ng-angular-popup";
 
 @Component({
   selector: 'app-fill-all-master-details',
@@ -19,22 +20,7 @@ import {throwError} from "rxjs";
   styleUrls: ['./fill-all-master-details.component.css']
 })
 export class FillAllMasterDetailsComponent implements OnInit {
-  private baseURL="https://localhost:5001/api";
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
-  errorHandler(error: { error: { message: string; }; status: any; message: any; }) {
-    let errorMessage = '';
-
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = error.error.message;
-    } else {
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    return throwError(errorMessage);
-  }
+  checks: Checks[]=[];
   user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
   testForPass = false;
   testForv2 = false;
@@ -60,8 +46,8 @@ export class FillAllMasterDetailsComponent implements OnInit {
    status:any[];
    topicOwner_feedback: any[];
    CriteriaList=[];
-
-  constructor(private httpClient:HttpClient,private route: ActivatedRoute,
+  sendEmailButtonDisabled = false;
+  constructor( private toast: NgToastService, private httpClient:HttpClient,private route: ActivatedRoute,
               private formBuilder: FormBuilder,
               private router: Router,
               public checkService: ChecksService
@@ -80,13 +66,17 @@ export class FillAllMasterDetailsComponent implements OnInit {
 
   searchForTheExactCheck(id:number){
     const ExactCheckk =[];
-    const Checks = JSON.parse(localStorage.getItem(Constants.CHECKS_KEY));
-    for (let i = 0; i < Object.keys(Checks).length; i++) {
 
-      if(Object.values(Checks[Object.keys(Checks)[i]])[0] == id){
-        ExactCheckk.push(Checks[i]);
-        this.ExactCheck=JSON.stringify(Checks[i].data[0].leonI_Part);
+    this.checkService.getChecks().subscribe((data: Checks[]) => {
+      this.checks = data;
+      console.log("this checks",this.checks)})
+    for (let i = 0; i < this.checks.length; i++) {
+
+      if(Object.values(this.checks[Object.keys(this.checks)[i]])[0] == id){
+        ExactCheckk.push(this.checks[i]);
+        this.ExactCheck=JSON.stringify(this.checks[i].data[0].leonI_Part);
         this.dataName=this.ExactCheck;
+        console.log("datanme,",this.dataName)
 
       }
 
@@ -95,15 +85,15 @@ export class FillAllMasterDetailsComponent implements OnInit {
   }
   searchForTheExactCriteria(id:number){
     const ExactCriteria =[]
-    const Checks = JSON.parse(localStorage.getItem(Constants.CHECKS_KEY));
 
-    for (let i = 0; i < Object.keys(Checks).length; i++) {
+    for (let i = 0; i < Object.keys(this.checks).length; i++) {
 
-      if(Object.values(Checks[Object.keys(Checks)[i]])[0] == id){
-        ExactCriteria.push(Checks[i]);
+      if(Object.values(this.checks[Object.keys(this.checks)[i]])[0] == id){
+        ExactCriteria.push(this.checks[i]);
 
-        this.ExactCheck=JSON.stringify(Checks[i].data[0].leonI_Part);
+        this.ExactCheck=JSON.stringify(this.checks[i].data[0].leonI_Part);
         this.dataName=this.ExactCheck;
+        console.log("datanme,",this.dataName)
 
       }
 
@@ -116,6 +106,7 @@ export class FillAllMasterDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(User)
     this.id = this.route.snapshot.params['id'];
     this.CheckId=this.id;
     this.getAllCriterias();
@@ -123,6 +114,7 @@ export class FillAllMasterDetailsComponent implements OnInit {
     this.searchForTheExactCriteria(this.CheckId);
     this.getCheckDetailsByCheckId(this.id);
     this.getUserItem();
+    this.dataName = this.route.snapshot.queryParamMap.get("dataName");
   }
 
   // convenience getters for easy access to form fields
@@ -133,7 +125,7 @@ export class FillAllMasterDetailsComponent implements OnInit {
   getUserItem(){
     const user = JSON.parse(localStorage.getItem(Constants.USER_KEY)) as User;
     console.log("USER INFO",user);
-    console.log("trying user team id",user.team.teamId)
+    console.log("user info", user.role)
     this.UserRole=Object.values(user)[7];
     this.teamid=user.team.teamId;
 
@@ -142,7 +134,6 @@ export class FillAllMasterDetailsComponent implements OnInit {
   getAllCriterias() {
     this.checkService.getCriterias().subscribe((data: Criterias[]) => {
       this.Criteria = data;
-      console.log("criterias",this.Criteria)
 
     })
   }
@@ -156,9 +147,7 @@ export class FillAllMasterDetailsComponent implements OnInit {
 
       }
 
-      console.log("criterialist,",this.CriteriaList)
 
-      console.log("this is it",this.checkdetails)
       this.checkdetails.forEach(
         ({checkDetailId, cdqM_comments, dqmS_feedback,cdqM_feedback, topicOwner_feedback,status}) =>
           this.t.push(this.formBuilder.group(
@@ -178,7 +167,6 @@ export class FillAllMasterDetailsComponent implements OnInit {
       var keys=Object.keys(this.checkdetails)
       this.keys=keys;
       var len = keys.length;
-      console.log("checkDetails aaa",this.checkdetails);
       const cdqM_comments= [];
       const dqmS_feedback= [];
       const cdqM_feedback= [];
@@ -198,8 +186,7 @@ export class FillAllMasterDetailsComponent implements OnInit {
       this.cdqM_feedback=cdqM_feedback;
       this.topicOwner_feedback=topicOwner_feedback;
       this.status=status;
-      console.log("bruh",this.cdqM_comments,this.dqmS_feedback,this.cdqM_feedback,this.topicOwner_feedback)
-      console.log("test",Object.values(this.checkdetails))
+
 
       this.len=len;
     })
@@ -233,7 +220,7 @@ export class FillAllMasterDetailsComponent implements OnInit {
       }
       if(Object.values(Object.values(dynamicForm))[i].status=="Passed"){
         nbv2=nbv2+1;
-        console.log("show test everytime",this.testForv2)
+
         if (nbv2==Object.values(dynamicForm).length){
           this.testForv2=true;
         }
@@ -242,7 +229,7 @@ export class FillAllMasterDetailsComponent implements OnInit {
     }
     localStorage.setItem(Constants.STATUS_STATUS,JSON.stringify(this.testForPass));
     localStorage.setItem("testforv2",JSON.stringify(this.testForv2));
-    console.log("this.testforv2",this.testForv2)
+
     this.ExactId = this.route.snapshot.params['id'];
     localStorage.setItem('ExactId',JSON.stringify(this.ExactId));
     const checksToSave = {FillMasterDetailsChecks:dynamicForm}
@@ -251,7 +238,7 @@ export class FillAllMasterDetailsComponent implements OnInit {
   this.checkService.FillAllCheckDetailsById(this.id,checksToSave).subscribe(res => {
     this.router.navigateByUrl('checks/list');
   });
-    console.log("list of number",this.ListOfNumber)
+
   }
   onReset() {
     // reset whole form back to initial state
@@ -267,25 +254,30 @@ export class FillAllMasterDetailsComponent implements OnInit {
   }
 
   onLogout() {
-
+    Constants.onLogout();
+    console.log("test")
+    this.router.navigateByUrl('/Login')
   }
 
   Number() {
     this.numberOfDQMS=this.numberOfDQMS+1;
     this.ListOfNumber.push(this.numberOfDQMS)
-    console.log("numberofdqms",this.ListOfNumber)
-    console.log("this.listofNumber")
     localStorage.setItem('CDQMNumber',JSON.stringify(this.numberOfDQMS));
     return true
   }
 
+  public SendEmailRequest(body: any): Observable<any>{
+    return this.httpClient.post<ResponseModel>('https://localhost:5001/api/checks/SendEmailToTopicOwner',body);
+  }
   public SendEmailToTopicOwner(idCheck:any,idCheckDetails:any) {
     const body ={
       teamId:this.user.team.teamId,
       idCheck:idCheck,
       idCheckDetails:idCheckDetails,
     }
-     this.httpClient.post<ResponseModel>('https://localhost:5001/api/checks/SendEmailToTopicOwner',body).subscribe(()=>{})
-
+    this.SendEmailRequest(body).subscribe(()=>{
+      this.sendEmailButtonDisabled = true;
+      this.toast.success({detail:'Success Message',summary:" Welcome ",duration:5000})
+    });
   }
 }

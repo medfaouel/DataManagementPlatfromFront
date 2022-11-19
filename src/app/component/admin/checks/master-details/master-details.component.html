@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Tables</title>
+  <title>L E O N I</title>
 
   <!-- Custom fonts for this template -->
 
@@ -32,14 +32,20 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard
+
+
+    <!-- Divider -->
+
+    <!-- Heading -->
+
+    <!-- Nav Item - Pages Collapse Menu -->
+
+
     <li class="nav-item">
-      <a class="nav-link" routerLink="/dashboard">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
+      <a class="nav-link" *ngIf="IsUserLogin" routerLink="/dashboard">
+        <i class="fas fa-fw fa-table"></i>
         <span>Dashboard</span></a>
-    </li>-->
-
-
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -48,11 +54,6 @@
     <div class="sidebar-heading">
       Tables
     </div>
-
-    <!-- Nav Item - Pages Collapse Menu -->
-
-
-
     <!-- Nav Item - Tables -->
     <li class="nav-item">
       <a class="nav-link" *ngIf="IsUserLogin" routerLink="/users/list">
@@ -87,8 +88,6 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
-
-    <!-- Sidebar Toggler (Sidebar) -->
 
 
   </ul>
@@ -208,12 +207,12 @@
 
 
                     </a>
-                    <a  style="margin-top: 10px" href="checks/list/{{check.checkId}}/fill-all" class="btn btn-primary btn-icon-split">
+                    <button  style="margin-top: 10px" (click)="navigateToFillAll(check.checkId, check.data[0]?.leonI_Part)" class="btn btn-primary btn-icon-split">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-flag"></i>
                                         </span>
                       <span class="text">Fill All</span>
-                    </a>
+                    </button>
                   </td>
                   <td >{{check.checkId}}</td>
                   <td >{{check.checkAddress}}</td>

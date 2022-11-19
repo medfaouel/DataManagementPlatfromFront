@@ -34,7 +34,7 @@ export class UserService {
       username:username,
       Email:email,
       Role:role,
-      Team:team
+      Team:team,
     }
     return this.httpClient.post<ResponseModel>(this.baseURL+"/AppUser/RegisterUser",body);
   }

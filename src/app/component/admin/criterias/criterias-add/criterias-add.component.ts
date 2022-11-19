@@ -65,6 +65,8 @@ export class CriteriasAddComponent implements OnInit {
     this.UserRole=Object.values(user)[7];
   }
   onLogout() {
-
+    Constants.onLogout();
+    console.log("test")
+    this.router.navigateByUrl('/Login')
   }
 }

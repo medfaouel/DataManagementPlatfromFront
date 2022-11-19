@@ -1,47 +1,109 @@
 <body>
-<div class="container">
-  <div class="row">
-    <div class="col-lg-10 col-xl-9 mx-auto">
-      <div class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
-        <div class="card-img-left d-none d-md-flex">
-          <!-- Background image for card set in CSS! -->
+<!--<div class="container">
+
+  <div class="col-lg-10 col-xl-7 mx-auto">
+
+    <div class="card-body  p-sm-5">
+      <h5 class="card-title text-center mb-5 fw-light fs-5">Register</h5>
+      <form [formGroup]="RegistrationForm" (ngSubmit)="onSubmit()">
+          <input type="text" class="form-control" formControlName="firstName" id="floatingInputFirstName" placeholder="First Name" required autofocus>
+          <label for="floatingInputFirstName">First Name</label>
+
+
+
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" formControlName="lastName" id="floatingInputLastName" placeholder="Last Name">
+          <label for="floatingInputLastName">Last Name</label>
         </div>
-        <div class="card-body p-4 p-sm-5">
-          <h5 class="card-title text-center mb-5 fw-light fs-5">Register</h5>
-          <form [formGroup]="RegistrationForm" (ngSubmit)="onSubmit()">
 
-            <div class="form-floating mb-3">
-              <input type="text" class="form-control" formControlName="firstName" id="floatingInputFirstName" placeholder="First Name" required autofocus>
-              <label for="floatingInputFirstName">First Name</label>
-            </div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" formControlName="userName" id="floatingInputUsername" placeholder="User Name">
+          <label for="floatingInputLastName">User Name</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" formControlName="email" id="floatingInputEmail" placeholder="name@example.com">
+          <label for="floatingInputEmail">Email address</label>
+        </div>
+        <label >Choose Team:</label>
+        <div class="form-floating mb-1">
+
+          <select  formControlName="team" class="form-control" id="floatingInputTeam" >
+            <option *ngFor="let team of teams" [ngValue]="team">
+              {{ team.teamName }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-check" *ngFor="let role of roles; let index=index">
+          <input class="form-check-input" type="radio" name="role" (change)="onRoleChange(role.role)" [checked]="role.isSelected"  id="{{index}}">
+          <label class="form-check-label" for="{{index}}">
+            {{role.role}}
+          </label>
+        </div>
+
+        <hr>
 
 
-            <div class="form-floating mb-3">
+        <div class="d-grid mb-2">
+          <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" [disabled]="!RegistrationForm.valid" type="submit">Register</button>
+        </div>
+      </form>
+
+
+      <hr class="my-4">
+
+      <div class="d-grid mb-2">
+        <button *ngIf="(angularFireAuth.authState |async ) ===null" (click)="signIn()"
+                class="btn btn-lg btn-google btn-login fw-bold text-uppercase" type="submit">
+          <i ></i> Sign up with Google
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</div>-->
+<div class="header">
+
+  <!--Content before waves-->
+  <div class="inner-header flex">
+    <!--Just the logo.. Don't mind this-->
+
+    <div class="container " style="margin-top: 120px">
+
+      <div class="col-lg-10 col-xl-7 mx-auto">
+
+        <div class="card-body  p-sm-5">
+          <h5 class="card-title text-center mb-7 fw-light fs-5" style="margin-top: 50px">Register</h5>
+          <form style="margin-bottom: 90px" [formGroup]="RegistrationForm" (ngSubmit)="onSubmit()">
+            <input type="text" class="form-control" formControlName="firstName" id="floatingInputFirstName" placeholder="First Name" required autofocus>
+       <hr>
+
+
+
               <input type="text" class="form-control" formControlName="lastName" id="floatingInputLastName" placeholder="Last Name">
-              <label for="floatingInputLastName">Last Name</label>
-            </div>
 
-            <div class="form-floating mb-3">
+            <hr>
+
               <input type="text" class="form-control" formControlName="userName" id="floatingInputUsername" placeholder="User Name">
-              <label for="floatingInputLastName">User Name</label>
-            </div>
-            <div class="form-floating mb-3">
+
+            <hr>
               <input type="email" class="form-control" formControlName="email" id="floatingInputEmail" placeholder="name@example.com">
-              <label for="floatingInputEmail">Email address</label>
-            </div>
-            <label >Choose Team:</label>
-            <div class="form-floating mb-1">
+            <hr>
+
+            <label >Choose a Team:</label>
+
 
               <select  formControlName="team" class="form-control" id="floatingInputTeam" >
                 <option *ngFor="let team of teams" [ngValue]="team">
                   {{ team.teamName }}
                 </option>
               </select>
-            </div>
 
-            <div class="form-check" *ngFor="let role of roles; let index=index">
-              <input class="form-check-input" type="radio" name="role" (change)="onRoleChange(role.role)" [checked]="role.isSelected"  id="{{index}}">
-              <label class="form-check-label" for="{{index}}">
+<hr>
+            <div class="form-check " *ngFor="let role of roles; let index=index" style="margin-right: 490px">
+              <input class="form-check-input"  type="radio" name="role" (change)="onRoleChange(role.role)" [checked]="role.isSelected"  id="{{index}}">
+              <label class="form-check-label float-left"  for="{{index}}">
                 {{role.role}}
               </label>
             </div>
@@ -50,23 +112,43 @@
 
 
             <div class="d-grid mb-2">
-              <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" [disabled]="!RegistrationForm.valid" type="submit">Register</button>
+              <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" style="background-color: #293c74" [disabled]="!RegistrationForm.valid" type="submit">Register</button>
             </div>
           </form>
 
 
-            <hr class="my-4">
+          <hr class="my-4">
 
-            <div class="d-grid mb-2">
-              <button *ngIf="(angularFireAuth.authState |async ) ===null" (click)="signIn()"
-                      class="btn btn-lg btn-google btn-login fw-bold text-uppercase" type="submit">
-                <i ></i> Sign up with Google
-              </button>
-            </div>
+          <!--<div class="d-grid mb-2">
+            <button *ngIf="(angularFireAuth.authState |async ) ===null" (click)="signIn()"
+                    class="btn btn-lg btn-google btn-login fw-bold text-uppercase" type="submit">
+              <i ></i> Sign up with Google
+            </button>
+          </div>-->
 
         </div>
+
       </div>
     </div>
   </div>
+
+  <!--Waves Container-->
+  <div>
+    <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+         viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+      <defs>
+        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+      </defs>
+      <g class="parallax">
+        <use xlink:href="#gentle-wave" x="0" y="0" fill="rgba(255,255,255,0.3)" />
+        <use xlink:href="#gentle-wave" x="0" y="3" fill="rgba(255,255,255,0.4)" />
+        <use xlink:href="#gentle-wave" x="0" y="5" fill="rgba(255,255,255,0.3)" />
+
+        <use xlink:href="#gentle-wave" x="0" y="7" fill="#fff" />
+      </g>
+    </svg>
+  </div>
+  <!--Waves end-->
+
 </div>
 </body>
